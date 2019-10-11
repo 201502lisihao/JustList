@@ -4,16 +4,23 @@
   align-items: center;
   justify-content: center;
   width: 750rpx;
-  height: 122rpx;
+  height: 120rpx;
+  padding-top: 10rpx;
   margin-bottom: -30rpx;
 }
 
-.user{
-  margin-left: 30rpx;
-}
 
 .aTitle {
-  
+  margin-left: 10rpx;
+  margin-right: 200rpx;
+}
+
+.page_desc{
+  margin-top: -10rpx;
+}
+
+.user{
+
 }
 
 .login {
@@ -98,7 +105,7 @@ button{
 
 /* 待办事项样式 */
 .card{
-  
+
 }
 
 .weui-cells::before {
@@ -152,4 +159,16 @@ button{
 
 .weui-cell__bd{
   padding-right: 20rpx;
+}
+
+.welcome_style{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome_img{
+  width: 110rpx;
+  height: 110rpx;
 }

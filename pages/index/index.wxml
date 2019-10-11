@@ -4,7 +4,9 @@
       <!-- 顶部状态栏 -->
       <view class="top-bar">
         <view class="aTitle">
-          <text style="font-size:30rpx;margin-right:24rpx;">一个管理 to-do list 的小工具</text><text style="color:#d3d3d3;font-size:24rpx">design by lisihao</text>
+          <view class="page_title">一个管理 to-do list 的小工具</view>
+          <view class="page_desc"><text style="color:#d3d3d3;font-size:24rpx">design by lisihao</text></view>
+          <!-- <text style="font-size:30rpx;margin-right:24rpx;">一个管理 to-do list 的小工具</text><text style="color:#d3d3d3;font-size:24rpx">design by lisihao</text> -->
         </view>
         <view class="user">
                   <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="login">Login</button>
@@ -14,7 +16,7 @@
                   </block>
         </view>
       </view>
-      <view class="content">
+      <view wx:if="{{hasItem}}" class="content">
               <!-- 展示待办事项 -->
               <view wx:if="{{todoList}}">
                 <block id="todolist" wx:for="{{todoList}}">
@@ -57,6 +59,14 @@
                   </view>
                 </block>
               </view>
+      </view>
+      <!-- 无待办事项时给一个默认样式 -->
+      <view wx:else class="welcome_style" style="height:{{usefulWindowHeight-70}}px">
+        <image src="/images/404-1.png" class="welcome_img"></image>
+        <image src="/images/404-2.png" class="welcome_img"></image>
+        <image src="/images/404-3.png" class="welcome_img"></image>
+        <image src="/images/404-4.png" class="welcome_img"></image>
+        <image src="/images/404-5.png" class="welcome_img"></image>
       </view>
     </scroll-view>
     <!-- 底部操作栏 -->

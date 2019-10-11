@@ -138,14 +138,16 @@ Page({
         todoCount: todoCount,
         todoList: todoList,
         doneCount: doneCount,
-        doneList: doneList
+        doneList: doneList,
+        hasItem: true
       });
     } else {
       that.setData({
         todoCount: 0,
         todoList: {},
         doneCount: 0,
-        doneList: {}
+        doneList: {},
+        hasItem: false
       });
     }
   },
