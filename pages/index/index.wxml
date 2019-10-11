@@ -4,7 +4,7 @@
       <!-- 顶部状态栏 -->
       <view class="top-bar">
         <view class="aTitle">
-          <view class="page_title">一个管理 to-do list 的小工具</view>
+          <view class="page_title">一个管理 TodoList 的小工具</view>
           <view class="page_desc"><text style="color:#d3d3d3;font-size:24rpx">design by lisihao</text></view>
           <!-- <text style="font-size:30rpx;margin-right:24rpx;">一个管理 to-do list 的小工具</text><text style="color:#d3d3d3;font-size:24rpx">design by lisihao</text> -->
         </view>
@@ -74,6 +74,6 @@
       <label>{{errorMsg}}</label>
     </view>
     <view id="operate-bar" class="operate-bar">
-      <input class="addTodoInput" type="text" placeholder="Add to-do.." placeholder-class="placeholder" value="{{adding}}" confirm-type="done" bindconfirm="addTodo"></input>
+      <input class="addTodoInput" type="text" placeholder="Add & To Do！" placeholder-class="placeholder" value="{{adding}}" confirm-type="done" bindconfirm="addTodo"></input>
     </view>
 </view>
