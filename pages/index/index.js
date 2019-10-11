@@ -116,8 +116,8 @@ Page({
   load: function(){
     var that = this;
     var collection = wx.getStorageSync('todo');
-    console.log(collection);
-    if (collection) {
+    console.log(collection.length);
+    if (collection.length > 2) {
       var data = JSON.parse(collection);
       console.log(data);
       var todoCount = 0;
@@ -141,7 +141,8 @@ Page({
         doneList: doneList,
         hasItem: true
       });
-    } else {
+    }else{
+      console.log('11132');
       that.setData({
         todoCount: 0,
         todoList: {},
