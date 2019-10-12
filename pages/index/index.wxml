@@ -20,7 +20,7 @@
                 <!-- 待办事项标题 -->
                 <view class="weui-cells">
                   <view class="weui-cell" style="padding-bottom:25rpx;">
-                        <view class="weui-cell__bd" style="margin-left:25rpx;"><text style="font-size:45rpx;">待办 · {{todoCount}}</text></view>
+                        <view class="weui-cell__bd" style="margin-left:25rpx; padding-bottom:0px;"><text style="font-size:50rpx;">待办 · {{todoCount}}</text></view>
                         <!-- 头像作为多功能按钮放到这里 -->
                         <view class="weui-cell__ft">
                           <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="login">Login</button>
