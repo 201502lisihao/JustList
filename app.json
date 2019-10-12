@@ -6,7 +6,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "小甜桃Todo",
+    "navigationBarTitleText": "Just清单",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"

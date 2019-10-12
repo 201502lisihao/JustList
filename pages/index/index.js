@@ -7,7 +7,7 @@ Page({
     adding: '',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
   //事件处理函数
   bindViewTap: function() {
@@ -53,6 +53,20 @@ Page({
       });
     }).exec();
 
+    //获取累计使用次数
+    wx.request({
+      url: 'https://www.qianzhuli.top/just/getusenumber',
+      success: function(res){
+        if (res.data.use_number) {
+          console.log('获取累计使用次数成功');
+          console.log(res.data.use_number);
+          that.setData({
+            useNumber: res.data.use_number
+          })
+        }
+      }
+    })
+
     //初始化
     that.load();
   },
@@ -64,6 +78,50 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+
+  /**
+   * load()
+   * 初始化页面数据
+   */
+  load: function () {
+    var that = this;
+    var collection = wx.getStorageSync('todo');
+    console.log(collection);
+    console.log(collection.length);
+    if (collection.length > 2) {
+      var data = JSON.parse(collection);
+      console.log(data);
+      var todoCount = 0;
+      var doneCount = 0;
+      var todoList = [];
+      var doneList = [];
+      for (var i = data.length - 1; i >= 0; i--) {
+        data[i].id = i;
+        if (data[i].done) {
+          doneList.push(data[i]);
+          doneCount++;
+        } else {
+          todoList.push(data[i]);
+          todoCount++;
+        }
+      };
+      that.setData({
+        todoCount: todoCount,
+        todoList: todoList,
+        doneCount: doneCount,
+        doneList: doneList,
+        hasItem: true
+      });
+    } else {
+      that.setData({
+        todoCount: 0,
+        todoList: {},
+        doneCount: 0,
+        doneList: {},
+        hasItem: false
+      });
+    }
   },
 
   /**
@@ -92,7 +150,7 @@ Page({
   },
 
   /**
-   * loadData
+   * loadData 获取缓存中的所有事项
    */
   loadData: function(){
     var collection = wx.getStorageSync('todo');
@@ -110,51 +168,10 @@ Page({
     wx.setStorageSync("todo", JSON.stringify(data));
   },
 
-  /**
-   * load()
-   */
-  load: function(){
-    var that = this;
-    var collection = wx.getStorageSync('todo');
-    console.log(collection.length);
-    if (collection.length > 2) {
-      var data = JSON.parse(collection);
-      console.log(data);
-      var todoCount = 0;
-      var doneCount = 0;
-      var todoList = [];
-      var doneList = [];
-      for (var i = data.length - 1; i >= 0; i--) {
-        data[i].id = i;
-        if (data[i].done) {
-          doneList.push(data[i]);
-          doneCount++;
-        } else {
-          todoList.push(data[i]);
-          todoCount++;
-        }
-      };
-      that.setData({
-        todoCount: todoCount,
-        todoList: todoList,
-        doneCount: doneCount,
-        doneList: doneList,
-        hasItem: true
-      });
-    }else{
-      console.log('11132');
-      that.setData({
-        todoCount: 0,
-        todoList: {},
-        doneCount: 0,
-        doneList: {},
-        hasItem: false
-      });
-    }
-  },
+  
   
   /**
-   * 删除待办事项
+   * deleteItem 删除待办事项
    */
   deleteItem: function(event){
     var that = this;
@@ -166,7 +183,7 @@ Page({
   },
 
   /**
-   * 完成item
+   * doToDone 完成item
    */
   doToDone: function(event){
     var that = this;
@@ -180,7 +197,7 @@ Page({
   },
 
   /**
-   * 取消完成item
+   * doneToDo 取消完成item
    */
   doneToDo: function(event){
     var that = this;
@@ -194,7 +211,7 @@ Page({
   },
 
   /**
-   * 清除前确认
+   * openConfirm 清除前确认
    */
   openConfirm: function () {
     var that = this;
@@ -215,7 +232,7 @@ Page({
   },
 
   /**
-   * clearAll
+   * clearAll 清除所有缓存
    */
   clearAll: function(){
     wx.clearStorageSync();

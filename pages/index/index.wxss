@@ -6,12 +6,12 @@
   width: 750rpx;
   height: 120rpx;
   padding-top: 10rpx;
-  margin-bottom: -30rpx;
+  margin-bottom: -45rpx;
 }
 
 
 .aTitle {
-  margin-left: 10rpx;
+  margin-left: 4rpx;
   margin-right: 200rpx;
 }
 
@@ -111,8 +111,7 @@ button{
 .weui-cells::before {
   border: 0rpx;
 }
-.weui-cells::after {
-  border: 0rpx;
+.weui-cells::after {  border: 0rpx;
 }
 
 .weui-cell::before {
@@ -120,16 +119,15 @@ button{
 }
 .weui-cell {
   width: 650rpx;
-  background-color: white;
-  border: 1rpx solid gainsboro;
-  border-left: 12rpx solid #3cc3bb;
-  border-radius: 10rpx;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+  background-color: #F8F8F8;
+  /* border-radius: 10rpx; */
+  /* box-shadow: 0 1px 2px rgba(0,0,0,0.07); */
   padding-left: 30rpx;
   padding-top: 10rpx;
-  padding-bottom: 10rpx;
+  padding-bottom: 30rpx;
   font-size: 30rpx;
   margin-bottom: -20rpx;
+  border-bottom: 2rpx solid rgb(235, 235, 235);
 }
 
 .weui-cells{
@@ -140,9 +138,8 @@ button{
 }
 
 .weui-cell-done {
-  background-color: gainsboro;
-  border: 0rpx solid gainsboro;
-  border-left: 12rpx solid gainsboro;
+  background-color: transparent;
+  text-decoration: line-through;
 }
 
 .weui-cells-done {
@@ -171,4 +168,12 @@ button{
 .welcome_img{
   width: 110rpx;
   height: 110rpx;
+}
+
+.content{
+
+}
+
+.content-done{
+
 }
