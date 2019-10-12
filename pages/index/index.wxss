@@ -1,5 +1,5 @@
 /**index.wxss**/
-.top-bar {
+/* .top-bar {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +17,7 @@
 
 .page_desc{
   margin-top: -10rpx;
-}
+} */
 
 .user{
 
@@ -25,24 +25,20 @@
 
 .login {
   height: 68rpx;
-  /* margin: 20rpx; */
+  line-height: 68rpx;
   border-radius: 10rpx;
-  text-align: right;
   background-color: rgb(11, 158, 151);
-  font-size: 30rpx;
+  font-size: 32rpx;
   font-weight: bold;
   color: #ffffff;
-}
-button{
-  padding-left: 6rpx;
-  padding-right: 6rpx;
-  line-height: 2.1;
+  margin-right: 15rpx;
+  margin-bottom: 15rpx;
 }
 
 .userinfo-avatar {
   width: 68rpx;
   height: 68rpx;
-  /* margin: 20rpx; */
+  margin-right: 15rpx;
   border-radius: 50%;
   border: 3rpx solid rgb(11, 158, 151);
 }
@@ -64,7 +60,7 @@ button{
   z-index: 1001; 
   position: fixed;
   bottom: 0rpx;
-  height:80rpx;
+  height:94rpx;
   width:100%;
   display: flex;
   padding: 25rpx 0rpx 30rpx 25rpx;
@@ -72,20 +68,20 @@ button{
 }
 
 .addTodoInput{
-  width: 660rpx;
-  height:80rpx; 
+  width: 495rpx;
+  height:90rpx; 
   font-size: 30rpx;
   color: #434343;
   border-radius: 20rpx;
-  /* border: 4rpx solid white; */
   box-shadow: 0 2rpx 0 rgba(255,255,255,0.24), 0 2rpx 12rpx rgba(0,0,0,0.45);
   background-color: white;
-  /* padding-bottom: 20rpx; */
-  padding-left: 40rpx;
+  margin-left: 10rpx;
+  margin-bottom: 30rpx;
+  padding-left: 30rpx;
 }
 
 .placeholder{
-  margin-left: -24rpx;
+  margin-left: -20rpx;
   margin-top: 0rpx;
   font-size: 30rpx;
   color: rgb(150, 150, 150);
@@ -93,11 +89,22 @@ button{
   font-weight: bold;
 }
 
+.confirm_button{
+  width: 140rpx;
+  height:90rpx; 
+  color: #fff;
+  border-radius: 20rpx;
+  box-shadow: 0 2rpx 0 rgba(255,255,255,0.24), 0 2rpx 12rpx rgba(0,0,0,0.45);
+  /* background-color: rgb(255, 238, 0); */
+  background-color: rgb(11, 158, 151);
+  margin-left: 25rpx;
+}
+
 .cut-bar{
   height:40rpx; 
   position: fixed;
-  bottom:110rpx;
-  width:100%;
+  bottom:130rpx;
+  width:80%;
   color:red;
   font-size:24rpx;
   text-align:center;
@@ -118,13 +125,15 @@ button{
   border: 0rpx;
 }
 .weui-cell {
-  width: 650rpx;
+  width: 700rpx;
   background-color: #F8F8F8;
   /* border-radius: 10rpx; */
   /* box-shadow: 0 1px 2px rgba(0,0,0,0.07); */
-  padding-left: 30rpx;
-  padding-top: 10rpx;
-  padding-bottom: 30rpx;
+  /* padding-left: 30rpx; */
+  padding-left: 0rpx;
+  padding-right: 0rpx;
+  padding-top: 0rpx;
+  padding-bottom: 0rpx;
   font-size: 30rpx;
   margin-bottom: -20rpx;
   border-bottom: 2rpx solid rgb(235, 235, 235);
@@ -135,6 +144,19 @@ button{
   align-items: center;
   justify-content: center;
   background-color: transparent;
+  margin-top:30rpx;
+}
+
+.weui-cell__hd{
+  /* padding-top: 12rpx; */
+}
+
+.weui-cell__bd{
+  padding-bottom: 14rpx;
+}
+
+.weui-cell__ft{
+  /* padding-top: 12rpx; */
 }
 
 .weui-cell-done {
@@ -148,14 +170,6 @@ button{
   justify-content: center;
   background-color: transparent;
   color: #8a8a8a;
-}
-
-.weui-cell__ft {
-  color: #ff7e0c;
-}
-
-.weui-cell__bd{
-  padding-right: 20rpx;
 }
 
 .welcome_style{

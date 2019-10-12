@@ -86,6 +86,8 @@ Page({
    */
   load: function () {
     var that = this;
+    console.log('12325653');
+    console.log(that.data.adding);
     var collection = wx.getStorageSync('todo');
     console.log(collection);
     console.log(collection.length);
@@ -125,7 +127,7 @@ Page({
   },
 
   /**
-   * add todo 添加待办事项
+   * addTodo 添加待办事项
    */
   addTodo: function(e) {
     var that = this;
@@ -136,16 +138,40 @@ Page({
         errorMsg: '内容不能为空'
       });
     } else {
-      var data = this.loadData();
+      var data = that.loadData();
       var todo = {"title": value, "done": false};
       data.push(todo);
-      this.saveData(data);
+      that.saveData(data);
       // 回车后重置输入框
       that.setData({
         adding: '',
         errorMsg: ''
       });
-      this.load();
+      that.load();
+    }
+  },
+
+  /**
+   * addTodoSubmit 通过提交键增加待办
+   */
+  addTodoSubmit: function(e){
+    var that = this;
+    var value = e.detail.value.addTodoInput;
+    if (!value) {
+      that.setData({
+        errorMsg: '内容不能为空'
+      });
+    } else {
+      var data = that.loadData();
+      var todo = { "title": value, "done": false };
+      data.push(todo);
+      that.saveData(data);
+      // 回车后重置输入框
+      that.setData({
+        adding: '',
+        errorMsg: ''
+      });
+      that.load();
     }
   },
 
@@ -208,6 +234,16 @@ Page({
     data.splice(id, 0, todo);
     that.saveData(data);
     that.load();
+  },
+
+  /**
+   * 修改事项内容
+   */
+  editItem: function(event){
+    var that = this;
+    var id = event.currentTarget.dataset.id;
+    var data = that.loadData();
+    //coding
   },
 
   /**

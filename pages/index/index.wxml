@@ -19,8 +19,8 @@
               <view wx:if="{{todoList}}" class="content-todo">
                 <!-- 待办事项标题 -->
                 <view class="weui-cells">
-                  <view class="weui-cell">
-                        <view class="weui-cell__bd"><text style="font-size:45rpx;">待办 · {{todoCount}}</text></view>
+                  <view class="weui-cell" style="padding-bottom:25rpx;">
+                        <view class="weui-cell__bd" style="margin-left:25rpx;"><text style="font-size:45rpx;">待办 · {{todoCount}}</text></view>
                         <!-- 头像作为多功能按钮放到这里 -->
                         <view class="weui-cell__ft">
                           <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="login">Login</button>
@@ -37,13 +37,13 @@
                       <view class="weui-cell">
                         <!-- 删除 -->
                         <view class="weui-cell__hd">
-                          <image src="/images/del.png" style="width:40rpx;height:40rpx;margin-right:20rpx;padding-top:12rpx;" bindtap="deleteItem" data-id="{{item.id}}"></image>
+                          <image src="/images/del.png" style="width:100rpx;height:100rpx;" bindtap="deleteItem" data-id="{{item.id}}"></image>
                         </view>
                         <!-- 内容 -->
-                        <view class="weui-cell__bd">{{item.title}}</view>
+                        <view class="weui-cell__bd" bindtap="editItem" data-id="{{item.id}}">{{item.title}}</view>
                         <!-- 标记完成 -->
                         <view class="weui-cell__ft">
-                          <image src="/images/undo.png" style="width:40rpx;height:40rpx;margin-right:20rpx;padding-top:12rpx;" bindtap="doToDone" data-id="{{item.id}}"></image>
+                          <image src="/images/undo.png" style="width:100rpx;height:100rpx;" bindtap="doToDone" data-id="{{item.id}}"></image>
                         </view>
                       </view>
                     </view>
@@ -54,8 +54,8 @@
               <view wx:if="{{doneList}}" class="content-done">
                 <!-- 已完成事项的标题 -->
                 <view class="weui-cells weui-cells-done">
-                  <view class="weui-cell weui-cell-done" style="text-decoration: none;">
-                        <view class="weui-cell__bd"><text>完成 · {{doneCount}}</text></view>
+                  <view class="weui-cell weui-cell-done" style="padding-top:20rpx; padding-bottom:20rpx;text-decoration: none;">
+                        <view class="weui-cell__bd" style="margin-left:25rpx;"><text>完成 · {{doneCount}}</text></view>
                   </view>
                 </view>
                 <block id="donelist" wx:for="{{doneList}}">
@@ -64,13 +64,13 @@
                       <view class="weui-cell weui-cell-done">
                         <!-- 删除 -->
                         <view class="weui-cell__hd">
-                          <image src="/images/del2.png" style="width:40rpx;height:40rpx;margin-right:20rpx;padding-top:12rpx;" bindtap="deleteItem" data-id="{{item.id}}"></image>
+                          <image src="/images/del2.png" style="width:100rpx;height:100rpx;" bindtap="deleteItem" data-id="{{item.id}}"></image>
                         </view>
                         <!-- 内容 -->
-                        <view class="weui-cell__bd">{{item.title}}</view>
+                        <view class="weui-cell__bd" bindtap="editItem" data-id="{{item.id}}">{{item.title}}</view>
                         <!-- 标记完成 -->
                         <view class="weui-cell__ft">
-                          <image src="/images/done.png" style="width:40rpx;height:40rpx;margin-right:20rpx;padding-top:12rpx;" bindtap="doneToDo" data-id="{{item.id}}"></image>
+                          <image src="/images/done.png" style="width:100rpx;height:100rpx;" bindtap="doneToDo" data-id="{{item.id}}"></image>
                         </view>
                       </view>
                     </view>
@@ -98,7 +98,10 @@
     <view class='cut-bar' wx:if="{{errorMsg}}">
       <label>{{errorMsg}}</label>
     </view>
-    <view id="operate-bar" class="operate-bar">
-      <input class="addTodoInput" type="text" placeholder="＋待办事项" placeholder-class="placeholder" value="{{adding}}" confirm-type="done" bindconfirm="addTodo"></input>
-    </view>
+    <form bindsubmit="addTodoSubmit">
+      <view id="operate-bar" class="operate-bar">
+        <input name="addTodoInput" id="addTodoInput" class="addTodoInput" type="text" placeholder="＋待办事项" placeholder-class="placeholder" value="{{adding}}" confirm-type="done" bindconfirm="addTodo"></input>
+        <button form-type="submit" class="confirm_button"><image src="/images/send.png" style="width:55rpx;height:55rpx;margin-top:18rpx;"></image></button>
+      </view>
+    </form>
 </view>
