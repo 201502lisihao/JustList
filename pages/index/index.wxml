@@ -1,6 +1,7 @@
 <!--index.wxml-->
 <view class="page">
-    <scroll-view scroll-y="true" style="height:{{usefulWindowHeight}}px">
+    <scroll-view scroll-y="true" enable-back-to-top="true" style="height:{{usefulWindowHeight}}px">
+    <!-- <scroll-view scroll-y="true" style="height:{{usefulWindowHeight}}px"> -->
       <!-- 顶部状态栏去掉 -->
       <!-- <view class="top-bar">
         <view class="aTitle">
@@ -14,23 +15,54 @@
                   </block>
         </view>
       </view> -->
-      <view wx:if="{{hasItem}}" class="content">
+      <view wx:if="{{hasItem}}" class="page__bd page__bd_spacing">
+        <view class="kind-list">
+            <block wx:for="{{list}}" wx:key="id">
+                <view class="kind-list__item">
+                    <view id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
+                        <view class="weui-flex__item" style="font-size:50rpx;">{{item.name}} · {{todoCount}}</view>
+                        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="login">Login</button>
+                        <block wx:else>
+                          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+                          <!-- <text class="userinfo-nickname">{{userInfo.nickName}}</text> -->
+                        </block>
+                    </view>
+                    <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
+                        <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
+                            <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
+                                <view bindtap="openConfirm" class="weui-cell weui-cell_access">
+                                    <view class="weui-cell__hd">
+                                      <image src="/images/delAll.png" style="width:80rpx;height:80rpx;"></image>
+                                    </view>
+                                    <view class="weui-cell__bd">
+                                      <text>{{page.name}}</text>
+                                    </view>
+                                    
+                                    <!-- <view class="weui-cell__ft weui-cell__ft_in-access">
+                                    </view> -->
+                                </view>
+                            </block>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+
+
               <!-- 展示待办事项 -->
               <view wx:if="{{todoList}}" class="content-todo">
-                <!-- 待办事项标题 -->
-                <view class="weui-cells">
+                <!-- 待办事项标题 旧方案 -->
+                <!-- <view class="weui-cells">
                   <view class="weui-cell" style="padding-bottom:25rpx;">
                         <view class="weui-cell__bd" style="margin-left:25rpx; padding-bottom:0px;"><text style="font-size:50rpx;">待办 · {{todoCount}}</text></view>
-                        <!-- 头像作为多功能按钮放到这里 -->
                         <view class="weui-cell__ft">
                           <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="login">Login</button>
                           <block wx:else>
                             <image bindtap="openConfirm" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-                            <!-- <text class="userinfo-nickname">{{userInfo.nickName}}</text> -->
                           </block>
                         </view>
                   </view>
-                </view>
+                </view> -->
                 <block id="todolist" wx:for="{{todoList}}">
                   <view class="card">
                     <view class="weui-cells">
@@ -101,7 +133,7 @@
     <form bindsubmit="addTodoSubmit">
       <view id="operate-bar" class="operate-bar">
         <input name="addTodoInput" id="addTodoInput" class="addTodoInput" type="text" placeholder="＋待办事项" placeholder-class="placeholder" value="{{adding}}" confirm-type="done" bindconfirm="addTodo"></input>
-        <button form-type="submit" class="confirm_button"><image src="/images/send.png" style="width:55rpx;height:55rpx;margin-top:18rpx;"></image></button>
+        <button form-type="submit" class="confirm_button" hover-class="confirm_button_hover"><image src="/images/send.png" style="width:55rpx;height:55rpx;margin-top:18rpx;"></image></button>
       </view>
     </form>
 </view>

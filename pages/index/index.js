@@ -8,6 +8,33 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    list: [
+      {
+        id: 'daiban',
+        name: '待办',
+        open: false,
+        pages: [
+          {
+            name: '删除全部',
+          }
+        ]
+      }
+    ]
+  },
+  //列表伸缩
+  kindToggle: function (e) {
+    console.log(e);
+    var id = e.currentTarget.id, list = this.data.list;
+    for (var i = 0, len = list.length; i < len; ++i) {
+      if (list[i].id == id) {
+        list[i].open = !list[i].open
+      } else {
+        list[i].open = false
+      }
+    }
+    this.setData({
+      list: list
+    });
   },
   //事件处理函数
   bindViewTap: function() {
@@ -86,11 +113,8 @@ Page({
    */
   load: function () {
     var that = this;
-    console.log('12325653');
-    console.log(that.data.adding);
     var collection = wx.getStorageSync('todo');
-    console.log(collection);
-    console.log(collection.length);
+    // that.data.list[0].open = false;
     if (collection.length > 2) {
       var data = JSON.parse(collection);
       console.log(data);
@@ -113,6 +137,7 @@ Page({
         todoList: todoList,
         doneCount: doneCount,
         doneList: doneList,
+        "list[0].open": false,
         hasItem: true
       });
     } else {
@@ -121,6 +146,7 @@ Page({
         todoList: {},
         doneCount: 0,
         doneList: {},
+        "list[0].open": false,
         hasItem: false
       });
     }
