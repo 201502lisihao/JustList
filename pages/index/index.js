@@ -15,7 +15,7 @@ Page({
         open: false,
         pages: [
           {
-            name: '删除全部',
+            name: '清除全部事项',
           }
         ]
       }
