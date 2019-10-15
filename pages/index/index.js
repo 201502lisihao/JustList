@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    isShowDoneList: true,
     adding: '',
     userInfo: {},
     hasUserInfo: false,
@@ -270,6 +271,24 @@ Page({
     var id = event.currentTarget.dataset.id;
     var data = that.loadData();
     //coding
+  },
+
+  /**
+   * 隐藏已完成事项
+   */
+  hideDoneList: function(){
+    this.setData({
+      isShowDoneList: false
+    });
+  },
+
+  /**
+   * 显示已完成事项
+   */
+  showDoneList: function () {
+    this.setData({
+      isShowDoneList: true
+    });
   },
 
   /**

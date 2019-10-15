@@ -87,10 +87,16 @@
                 <!-- 已完成事项的标题 -->
                 <view class="weui-cells weui-cells-done">
                   <view class="weui-cell weui-cell-done" style="padding-top:20rpx; padding-bottom:20rpx;text-decoration: none;">
-                        <view class="weui-cell__bd" style="margin-left:25rpx;"><text>完成 · {{doneCount}}</text></view>
+                        <view class="weui-cell__hd">
+                          <image wx:if="{{isShowDoneList}}" src="/images/show.png" style="width:100rpx;height:100rpx;" bindtap="hideDoneList"></image>
+                          <image wx:else src="/images/hide.png" style="width:100rpx;height:100rpx;" bindtap="showDoneList"></image>
+                        </view>
+                        <view class="weui-cell__bd">
+                          <text>完成 · {{doneCount}}</text>
+                        </view>
                   </view>
                 </view>
-                <block id="donelist" wx:for="{{doneList}}">
+                <block wx:if="{{isShowDoneList}}" id="donelist" wx:for="{{doneList}}">
                   <view class="card">
                     <view class="weui-cells weui-cells-done">
                       <view class="weui-cell weui-cell-done">

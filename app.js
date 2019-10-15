@@ -62,7 +62,7 @@ App({
             console.log('请求userAuthLogin失败,res=' + res)
           },
           success: function (res) {
-            console.log('获取utoken和userId成功');
+            console.log('请求userAuthLogin成功');
             console.log(res.data);
             //设置用户缓存
             var utoken = res.data.utoken;
