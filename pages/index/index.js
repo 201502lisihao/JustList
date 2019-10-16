@@ -4,7 +4,6 @@ const app = getApp()
 
 Page({
   data: {
-    isShowDoneList: true,
     adding: '',
     userInfo: {},
     hasUserInfo: false,
@@ -22,27 +21,7 @@ Page({
       }
     ]
   },
-  //列表伸缩
-  kindToggle: function (e) {
-    console.log(e);
-    var id = e.currentTarget.id, list = this.data.list;
-    for (var i = 0, len = list.length; i < len; ++i) {
-      if (list[i].id == id) {
-        list[i].open = !list[i].open
-      } else {
-        list[i].open = false
-      }
-    }
-    this.setData({
-      list: list
-    });
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
+
   onLoad: function () {
     var that = this;
     if (app.globalData.userInfo) {
@@ -72,6 +51,26 @@ Page({
       })
     }
 
+    //页面初始化
+    that.pageInit();
+    //事项数据初始化
+    that.load();
+  },
+
+  getUserInfo: function(e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+  },
+
+  /**
+   * 页面初始化
+   */
+  pageInit: function() {
+    var that = this;
     //获取页面可用高度
     var usefulWindowHeight = wx.getSystemInfoSync().windowHeight;
     //获取下方操作框高度
@@ -84,7 +83,7 @@ Page({
     //获取累计使用次数
     wx.request({
       url: 'https://www.qianzhuli.top/just/getusenumber',
-      success: function(res){
+      success: function (res) {
         if (res.data.use_number) {
           console.log('获取累计使用次数成功');
           console.log(res.data.use_number);
@@ -95,17 +94,11 @@ Page({
       }
     })
 
-    //初始化
-    that.load();
-  },
-
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
+    //缓存获取是否展示已完成事项，保持用户体验一致性
+    var isShowDoneList = wx.getStorageSync('isShowDoneList');
+    that.setData({
+      isShowDoneList: isShowDoneList
+    });
   },
 
   /**
@@ -151,6 +144,24 @@ Page({
         hasItem: false
       });
     }
+  },
+
+  /**
+   * 列表伸缩
+   */
+  kindToggle: function (e) {
+    console.log(e);
+    var id = e.currentTarget.id, list = this.data.list;
+    for (var i = 0, len = list.length; i < len; ++i) {
+      if (list[i].id == id) {
+        list[i].open = !list[i].open
+      } else {
+        list[i].open = false
+      }
+    }
+    this.setData({
+      list: list
+    });
   },
 
   /**
@@ -277,6 +288,10 @@ Page({
    * 隐藏已完成事项
    */
   hideDoneList: function(){
+    //写入缓存，提升用户体验一致性
+    wx.setStorageSync('isShowDoneList', false);
+    console.log('隐藏已完成事项写入缓存');
+    console.log(wx.getStorageSync('isShowDoneList'));
     this.setData({
       isShowDoneList: false
     });
@@ -286,6 +301,10 @@ Page({
    * 显示已完成事项
    */
   showDoneList: function () {
+    //写入缓存，提升用户体验一致性
+    wx.setStorageSync('isShowDoneList', true);
+    console.log('显示已完成事项写入缓存');
+    console.log(wx.getStorageSync('isShowDoneList'));
     this.setData({
       isShowDoneList: true
     });
@@ -298,7 +317,7 @@ Page({
     var that = this;
     wx.showModal({
       title: '删除所有事项？',
-      content: '请确认是否所有待办事项已无用',
+      content: '请确认所有事项无需保留后删除',
       confirmText: "给我删！",
       cancelText: "回去工作",
       success: function (res) {
