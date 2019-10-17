@@ -61,13 +61,13 @@
                         <text>step 1：</text>
                     </view>
                     <view class="weui-article__p">
-                        <image src="/images/fuchuang.png" style="width:690rpx;height:1200rpx;"></image>
+                        <image src="/images/xiala.png" style="width:690rpx;height:1200rpx;"></image>
                     </view>
                     <view class="weui-article__p" style="margin:-40rpx 0rpx;">
                         <text>step 2：</text>
                     </view>
                     <view class="weui-article__p">
-                        <image src="/images/fuchuang2.png" style="width:690rpx;height:1200rpx;"></image>
+                        <image src="/images/xiala2.png" style="width:690rpx;height:1200rpx;"></image>
                     </view>
                     <view class="weui-article__p">
                         <text class="artcile__title">tip2:浮窗使用更佳</text>
