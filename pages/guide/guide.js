@@ -62,5 +62,26 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  
+  /**
+   * 长按识别图片
+   */
+  previewImage: function (e) {
+    console.log('1111')
+    var current = e.target.dataset.src;
+    wx.previewImage({
+      current: current,
+      urls: [current]
+    })
+  },
+
+  /**
+   * 进入首页
+   */
+  goToIndex:function () {
+    wx.redirectTo({
+      url: '/pages/index/index',
+    });
   }
 })

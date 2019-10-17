@@ -1,17 +1,22 @@
 <view class="page">
     <view class="page__hd">
         <view class="page__title">Just效率提升指南</view>
-        <view class="page__desc">Just清单，just a to-do list</view>
+        <view class="page__desc">时间不能被管理，但我们可以提升效率</view>
     </view>
     <view class="page__bd">
         <view class="weui-article">
-            <view class="weui-article__h1">时间不能被管理，但我们可以提升效率</view>
             <view class="weui-article__section">
-                <!-- <view class="weui-article__title">你能做的只有提升效率</view> -->
                 <view class="weui-article__section">
-                    <view class="weui-article__h3">Just清单功能篇</view>
+                    <view class="weui-article__h3">Just清单</view>
                     <view class="weui-article__p">
-                        <text class="artcile__title">新建待办</text>
+                        <text>一个极致简洁的待办清单，帮助你快速记录待办事项、管理 to-do list，支持离线使用。</text>
+                    </view>
+                    <view class="weui-article__h3">功能篇</view>
+                    <view class="weui-article__p">
+                        <video style="width:690rpx;" src="https://qianzhuli.top/JustDemo.3gp" autoplay="true"></video>
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">添加待办事项</text>
                     </view>
                     <view class="weui-article__p">
                         <image src="/images/daibanDemo.png" style="width:690rpx;height:280rpx;"></image>
@@ -35,16 +40,57 @@
                         <image src="/images/shanchusuoyouDemo.png" style="width:690rpx;height:520rpx;"></image>
                     </view>
                     <view class="weui-article__p">
-                        <text class="artcile__title">支持离线使用：</text>
+                        <text class="artcile__title">可靠 & 支持离线使用：</text>
                     </view>
                     <view class="weui-article__p">
-                        <text>手机离线（没有网络）情况下Just清单也可以正常使用</text>
+                        <text>退出小程序、微信或者关机后，再次进入Just清单，自己的待办事项也不会丢失。</text>
+                    </view>
+                    <view class="weui-article__p" style="margin-top:-60rpx;">
+                        <text>手机离线（没有网络）情况下Just清单也可以正常使用。</text>
                     </view>
                     <view class="weui-article__p">
-                        <text>更多功能开发中...</text>
+                        <text class="artcile__title">后续版本：</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <text>希望自己能保持开发Just清单的本意，在保证极致简洁的前提下，加入更多有用的功能...</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">tip1:添加到我的小程序，下拉即可打开</text>
+                    </view>
+                    <view class="weui-article__p" style="margin:-40rpx 0rpx;">
+                        <text>step 1：</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/fuchuang.png" style="width:690rpx;height:1200rpx;"></image>
+                    </view>
+                    <view class="weui-article__p" style="margin:-40rpx 0rpx;">
+                        <text>step 2：</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/fuchuang2.png" style="width:690rpx;height:1200rpx;"></image>
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">tip2:浮窗使用更佳</text>
+                    </view>
+                    <view class="weui-article__p" style="margin:-40rpx 0rpx;">
+                        <text>step 1：</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/fuchuang.png" style="width:690rpx;height:1200rpx;"></image>
+                    </view>
+                    <view class="weui-article__p" style="margin:-40rpx 0rpx;">
+                        <text>step 2：</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/fuchuang2.png" style="width:690rpx;height:1200rpx;"></image>
+                    </view>
+                    <view class="weui-article__p">
+                        <text style="color:#1296db; font-size:28rpx;">ps:Android通过浮窗打开小程序，会影响浮窗放置区域的触摸功能，微信官方bug，已反馈...</text>
+                    </view>
+                    <view class="weui-article__p" style="margin-top:-60rpx;">
+                        <text style="color:#1296db; font-size:28rpx;">Android同学可将浮窗放至屏幕左侧，避免影响勾选事项功能。IOS同学随意...</text>
                     </view>
                     
-                    <!-- <video style="width:690rpx;" src="https://qianzhuli.top/asaq.mp4"></video> -->
                 </view>
                 <view class="weui-article__section">
                     <view class="weui-article__h3">效率提升篇</view>
@@ -57,7 +103,7 @@
                     <view class="weui-article__p">
                         答应我，请将大脑宝贵的运行内存用于完成任务而不要浪费在记住你该做什么。一旦你想到什么待办事项就马上记下来，哪怕随后再把他们转到主清单上。
                     </view>
-                    <view class="weui-article__p">
+                    <view class="weui-article__p" style="margin-top:-60rpx;">
                         养成随时将转瞬即逝的想法和灵感记录下来的习惯，<text style="color:#ff8e05">配合语音输入法</text>实时录入，不错过每一个有意义的瞬间。
                     </view>
                     <view class="weui-article__p">
@@ -70,7 +116,19 @@
                         即只保持当天的任务可见。你可能有一个未来几周或几个月要完成的任务大清单，但只要你定下了当天真正需要和希望完成的任务，就专注于当天的清单。清单太长，压力和焦虑会偷偷侵蚀你的工作效率。
                     </view>
                     <view class="weui-article__p">
-                        <text class="artcile__title">003 感受满足：</text>
+                        <text class="artcile__title">003 切合实际：</text>
+                        <view>
+                          <text class="artcile__title" style="font-size:28rpx;">GEAR TO ACTUAL CIRCUMSTANCES</text>
+                        </view>
+                    </view>
+                    <view class="weui-article__p">
+                        如果你今天有五件事待办，但时间只够完成三件。怎么办？有效的做法是：选出最重要的三件，然后优先去做。
+                    </view>
+                    <view class="weui-article__p" style="margin-top:-60rpx;">
+                        好处在于，如果完成并且时间还有盈余，你会借助高效的工作状态完成其余两件事；即使你只是完成那三件事情，你的一天过得也会很充实，因为三件最重要的事都已经搞定！
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">004 感受满足：</text>
                         <view>
                           <text class="artcile__title" style="font-size:28rpx;">FEEL SATISFIEDFEEL</text>
                         </view>
@@ -79,28 +137,23 @@
                         确切地说，是感受完成事项时的满足感。记录待办事项，完成后打勾，每当看着一连串的对勾排下来，尽情享受这满满的成就感。
                     </view>
                     <view class="weui-article__p">
-                        <text class="artcile__title">004 切合实际：</text>
-                        <view>
-                          <text class="artcile__title" style="font-size:28rpx;">GEAR TO ACTUAL CIRCUMSTANCES</text>
-                        </view>
-                    </view>
-                    <view class="weui-article__p">
-                        如果你今天有五件事待办，但时间只够完成三件。怎么办？有效的做法是：选出最重要的三件，然后优先去做。
-                    </view>
-                    <view class="weui-article__p">
-                        好处在于，如果完成并且时间还有盈余，你会借助高效的工作转态完成剩余两件事；即使你只是完成那三件事情，你的一天过得也会很充实，因为三件最重要的事都已经搞定！
-                    </view>
-                    <view class="weui-article__p">
                         <image class="weui-article__img" src="/images/netImg1.png" mode="aspectFit" style="width: 690rpx;height:400rpx;" />
                     </view>
                     <view class="weui-article__p">
-                        <image src="/images/flag.png" class="articleMiniImg" style="width:40rpx;height:40rpx;"></image>：正确的使用待办清单，提升效率，自豪的跟老板说：“我，到点下班”。
+                        <image src="/images/flag.png" class="articleMiniImg" style="width:40rpx;height:40rpx;"></image>：正确的使用待办清单，提升效率，骄傲的跟老板说：“我，到点下班”。
+                    </view>
+                    <view class="weui-article__p" style="text-align:center;">
+                        <text style="font-size:28rpx;">开发者：lisihao，码农，发量良好。</text>
                     </view>
                     <view class="weui-article__p" style="margin:0rpx;">
-                        <image class="weui-article__img" src="/images/xuanchuan.jpg" mode="aspectFit" style="width: 690rpx;height:300rpx;"></image>
+                        <image class="weui-article__img" src="/images/xuanchuan.jpg" mode="aspectFit" style="width: 690rpx;height:300rpx;" data-src="https://qianzhuli.top/xuanchuan.jpg" 
+    bindtap="previewImage"></image>
+                    </view>
+                    <view class="weui-article__p" style="margin:30rpx 0rpx;">
+                        <button class="weui-btn bottom-button" type="primary" bindtap="goToIndex" style="width:100%">开启自己的Just清单</button>
                     </view>
                     <view class="weui-article__p" style="margin:0rpx;">
-                        <button class="weui-btn bottom-button" type="primary" open-type="share" style="width:60%">分享给朋友</button>
+                        <button class="weui-btn bottom-button" type="primary" open-type="share" style="width:100%" plain="true">分享给朋友</button>
                     </view>
                 </view>
             </view>

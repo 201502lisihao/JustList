@@ -64,6 +64,8 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+    //访问服务器保存用户信息并缓存在本地
+    app.checkUser();
   },
 
   /**
