@@ -1,0 +1,109 @@
+<view class="page">
+    <view class="page__hd">
+        <view class="page__title">Just效率提升指南</view>
+        <view class="page__desc">Just清单，just a to-do list</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-article">
+            <view class="weui-article__h1">时间不能被管理，但我们可以提升效率</view>
+            <view class="weui-article__section">
+                <!-- <view class="weui-article__title">你能做的只有提升效率</view> -->
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">Just清单功能篇</view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">新建待办</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/daibanDemo.png" style="width:690rpx;height:280rpx;"></image>
+                    </view>
+                    <view class="weui-article__p">
+                         <text class="artcile__title">勾选完成待办事项</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/gouxuanDemo.png" style="width:690rpx;height:440rpx;"></image>
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">一键隐藏/显示已完成事项：</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/yincangDemo.png" style="width:690rpx;height:320rpx;"></image>
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">一键删除全部事项：</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/shanchusuoyouDemo.png" style="width:690rpx;height:520rpx;"></image>
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">支持离线使用：</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <text>手机离线（没有网络）情况下Just清单也可以正常使用</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <text>更多功能开发中...</text>
+                    </view>
+                    
+                    <!-- <video style="width:690rpx;" src="https://qianzhuli.top/asaq.mp4"></video> -->
+                </view>
+                <view class="weui-article__section">
+                    <view class="weui-article__h3">效率提升篇</view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">001 即时记录：</text>
+                        <view>
+                          <text class="artcile__title" style="font-size:28rpx;">IMMEDIATE RECORD</text>
+                        </view>
+                    </view>
+                    <view class="weui-article__p">
+                        答应我，请将大脑宝贵的运行内存用于完成任务而不要浪费在记住你该做什么。一旦你想到什么待办事项就马上记下来，哪怕随后再把他们转到主清单上。
+                    </view>
+                    <view class="weui-article__p">
+                        养成随时将转瞬即逝的想法和灵感记录下来的习惯，<text style="color:#ff8e05">配合语音输入法</text>实时录入，不错过每一个有意义的瞬间。
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">002 聚焦专注：</text>
+                        <view>
+                          <text class="artcile__title" style="font-size:28rpx;">FOCUSING ON THE FOCUS</text>
+                        </view>
+                    </view>
+                    <view class="weui-article__p">
+                        即只保持当天的任务可见。你可能有一个未来几周或几个月要完成的任务大清单，但只要你定下了当天真正需要和希望完成的任务，就专注于当天的清单。清单太长，压力和焦虑会偷偷侵蚀你的工作效率。
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">003 感受满足：</text>
+                        <view>
+                          <text class="artcile__title" style="font-size:28rpx;">FEEL SATISFIEDFEEL</text>
+                        </view>
+                    </view>
+                    <view class="weui-article__p">
+                        确切地说，是感受完成事项时的满足感。记录待办事项，完成后打勾，每当看着一连串的对勾排下来，尽情享受这满满的成就感。
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">004 切合实际：</text>
+                        <view>
+                          <text class="artcile__title" style="font-size:28rpx;">GEAR TO ACTUAL CIRCUMSTANCES</text>
+                        </view>
+                    </view>
+                    <view class="weui-article__p">
+                        如果你今天有五件事待办，但时间只够完成三件。怎么办？有效的做法是：选出最重要的三件，然后优先去做。
+                    </view>
+                    <view class="weui-article__p">
+                        好处在于，如果完成并且时间还有盈余，你会借助高效的工作转态完成剩余两件事；即使你只是完成那三件事情，你的一天过得也会很充实，因为三件最重要的事都已经搞定！
+                    </view>
+                    <view class="weui-article__p">
+                        <image class="weui-article__img" src="/images/netImg1.png" mode="aspectFit" style="width: 690rpx;height:400rpx;" />
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/flag.png" class="articleMiniImg" style="width:40rpx;height:40rpx;"></image>：正确的使用待办清单，提升效率，自豪的跟老板说：“我，到点下班”。
+                    </view>
+                    <view class="weui-article__p" style="margin:0rpx;">
+                        <image class="weui-article__img" src="/images/xuanchuan.jpg" mode="aspectFit" style="width: 690rpx;height:300rpx;"></image>
+                    </view>
+                    <view class="weui-article__p" style="margin:0rpx;">
+                        <button class="weui-btn bottom-button" type="primary" open-type="share" style="width:60%">分享给朋友</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

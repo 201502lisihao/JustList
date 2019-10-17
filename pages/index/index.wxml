@@ -15,54 +15,41 @@
                   </block>
         </view>
       </view> -->
-      <view wx:if="{{hasItem}}" class="page__bd page__bd_spacing">
-        <view class="kind-list">
-            <block wx:for="{{list}}" wx:key="id">
-                <view class="kind-list__item">
-                    <view id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
-                        <view class="weui-flex__item" style="font-size:50rpx;">{{item.name}} · {{todoCount}}</view>
-                        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="login">Login</button>
-                        <block wx:else>
-                          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-                          <!-- <text class="userinfo-nickname">{{userInfo.nickName}}</text> -->
-                        </block>
-                    </view>
-                    <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
-                        <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
-                            <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
-                                <view bindtap="openConfirm" class="weui-cell weui-cell_access">
-                                    <view class="weui-cell__hd">
-                                      <image src="/images/delAll.png" style="width:80rpx;height:80rpx;"></image>
-                                    </view>
-                                    <view class="weui-cell__bd">
-                                      <text>{{page.name}}</text>
-                                    </view>
-                                    
-                                    <!-- <view class="weui-cell__ft weui-cell__ft_in-access">
-                                    </view> -->
-                                </view>
-                            </block>
-                        </view>
-                    </view>
-                </view>
-            </block>
-        </view>
-
-
+        <view wx:if="{{hasItem}}" class="page__bd page__bd_spacing">
+              <!-- 点击顶部操作栏，出现下拉菜单 -->
+              <view class="kind-list">
+                  <block wx:for="{{list}}" wx:key="id">
+                      <view class="kind-list__item">
+                          <!-- 未登录 -->
+                          <view wx:if="{{!hasUserInfo && canIUse}}" id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}">
+                                <view class="weui-flex__item" style="font-size:50rpx;">{{item.name}} · {{todoCount}}</view>  
+                                <image src="/images/login.png" style="width:50rpx; height:50rpx;"></image>
+                                <button class="loginButton" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>                               
+                          </view>
+                          <!-- 已登录 -->
+                          <view wx:else id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
+                              <view class="weui-flex__item" style="font-size:50rpx;">{{item.name}} · {{todoCount}}</view>
+                              <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>                     
+                          </view>
+                          <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
+                              <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
+                                  <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
+                                      <view bindtap="openConfirm" class="weui-cell weui-cell_access">
+                                          <view class="weui-cell__hd">
+                                            <image src="/images/delAll.png" style="width:80rpx;height:80rpx;"></image>
+                                          </view>
+                                          <view class="weui-cell__bd">
+                                            <text>{{page.name}}</text>
+                                          </view>
+                                      </view>
+                                  </block>
+                              </view>
+                          </view>
+                      </view>
+                  </block>
+              </view>
               <!-- 展示待办事项 -->
               <view wx:if="{{todoList}}" class="content-todo">
-                <!-- 待办事项标题 旧方案 -->
-                <!-- <view class="weui-cells">
-                  <view class="weui-cell" style="padding-bottom:25rpx;">
-                        <view class="weui-cell__bd" style="margin-left:25rpx; padding-bottom:0px;"><text style="font-size:50rpx;">待办 · {{todoCount}}</text></view>
-                        <view class="weui-cell__ft">
-                          <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="login">Login</button>
-                          <block wx:else>
-                            <image bindtap="openConfirm" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-                          </block>
-                        </view>
-                  </view>
-                </view> -->
                 <block id="todolist" wx:for="{{todoList}}">
                   <view class="card">
                     <view class="weui-cells">
@@ -83,7 +70,7 @@
                 </block>
               </view>
               <!-- 展示已完成事项 -->
-              <view wx:if="{{doneList}}" class="content-done">
+              <view wx:if="{{hasDoneItem}}" class="content-done">
                 <!-- 已完成事项的标题 -->
                 <view class="weui-cells weui-cells-done">
                   <view class="weui-cell weui-cell-done" style="padding-top:20rpx; padding-bottom:20rpx;text-decoration: none;">
@@ -128,6 +115,9 @@
           <!-- 使用人次记录文案 -->
           <view class="weui-footer">
             <view wx:if="{{useNumber}}" class="weui-footer__text">{{useNumber}}位同学正在和Just一起成长..</view>
+          </view>
+          <view class="weui-footer" style="margin-top:50rpx;">
+            <navigator url="/pages/guide/guide"><text class="guide">使用指南</text></navigator>
           </view>
         </view>
       </view>

@@ -1,0 +1,36 @@
+page{
+    background-color: #FFFFFF;
+}
+image{
+    margin: 4px 0;
+}
+.weui-article{
+  font-size: 32rpx;
+}
+
+.weui-article__p{
+  margin: 80rpx 0rpx;
+  color: gray;
+}
+
+.weui-article__h3{
+  font-weight: bold;
+}
+
+.weui-article__img{
+  margin: 0rpx 0rpx;
+}
+.artcile__title{
+  font-weight: bold;
+  color: #1296db;
+}
+
+.articleMiniImg{
+  width: 28rpx;
+  height: 28rpx;
+  margin: 0rpx;
+}
+
+.page__bd{
+  padding-bottom: 0rpx;
+}

@@ -23,16 +23,22 @@
 
 }
 
-.login {
-  height: 68rpx;
+.loginButton {
   line-height: 68rpx;
-  border-radius: 10rpx;
-  background-color: rgb(11, 158, 151);
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #ffffff;
-  margin-right: 15rpx;
-  margin-bottom: 15rpx;
+  border: 0rpx solid snow;
+  font-size: 30rpx;
+  color: #07c160;
+  padding: 0rpx;
+  margin-left: 10rpx;
+}
+.loginButton:hover{
+  background-color: transparent;
+  border: 0rpx;
+  margin-left: 10rpx;
+}
+
+.loginButton::after{
+  border: 0rpx;
 }
 
 .userinfo-avatar {
@@ -40,7 +46,7 @@
   height: 68rpx;
   /* margin-right: 15rpx; */
   border-radius: 50%;
-  border: 3rpx solid rgb(11, 158, 151);
+  border: 3rpx solid #07c160;
 }
 
 .userinfo-nickname {
@@ -96,7 +102,7 @@
   border-radius: 15rpx;
   box-shadow: 0 2rpx 0 rgba(255,255,255,0.24), 0 2rpx 12rpx rgba(0,0,0,0.45);
   /* background-color: rgb(255, 238, 0); */
-  background-color: rgb(11, 158, 151);
+  background-color: #07c160;
   margin-left: 35rpx;
 }
 
@@ -107,7 +113,7 @@
   border-radius: 20rpx;
   box-shadow: 0 2rpx 0 rgba(255,255,255,0.24), 0 2rpx 12rpx rgba(0,0,0,0.45);
   /* background-color: rgb(255, 238, 0); */
-  background-color: rgb(45, 201, 193);
+  background-color: #07c160;
   margin-left: 25rpx;
 }
 
@@ -116,7 +122,7 @@
   position: fixed;
   bottom:130rpx;
   width:80%;
-  color:red;
+  color:#dd6572;
   font-size:24rpx;
   text-align:center;
 }
@@ -193,6 +199,19 @@
 .welcome_img{
   width: 110rpx;
   height: 110rpx;
+}
+
+.guide{
+  text-decoration:underline;
+  color: #07c160;
+}
+
+.guide:hover{
+  text-decoration:underline;
+}
+
+.navigator-hover{
+  background-color: transparent;
 }
 
 .content{

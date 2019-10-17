@@ -126,13 +126,19 @@ Page({
           todoCount++;
         }
       };
+      if(doneCount == 0){
+        var hasDoneItem = false;
+      } else {
+        var hasDoneItem = true;
+      }
       that.setData({
         todoCount: todoCount,
         todoList: todoList,
         doneCount: doneCount,
         doneList: doneList,
         "list[0].open": false,
-        hasItem: true
+        hasItem: true,
+        hasDoneItem: hasDoneItem
       });
     } else {
       that.setData({
@@ -141,7 +147,8 @@ Page({
         doneCount: 0,
         doneList: {},
         "list[0].open": false,
-        hasItem: false
+        hasItem: false,
+        hasDoneItem: hasDoneItem
       });
     }
   },
