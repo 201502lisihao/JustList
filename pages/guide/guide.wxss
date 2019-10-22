@@ -21,6 +21,7 @@ image{
   margin: 0rpx 0rpx;
 }
 .artcile__title{
+  font-size: 36rpx;
   font-weight: bold;
   color: #1296db;
 }

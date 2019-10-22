@@ -15,7 +15,14 @@ Page({
         open: false,
         pages: [
           {
-            name: '清除全部事项',
+            name: '使用指南',
+            src: '/images/shiyongzhinan.png',
+            bindtap: 'goToGuide'
+          },
+          {
+            name: '清除全部',
+            src: '/images/delAll.png',
+            bindtap: 'openConfirm'
           }
         ]
       }
@@ -24,6 +31,10 @@ Page({
 
   onLoad: function () {
     var that = this;
+    //当前页面展示分享
+    wx.showShareMenu({
+      withShareTicket: true
+    })
     if (app.globalData.userInfo) {
       that.setData({
         userInfo: app.globalData.userInfo,
@@ -98,6 +109,10 @@ Page({
 
     //缓存获取是否展示已完成事项，保持用户体验一致性
     var isShowDoneList = wx.getStorageSync('isShowDoneList');
+    //缓存中无用户隐藏习惯的数据时，默认展示
+    if(isShowDoneList == '' || isShowDoneList == null || isShowDoneList == undefined){
+      isShowDoneList = true;
+    }
     that.setData({
       isShowDoneList: isShowDoneList
     });
@@ -346,5 +361,14 @@ Page({
   clearAll: function(){
     wx.clearStorageSync();
     this.load();
+  },
+
+  /**
+   * goToGuide
+   */
+  goToGuide: function () {
+    wx.navigateTo({
+      url: '/pages/guide/guide',
+    })
   }
 })

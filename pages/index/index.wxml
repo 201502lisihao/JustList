@@ -34,13 +34,17 @@
                           <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
                               <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
                                   <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
-                                      <view bindtap="openConfirm" class="weui-cell weui-cell_access">
-                                          <view class="weui-cell__hd">
-                                            <image src="/images/delAll.png" style="width:80rpx;height:80rpx;"></image>
-                                          </view>
+                                      <view bindtap="{{page.bindtap}}" class="weui-cell weui-cell_access">
+                                          <!-- <view class="weui-cell__hd">
+                                            <image src="{{page.src}}" style="width:80rpx;height:80rpx;"></image>
+                                          </view> -->
                                           <view class="weui-cell__bd">
-                                            <text>{{page.name}}</text>
+                                            <!-- <text>{{page.name}}</text> -->
+                                            <image style="width:360rpx;height:80rpx;" src="{{page.src}}"></image>
                                           </view>
+                                          <!-- <view class="weui-cell__ft">
+                                            <image src="{{page.src}}" style="width:80rpx;height:80rpx;"></image>
+                                          </view> -->
                                       </view>
                                   </block>
                               </view>

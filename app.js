@@ -78,4 +78,11 @@ App({
       }
     })
   },
+  /**
+   * 本地缓存中是否存在指定key
+   */
+  isset: function(key){
+    var value = wx.getStorageSync(key);
+    return value !='' && value != null && value != undefined;
+  }
 })
