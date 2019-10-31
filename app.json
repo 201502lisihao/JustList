@@ -1,12 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/guide/guide",
-    "pages/logs/logs"
+    "pages/guide/guide"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#F8F8F8",
     "navigationBarTitleText": "Just清单",
     "navigationBarTextStyle": "black"
   },

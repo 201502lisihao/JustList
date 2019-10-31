@@ -1,7 +1,131 @@
 <view class="page">
     <view class="page__hd">
         <view class="page__title">Just效率提升指南</view>
-        <view class="page__desc">时间不能被管理，但我们可以提升效率</view>
+        <!-- <view class="page__desc">时间不能被管理，但我们可以提升效率</view> -->
+        <view wx:if="{{useNumber}}" class="page__desc">{{useNumber}}位同学正在和Just一起成长..</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-article">
+            <view class="weui-article__section">
+                <view class="weui-article__section">
+                    <view class="weui-article__h2">Just清单</view>
+                    <view class="weui-article__p">
+                        <text>一个极致简洁的待办清单，帮助你快速记录待办事项、管理 to-do list，支持离线使用。</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">更新日志：</text>
+                    </view>
+                    <view class="weui-article__h2">2019.10.31</view>
+                    <view class="weui-article__p">
+                        <text class="add">A</text><text> 新增 支持修改事项\n</text>
+                        <text class="add">A</text><text> 新增 支持生成海报分享打卡\n</text>
+                        <text class="update">U</text><text> 优化 更新页面UI\n</text>
+                    </view>
+                    <view class="weui-article__h2">2019.10.21</view>
+                    <view class="weui-article__p">
+                        <text class="add">A</text><text> 新增 支持添加待办事项\n</text>
+                        <text class="add">A</text><text> 新增 支持勾选/反勾选事项\n</text>
+                        <text class="add">A</text><text> 新增 支持删除单个事项\n</text>
+                        <text class="add">A</text><text> 新增 支持一键删除全部事项\n</text>
+                        <text class="add">A</text><text> 新增 支持一键隐藏已完成事项\n</text>
+                        <text class="add">A</text><text> 新增 支持离线使用\n</text>
+                        <text class="update">U</text><text> 新增 1.0版本页面UI\n</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">tip:浮窗使用更佳</text>
+                    </view>
+                    <view class="weui-article__p" style="margin:-40rpx 0rpx;">
+                        <text>step 1：</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/fuchuang.png" style="width:690rpx;height:1200rpx;"></image>
+                    </view>
+                    <view class="weui-article__p" style="margin:-40rpx 0rpx;">
+                        <text>step 2：</text>
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/fuchuang2.png" style="width:690rpx;height:1200rpx;"></image>
+                    </view>
+                    <view class="weui-article__p">
+                        <text style="color:#1296db; font-size:28rpx;">ps:Android通过浮窗打开小程序，会影响浮窗放置区域的触摸功能，微信官方bug，已反馈...</text>
+                    </view>
+                    <view class="weui-article__p" style="margin-top:-60rpx;">
+                        <text style="color:#1296db; font-size:28rpx;">Android同学可将浮窗放至屏幕左侧，避免影响勾选事项功能。IOS同学随意...</text>
+                    </view>
+                    
+                </view>
+                <view class="weui-article__section">
+                    <view class="weui-article__h2">效率提升篇</view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">001 即时记录：</text>
+                        <view>
+                          <text class="artcile__title" style="font-size:28rpx;">IMMEDIATE RECORD</text>
+                        </view>
+                    </view>
+                    <!-- <view class="weui-article__p">
+                        答应我，请将大脑宝贵的运行内存用于完成任务而不要浪费在记住你该做什么。一旦你想到什么待办事项就马上记下来，哪怕随后再把他们转到主清单上。
+                    </view> -->
+                    <view class="weui-article__p">
+                        养成随时将转瞬即逝的想法和灵感记录下来的习惯，<text style="color:#ff8e05">配合语音输入法</text>实时录入，不错过每一个有意义的瞬间。
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">002 聚焦专注：</text>
+                        <view>
+                          <text class="artcile__title" style="font-size:28rpx;">FOCUSING ON THE FOCUS</text>
+                        </view>
+                    </view>
+                    <view class="weui-article__p">
+                        但只要你定下了当天真正需要和希望完成的任务，就专注于当天的清单。清单太长，压力和焦虑会偷偷侵蚀你的工作效率。
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">003 切合实际：</text>
+                        <view>
+                          <text class="artcile__title" style="font-size:28rpx;">GEAR TO ACTUAL CIRCUMSTANCES</text>
+                        </view>
+                    </view>
+                    <view class="weui-article__p">
+                        如果你有五件事待办而时间只够完成三件，别犹豫，选出最重要的三件事，做完它。而不是对着五件事情抱怨时间不够。
+                    </view>
+                    <view class="weui-article__p">
+                        <text class="artcile__title">004 感受满足：</text>
+                        <view>
+                          <text class="artcile__title" style="font-size:28rpx;">FEEL SATISFIEDFEEL</text>
+                        </view>
+                    </view>
+                    <view class="weui-article__p">
+                        记录待办事项，完成后打勾，每当看着一连串的对勾排下来，尽情享受这满满的成就感。
+                    </view>
+                    <view class="weui-article__p">
+                        <image class="weui-article__img" src="/images/netImg1.png" mode="aspectFit" style="width: 690rpx;height:400rpx;" />
+                    </view>
+                    <view class="weui-article__p">
+                        <image src="/images/flag.png" class="articleMiniImg" style="width:40rpx;height:40rpx;"></image>：正确的使用Just清单，提升效率，骄傲的跟老板说：“我，到点下班”。
+                    </view>
+                    <!-- <view class="weui-article__p" style="text-align:center;">
+                        <text style="font-size:28rpx;">开发者：lisihao，码农，发量良好。</text>
+                    </view> -->
+                    <view class="weui-article__p" style="margin:0rpx;">
+                        <image class="weui-article__img" src="/images/xuanchuan.jpg" mode="aspectFit" style="width: 690rpx;height:300rpx;" data-src="https://qianzhuli.top/xuanchuan.jpg" 
+    bindtap="previewImage"></image>
+                    </view>
+                    <view class="weui-article__p" style="margin:30rpx 0rpx;">
+                        <button class="weui-btn bottom-button" type="primary" bindtap="goToIndex" style="width:100%">开启自己的Just清单</button>
+                    </view>
+                    <view class="weui-article__p" style="margin:0rpx;">
+                        <button class="weui-btn bottom-button" type="primary" open-type="share" style="width:100%" plain="true">分享给朋友</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+
+
+<!-- 初版 -->
+<!-- <view class="page">
+    <view class="page__hd">
+        <view class="page__title">Just效率提升指南</view>
+        <view wx:if="{{useNumber}}" class="page__desc">{{useNumber}}位同学正在和Just一起成长..</view>
     </view>
     <view class="page__bd">
         <view class="weui-article">
@@ -143,9 +267,6 @@
                     <view class="weui-article__p">
                         <image src="/images/flag.png" class="articleMiniImg" style="width:40rpx;height:40rpx;"></image>：正确的使用待办清单，提升效率，骄傲的跟老板说：“我，到点下班”。
                     </view>
-                    <!-- <view class="weui-article__p" style="text-align:center;">
-                        <text style="font-size:28rpx;">开发者：lisihao，码农，发量良好。</text>
-                    </view> -->
                     <view class="weui-article__p" style="margin:0rpx;">
                         <image class="weui-article__img" src="/images/xuanchuan.jpg" mode="aspectFit" style="width: 690rpx;height:300rpx;" data-src="https://qianzhuli.top/xuanchuan.jpg" 
     bindtap="previewImage"></image>
@@ -160,4 +281,4 @@
             </view>
         </view>
     </view>
-</view>
+</view> -->

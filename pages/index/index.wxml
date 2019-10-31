@@ -1,20 +1,6 @@
 <!--index.wxml-->
 <view class="page">
     <scroll-view scroll-y="true" enable-back-to-top="true" style="height:{{usefulWindowHeight}}px">
-    <!-- <scroll-view scroll-y="true" style="height:{{usefulWindowHeight}}px"> -->
-      <!-- 顶部状态栏去掉 -->
-      <!-- <view class="top-bar">
-        <view class="aTitle">
-          <view class="page_title"><text style="font-size:30rpx;">一个管理 TodoList 的小工具</text></view>
-          <view class="page_desc"><text style="color:#d3d3d3;font-size:24rpx">designed by lisihao</text></view>
-        </view>
-        <view class="user">
-                  <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="login">Login</button>
-                  <block wx:else>
-                    <image bindtap="openConfirm" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-                  </block>
-        </view>
-      </view> -->
         <view wx:if="{{hasItem}}" class="page__bd page__bd_spacing">
               <!-- 点击顶部操作栏，出现下拉菜单 -->
               <view class="kind-list">
@@ -33,20 +19,14 @@
                           </view>
                           <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
                               <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
-                                  <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
-                                      <view bindtap="{{page.bindtap}}" class="weui-cell weui-cell_access">
-                                          <!-- <view class="weui-cell__hd">
-                                            <image src="{{page.src}}" style="width:80rpx;height:80rpx;"></image>
-                                          </view> -->
-                                          <view class="weui-cell__bd">
-                                            <!-- <text>{{page.name}}</text> -->
-                                            <image style="width:360rpx;height:80rpx;" src="{{page.src}}"></image>
-                                          </view>
-                                          <!-- <view class="weui-cell__ft">
-                                            <image src="{{page.src}}" style="width:80rpx;height:80rpx;"></image>
-                                          </view> -->
-                                      </view>
-                                  </block>
+                                <view class="weui-grids">
+                                    <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
+                                        <view bindtap="{{page.bindtap}}" class="weui-grid" hover-class="weui-grid_active">
+                                          <image class="weui-grid__icon" src="{{page.src}}" />
+                                          <view class="weui-grid__label">{{page.name}}</view>
+                                        </view>
+                                    </block>
+                                </view>
                               </view>
                           </view>
                       </view>
@@ -63,7 +43,7 @@
                           <image src="/images/del.png" style="width:100rpx;height:100rpx;" bindtap="deleteItem" data-id="{{item.id}}"></image>
                         </view>
                         <!-- 内容 -->
-                        <view class="weui-cell__bd" bindtap="editItem" data-id="{{item.id}}">{{item.title}}</view>
+                        <view class="weui-cell__bd"><input name='editInput' data-id="{{item.id}}" data-type="todo" type="text" value="{{item.title}}" bindblur="editItem"></input></view>
                         <!-- 标记完成 -->
                         <view class="weui-cell__ft">
                           <image src="/images/undo.png" style="width:100rpx;height:100rpx;" bindtap="doToDone" data-id="{{item.id}}"></image>
@@ -96,7 +76,8 @@
                           <image src="/images/del2.png" style="width:100rpx;height:100rpx;" bindtap="deleteItem" data-id="{{item.id}}"></image>
                         </view>
                         <!-- 内容 -->
-                        <view class="weui-cell__bd" bindtap="editItem" data-id="{{item.id}}">{{item.title}}</view>
+                        <view class="weui-cell__bd"><input name='editInput' data-id="{{item.id}}" data-type="todo" type="text" value="{{item.title}}" bindblur="editItem"></input></view>
+                        <!-- <view class="weui-cell__bd" data-id="{{item.id}}">{{item.title}}</view> -->
                         <!-- 标记完成 -->
                         <view class="weui-cell__ft">
                           <image src="/images/done.png" style="width:100rpx;height:100rpx;" bindtap="doneToDo" data-id="{{item.id}}"></image>
@@ -111,15 +92,18 @@
       <view wx:else class="welcome_style" style="height:{{usefulWindowHeight-70}}px">     
         <view>
           <!-- 吃豆人图片 -->
-          <image src="/images/404-1.png" class="welcome_img"></image>
+          <!-- <image src="/images/404-1.png" class="welcome_img"></image>
           <image src="/images/404-2.png" class="welcome_img"></image>
           <image src="/images/404-3.png" class="welcome_img"></image>
           <image src="/images/404-4.png" class="welcome_img"></image>
-          <image src="/images/404-5.png" class="welcome_img"></image>
-          <!-- 使用人次记录文案 -->
-          <view class="weui-footer">
-            <view wx:if="{{useNumber}}" class="weui-footer__text">{{useNumber}}位同学正在和Just一起成长..</view>
-          </view>
+          <image src="/images/404-5.png" class="welcome_img"></image> -->
+          <!-- hello样式 -->
+          <image src="/images/hello-H.png" class="welcome_img"></image>
+          <image src="/images/hello-E.png" class="welcome_img"></image>
+          <image src="/images/hello-L.png" class="welcome_img"></image>
+          <image src="/images/hello-L.png" class="welcome_img"></image>
+          <image src="/images/hello-O.png" class="welcome_img"></image>
+
           <view class="weui-footer" style="margin-top:50rpx;">
             <navigator url="/pages/guide/guide"><text class="guide">使用指南</text></navigator>
           </view>
@@ -127,13 +111,28 @@
       </view>
     </scroll-view>
     <!-- 底部操作栏 -->
+    <!-- 输入错误提示 -->
     <view class='cut-bar' wx:if="{{errorMsg}}">
       <label>{{errorMsg}}</label>
     </view>
-    <form bindsubmit="addTodoSubmit">
+    <!-- 生成海报时隐藏 -->
+    <form bindsubmit="addTodoSubmit" wx:if="{{!maskHidden}}">
       <view id="operate-bar" class="operate-bar">
         <input name="addTodoInput" id="addTodoInput" class="addTodoInput" type="text" placeholder="＋待办事项" placeholder-class="placeholder" value="{{adding}}" confirm-type="done" bindconfirm="addTodo"></input>
         <button form-type="submit" class="confirm_button" hover-class="confirm_button_hover"><image src="/images/send.png" style="width:55rpx;height:55rpx;margin-top:18rpx;"></image></button>
       </view>
     </form>
+</view>
+
+<!-- 生成海报 -->
+<view>
+  <view class='imagePathBox' hidden="{{maskHidden == false}}">
+      <image src="{{imagePath}}" class='shengcheng' style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;"></image>
+      <!-- <image src="{{imagePath}}" class='shengcheng' style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;"></image> -->
+      <button class='baocun' bindtap='saveToAlbum'>保存相册，分享到朋友圈</button>
+  </view>
+  <view hidden="{{maskHidden == false}}" class="mask"></view> 
+  <view class="canvas-box">
+      <canvas  style="width: 750px;height: 1228px;position:fixed;top:9999px" canvas-id="mycanvas"/>
+  </view>
 </view>

@@ -1,11 +1,13 @@
 // pages/guide/guide.js
+const app = getApp()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    
   },
 
   /**
@@ -15,7 +17,12 @@ Page({
     //当前页面展示分享
     wx.showShareMenu({
       withShareTicket: true
-    })
+    });
+    if (app.globalData.useNumber != undefined){
+      this.setData({
+        useNumber: app.globalData.useNumber
+      });
+    }
   },
 
   /**

@@ -35,3 +35,17 @@ image{
 .page__bd{
   padding-bottom: 0rpx;
 }
+
+/* 更新日志 */
+.add{
+  border: 4rpx solid #009c27;
+  /* font-weight: bold; */
+}
+
+.update{
+  border: 4rpx solid #1296db;
+}
+
+.delete{
+  border: 4rpx solid #ff1111;
+}
