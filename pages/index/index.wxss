@@ -48,6 +48,13 @@
   border-radius: 50%;
   border: 3rpx solid #07c160;
 }
+.menu {
+  width: 68rpx;
+  height: 68rpx;
+  /* margin-right: 15rpx; */
+  /* border-radius: 50%; */
+  /* border: 3rpx solid #07c160; */
+}
 
 .userinfo-nickname {
   color: #aaa;
@@ -211,9 +218,18 @@
 }
 
 .welcome_img{
-  width: 90rpx;
-  height: 90rpx;
+  width: 600rpx;
+  height: 210rpx;
 }
+
+/* .welcome_img_two{
+  width: 90rpx;
+  height: 50rpx;
+}
+.welcome_img_three{
+  width: 90rpx;
+  height: 10rpx;
+} */
 
 .guide{
   text-decoration:underline;
@@ -253,7 +269,7 @@
 
 .kind-list__img{width:60rpx;height:60rpx;}
 
-.kind-list__item-hd{background-color: #F8F8F8;padding:30rpx 60rpx 20rpx 70rpx;-webkit-transition:opacity .3s;transition:opacity .3s;}
+.kind-list__item-hd{background-color: #F8F8F8;padding:30rpx 35rpx 20rpx 70rpx;-webkit-transition:opacity .3s;transition:opacity .3s;}
 
 .kind-list__item-hd_show{opacity:.4;}
 
@@ -273,7 +289,6 @@
   height: 100rpx;
 }
 
-/* 海报 */
 /* 海报 */
 .imagePathBox{
   width: 100%;
@@ -301,21 +316,20 @@
   /* z-index: 10; */
 }
 .baocun{
-  margin-top: 50rpx;
-  display: block;
-  width: 80%;
+  padding: 0rpx 55rpx 0rpx 55rpx;
+  margin: 50rpx 30rpx 50rpx 30rpx;
   height: 80rpx;
-  padding: 0;
-  line-height: 80rpx;
-  text-align: center;
-  /* position: fixed; */
-  /* bottom: 50rpx; */
-  /* left: 10%; */
-  background: #07a051;
-  color: rgb(255, 255, 255);
+  background-color: gray;
   font-size: 32rpx;
-  border-radius: 44rpx;
+  color: #fff;
 }
+
+.posterButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 button[class="baocun"]::after{
   border: 0;
 }

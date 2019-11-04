@@ -29,6 +29,11 @@ Page({
             src: '/images/pengyouquan.png',
             bindtap: 'createPoster'
           },
+          {
+            name: '意见反馈',
+            src: '/images/suggest.png',
+            bindtap: 'goToSuggest'
+          },
         ]
       }
     ],
@@ -409,6 +414,15 @@ Page({
   },
 
   /**
+   * goToSuggest
+   */
+  goToSuggest: function () {
+    wx.navigateTo({
+      url: '/pages/suggest/suggest',
+    })
+  },
+
+  /**
    * 触发生成海报
    */
   createPoster: function (){
@@ -445,8 +459,26 @@ Page({
    */
   doCreateNewPoster: function () {
     var that = this;
-    var context = wx.createCanvasContext('mycanvas'); 
+    var context = wx.createCanvasContext('mycanvas');   
     var path = "/images/poster/posterOne.png";
+    var randNumber = parseInt(Math.random() * 5, 10) + 1;
+    switch (randNumber){
+      case 1:
+        path = "/images/poster/posterOne.png";
+        break;
+      case 2:
+        path = "/images/poster/posterTwo.png";
+        break;
+      case 3:
+        path = "/images/poster/posterThree.png";
+        break;
+      case 4:
+        path = "/images/poster/posterFour.png";
+        break;
+      case 5:
+        path = "/images/poster/posterFive.png";
+        break;
+    }
     //绘制背景
     context.drawImage(path, 0, 0, 750, 1228);
     //绘制日期-天
@@ -479,7 +511,7 @@ Page({
     var wordOne = "";
     var wordTwo = "";
     var wordThree = "";
-    var randNumber = parseInt(Math.random() * 17, 10) + 1;
+    var randNumber = parseInt(Math.random() * 19, 10) + 1;
     switch (randNumber) {
       case 1:
         wordOne = '世界上最快乐的事，';
@@ -515,9 +547,9 @@ Page({
         wordTwo = '——约翰·列侬';
         break;
       case 9:
-        wordOne = '在我年轻的时候，曾以为金钱是世界上最重要的东西。';
-        wordTwo = '现在我老了，才知道的确如此。'
-        wordThree = '——约翰·列侬';
+        wordOne = '每一个不曾起舞的日子，';
+        wordTwo = '都是对生命的辜负。'
+        wordThree = '——尼采';
         break;
       case 10:
         wordOne = '你千万不要见怪，';
@@ -553,6 +585,15 @@ Page({
       case 17:
         wordOne = '三月桃花，两人一马，明日天涯。';
         wordTwo = '——七堇年'
+        break;
+      case 18:
+        wordOne = '我知道在这个世界上我无处容身，';
+        wordTwo = '只是，你凭什么审判我的灵魂?';
+        wordThree = '——加缪《局外人》';
+        break;
+      case 19:
+        wordOne = '记住一个道理，只有自己变优秀了，';
+        wordTwo = '其他事情才会跟着好起来';
         break;
     }
     //绘制名言，第一行和第二行
@@ -672,5 +713,23 @@ Page({
         // })
       }
     })
+  },
+
+  /**
+   * 生成海报后返回首页
+   */
+  goBackToList: function () {
+    //实质是隐藏
+    this.setData({
+      maskHidden:false
+    });
+  },
+
+  /**
+   * 换一张海报
+   */
+  createPosterAgain: function (){
+    //省略弹窗&获取头像等步骤，直接重新绘制
+    this.doCreateNewPoster();
   }
 })

@@ -19,6 +19,7 @@
                     <view class="weui-article__p">
                         <text class="add">A</text><text> 新增 支持修改事项\n</text>
                         <text class="add">A</text><text> 新增 支持生成海报分享打卡\n</text>
+                        <text class="update">U</text><text> 简化 使用说明\n</text>
                         <text class="update">U</text><text> 优化 更新页面UI\n</text>
                     </view>
                     <view class="weui-article__h2">2019.10.21</view>
@@ -29,12 +30,10 @@
                         <text class="add">A</text><text> 新增 支持一键删除全部事项\n</text>
                         <text class="add">A</text><text> 新增 支持一键隐藏已完成事项\n</text>
                         <text class="add">A</text><text> 新增 支持离线使用\n</text>
-                        <text class="update">U</text><text> 新增 1.0版本页面UI\n</text>
+                        <text class="add">A</text><text> 新增 1.0版本页面UI\n</text>
                     </view>
+                    <view class="weui-article__h2"><image src="/images/tip.png" style="width:40rpx;height:40rpx;margin-bottom:-8rpx;"></image><text>：浮窗使用，效率更佳</text></view>
                     <view class="weui-article__p">
-                        <text class="artcile__title">tip:浮窗使用更佳</text>
-                    </view>
-                    <view class="weui-article__p" style="margin:-40rpx 0rpx;">
                         <text>step 1：</text>
                     </view>
                     <view class="weui-article__p">
@@ -47,10 +46,10 @@
                         <image src="/images/fuchuang2.png" style="width:690rpx;height:1200rpx;"></image>
                     </view>
                     <view class="weui-article__p">
-                        <text style="color:#1296db; font-size:28rpx;">ps:Android通过浮窗打开小程序，会影响浮窗放置区域的触摸功能，微信官方bug，已反馈...</text>
+                        <text style="color:#1296db; font-size:28rpx;">PS:浮窗推荐放至屏幕左侧，防止浮窗区域触摸失效影响小程序正常使用。</text>
                     </view>
                     <view class="weui-article__p" style="margin-top:-60rpx;">
-                        <text style="color:#1296db; font-size:28rpx;">Android同学可将浮窗放至屏幕左侧，避免影响勾选事项功能。IOS同学随意...</text>
+                        <text style="color:#1296db; font-size:28rpx;">意见or建议发送至: </text><text style="color:gray; font-size:28rpx; text-decoration:underline;">lisihao1996@foxmail.com</text>
                     </view>
                     
                 </view>
@@ -99,7 +98,7 @@
                         <image class="weui-article__img" src="/images/netImg1.png" mode="aspectFit" style="width: 690rpx;height:400rpx;" />
                     </view>
                     <view class="weui-article__p">
-                        <image src="/images/flag.png" class="articleMiniImg" style="width:40rpx;height:40rpx;"></image>：正确的使用Just清单，提升效率，骄傲的跟老板说：“我，到点下班”。
+                        <image src="/images/tip.png" class="articleMiniImg" style="width:40rpx;height:40rpx;"></image>：正确姿势使用Just清单，提升效率，骄傲的对老板说：“我，到点下班”。
                     </view>
                     <!-- <view class="weui-article__p" style="text-align:center;">
                         <text style="font-size:28rpx;">开发者：lisihao，码农，发量良好。</text>

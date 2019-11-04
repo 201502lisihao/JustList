@@ -15,7 +15,9 @@
                           <!-- 已登录 -->
                           <view wx:else id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
                               <view class="weui-flex__item" style="font-size:50rpx;">{{item.name}} · {{todoCount}}</view>
-                              <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>                     
+                              
+                              <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>  
+                              <image class="menu" src="/images/menu.png" mode="cover"></image>                          
                           </view>
                           <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
                               <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
@@ -23,7 +25,7 @@
                                     <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
                                         <view bindtap="{{page.bindtap}}" class="weui-grid" hover-class="weui-grid_active">
                                           <image class="weui-grid__icon" src="{{page.src}}" />
-                                          <view class="weui-grid__label">{{page.name}}</view>
+                                          <view class="weui-grid__label" style="font-size:28rpx;">{{page.name}}</view>
                                         </view>
                                     </block>
                                 </view>
@@ -97,12 +99,31 @@
           <image src="/images/404-3.png" class="welcome_img"></image>
           <image src="/images/404-4.png" class="welcome_img"></image>
           <image src="/images/404-5.png" class="welcome_img"></image> -->
+
           <!-- hello样式 -->
-          <image src="/images/hello-H.png" class="welcome_img"></image>
-          <image src="/images/hello-E.png" class="welcome_img"></image>
-          <image src="/images/hello-L.png" class="welcome_img"></image>
-          <image src="/images/hello-L.png" class="welcome_img"></image>
-          <image src="/images/hello-O.png" class="welcome_img"></image>
+          <view>
+            <image src="/images/welcome.png" class="welcome_img"></image>
+            <!-- <image src="/images/hello-E.png" class="welcome_img"></image>
+            <image src="/images/hello-L.png" class="welcome_img"></image>
+            <image src="/images/hello-L.png" class="welcome_img"></image>
+            <image src="/images/hello-O.png" class="welcome_img"></image> -->
+          </view>
+
+          <!-- <view>
+            <image src="/images/hello-H.png" class="welcome_img_two"></image>
+            <image src="/images/hello-E.png" class="welcome_img_two"></image>
+            <image src="/images/hello-L.png" class="welcome_img_two"></image>
+            <image src="/images/hello-L.png" class="welcome_img_two"></image>
+            <image src="/images/hello-O.png" class="welcome_img_two"></image>
+          </view>
+
+          <view>
+            <image src="/images/hello-H.png" class="welcome_img_three"></image>
+            <image src="/images/hello-E.png" class="welcome_img_three"></image>
+            <image src="/images/hello-L.png" class="welcome_img_three"></image>
+            <image src="/images/hello-L.png" class="welcome_img_three"></image>
+            <image src="/images/hello-O.png" class="welcome_img_three"></image>
+          </view> -->
 
           <view class="weui-footer" style="margin-top:50rpx;">
             <navigator url="/pages/guide/guide"><text class="guide">使用指南</text></navigator>
@@ -127,9 +148,12 @@
 <!-- 生成海报 -->
 <view>
   <view class='imagePathBox' hidden="{{maskHidden == false}}">
-      <image src="{{imagePath}}" class='shengcheng' style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;"></image>
+      <image src="{{imagePath}}" class='shengcheng' style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;" bindtap="createPosterAgain"></image>
       <!-- <image src="{{imagePath}}" class='shengcheng' style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;"></image> -->
-      <button class='baocun' bindtap='saveToAlbum'>保存相册，分享到朋友圈</button>
+      <view class="posterButton">
+        <button class='baocun' bindtap='goBackToList'>返回清单</button>
+        <button class='baocun' bindtap='saveToAlbum'  style="background-color: #07c160;">保存相册</button>
+      </view>
   </view>
   <view hidden="{{maskHidden == false}}" class="mask"></view> 
   <view class="canvas-box">
