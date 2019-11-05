@@ -4,80 +4,63 @@ App({
     userInfo: null,
   },
   onLaunch: function () {
-    //检查用户授权登录状态,顺便取一下utoken和userId
-    this.checkUser();
+
   },
   onUnlaunch: function () {
     //小程序销毁时调用
   },
 
-  /**
-   * 获取用户是否授权登录
-   */
-  checkUser: function () {
-    var that = this;
-    wx.getSetting({
-      success: function (res) {
-        //如果用户已经授权过，则可以使用wx.getUserInfo结果获取用户信息
-        if (res.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
-            success: function (res) {
-              //放到globaldata中，用于授权过后的自动登录
-              that.globalData.userInfo = res.userInfo;
-              //调用获取utoken和userId方法，写缓存
-              that.getUtokenAndUserId(res.encryptedData, res.iv);
-              //callback
-              if (that.userInfoReadyCallback) {
-                that.userInfoReadyCallback(res);
-              }
-            }
-          })
-        }
-      }
-    });
-  },
 
   /**
-   * 请求服务器获取用户utoken和userId，并放入本地缓存
+   * 用户点击登录时调用
    */
-  getUtokenAndUserId: function (encryptedData, iv) {
-    var encryptedData = encryptedData;
-    var iv = iv;
-    //获取用户缓存的utoken
-    var utoken = wx.getStorageSync('utoken');
-    //login方法获取code
+  loginUser: function () {
+    var that = this;
     wx.login({
       success: function (res) {
+        //code获取成功，保存为当前页面的全局变量code
+        // that.setData({ code: res.code });
         var code = res.code;
-        wx.request({
-          url: 'https://www.qianzhuli.top/just/userauthlogin',
-          method: 'POST',
-          data: {
-            utoken: utoken,
-            code: code,
-            encryptedData: encryptedData,
-            iv: iv
-          },
-          fail: function (res) {
-            console.log('请求userAuthLogin失败,res=' + res)
-          },
+        wx.getUserInfo({
           success: function (res) {
-            console.log('请求userAuthLogin成功');
-            console.log(res.data);
-            //设置用户缓存
-            var utoken = res.data.utoken;
-            var userId = res.data.user_id;
-            try {
-              wx.setStorageSync('utoken', utoken);
-              wx.setStorageSync('userId', userId);
-            } catch (e) {
-              console.log(e);
-            }
-          }
+            //存入缓存，用于自动登录
+            wx.setStorageSync('userInfo', res.userInfo);
+            // that.globalData.userInfo = res.userInfo;
+            var utoken = wx.getStorageSync('utoken');
+            wx.request({
+              url: 'https://www.qianzhuli.top/just/userauthlogin',
+              method: 'POST',
+              data: { 
+                utoken: utoken,
+                code: code,
+                encryptedData: res.encryptedData,
+                iv: res.iv
+              },
+              fail: function (res) {
+                console.log('请求userAuthLogin失败,res=' + res)
+              },
+              success: function (res) {
+                console.log('请求userAuthLogin成功');
+                console.log(res.data);
+                //设置用户缓存
+                try {
+                  wx.setStorageSync('utoken', res.data.utoken);
+                  // wx.setStorageSync('userId', res.data.user_id);
+                } catch (e) {
+                  console.log(e);
+                }
+              }
+            });
+          },
         });
+      },
+      fail:function (res) {
+        that.wetoast.toast({ title: res.err_desc });
       }
-    })
+    });
+    
   },
+
   /**
    * 本地缓存中是否存在指定key
    */

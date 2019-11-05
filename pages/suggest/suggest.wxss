@@ -1,1 +1,4 @@
 /* pages/suggest/suggest.wxss */
+.suggestPlaceholder{
+  font-size: 28rpx;
+}

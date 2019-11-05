@@ -34,6 +34,11 @@ Page({
             src: '/images/suggest.png',
             bindtap: 'goToSuggest'
           },
+          {
+            name: '退出登录',
+            src: '/images/logout.png',
+            bindtap: 'logout'
+          },
         ]
       }
     ],
@@ -49,9 +54,9 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     })
-    if (app.globalData.userInfo) {
+    if(wx.getStorageSync('userInfo')){
       that.setData({
-        userInfo: app.globalData.userInfo,
+        userInfo: wx.getStorageSync('userInfo'),
         hasUserInfo: true
       })
     } else if (that.data.canIUse){
@@ -67,7 +72,7 @@ Page({
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
-          app.globalData.userInfo = res.userInfo
+          wx.setStorageSync('userInfo', res.userInfo)
           that.setData({
             userInfo: res.userInfo,
             hasUserInfo: true
@@ -83,14 +88,17 @@ Page({
   },
 
   getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+    wx.showLoading({
+      title: '正在登录',
+    })
+    // console.log(e)
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
     //访问服务器保存用户信息并缓存在本地
-    app.checkUser();
+    app.loginUser();
+    wx.hideLoading();
   },
 
   /**
@@ -185,7 +193,6 @@ Page({
    * 修改事项时
    */
   loadWithEdit: function (editValue, oldId, itemType) {
-    //目前只支持修改待完成事项
     var that = this;
     var collection = wx.getStorageSync('todo');
     if (collection.length > 2) {
@@ -437,14 +444,23 @@ Page({
     });
     console.log(that.data.userInfo.avatarUrl);
     // todo 先下载头像到本地
-    wx.downloadFile({
-      url: that.data.userInfo.avatarUrl,
-      success: function (res) {
+    // wx.downloadFile({
+    //   url: that.data.userInfo.avatarUrl,
+    //   success: function (res) {
+    //     that.setData({
+    //       avatarUrl: res.tempFilePath
+    //     });
+    //   }
+    // })
+    console.log(that.data.userInfo.avatarUrl);
+    wx.getImageInfo({
+      src: that.data.userInfo.avatarUrl,
+      success: function (res){
         that.setData({
-          avatarUrl: res.tempFilePath
+          avatarUrl: res.path
         });
       }
-    })
+    });
     setTimeout(function () {
       that.doCreateNewPoster();
       wx.hideToast()
@@ -640,6 +656,8 @@ Page({
 
     //绘制头像
     var path1 = that.data.avatarUrl;
+    // console.log('path1');
+    // console.log(path1);
     // context.arc(186, 246, 50, 0, 2 * Math.PI) //画出圆
     // context.strokeStyle = "#ffe200";
     // context.clip(); //裁剪上面的圆形
@@ -731,5 +749,32 @@ Page({
   createPosterAgain: function (){
     //省略弹窗&获取头像等步骤，直接重新绘制
     this.doCreateNewPoster();
+  },
+
+  /**
+   * logout
+   */
+  logout: function (){
+    var that = this;
+    wx.showModal({
+      title: '退出登录',
+      content: '小主，退出后没办法用这些功能啦',
+      confirmText: "给我退！",
+      cancelText: "继续用",
+      success(res) {
+        if (res.confirm) {
+          wx.removeStorageSync('userInfo');
+          wx.removeStorageSync('utoken');
+          that.setData({
+            hasUserInfo: false,
+            userInfo: {},
+            "list[0].open": false,
+          });
+        } else if (res.cancel) {
+          return;
+        }
+      }
+    })
+    
   }
 })

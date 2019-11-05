@@ -4,12 +4,12 @@
         <view class="page__desc">我们将在第一时间处理并反馈给您</view>
     </view>
     <view class="page__bd">
-        <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">反馈内容为空</view>
+        <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">请完成填写后提交</view>
 
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="在此输入" style="height: 3.3em" />
+                    <textarea class="weui-textarea" placeholder-class="suggestPlaceholder" placeholder="请在此输入意见、建议或您期望的功能" style="height: 3.3em" bindinput="suggestInput" />
                     <view class="weui-textarea-counter">0/200</view>
                 </view>
             </view>
@@ -18,18 +18,20 @@
         <view class="weui-cells__title">是否向您反馈处理结果？</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_switch">
-                <view class="weui-cell__bd">反馈结果</view>
+                <view class="weui-cell__bd" style="font-size:32rpx;">反馈结果</view>
                 <view class="weui-cell__ft">
-                    <switch checked />
+                    <switch checked="checked" bindchange="switchChange"/>
                 </view>
             </view>
         </view>
 
-        <view class="weui-cells__title">联系方式</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell weui-cell_input">
-                <view class="weui-cell__bd">
-                    <input class="weui-input" placeholder="在此输入微信号或其它联系方式" />
+        <view wx:if="{{showContactInput}}">
+          <view class="weui-cells__title">联系方式</view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <view class="weui-cell__bd">
+                        <input class="weui-input" placeholder-class="suggestPlaceholder" placeholder="在此输入微信号或其它联系方式" bindinput="contactInput" />
+                    </view>
                 </view>
             </view>
         </view>
@@ -37,7 +39,7 @@
         
 
         <view class="weui-btn-area">
-            <button class="weui-btn" type="primary" bindtap="showTopTips">发送</button>
+            <button class="weui-btn" type="primary" bindtap="send">发送</button>
         </view>
     </view>
 </view>

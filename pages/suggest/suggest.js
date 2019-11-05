@@ -1,30 +1,56 @@
 Page({
   data: {
     showTopTips: false,
-
-    radioItems: [
-      { name: 'cell standard', value: '0' },
-      { name: 'cell standard', value: '1', checked: true }
-    ],
-    checkboxItems: [
-      { name: 'standard is dealt for u.', value: '0', checked: true },
-      { name: 'standard is dealicient for u.', value: '1' }
-    ],
-
-    date: "2016-09-01",
-    time: "12:01",
-
-    countryCodes: ["+86", "+80", "+84", "+87"],
-    countryCodeIndex: 0,
-
-    countries: ["中国", "美国", "英国"],
-    countryIndex: 0,
-
-    accounts: ["微信号", "QQ", "Email"],
-    accountIndex: 0,
-
-    isAgree: false
+    showContactInput: true,
+    suggestInput: "",
+    contactInput: "",
   },
+  /**
+   * send
+   */
+  send: function (){
+    // console.log(this.data.suggestInput);return;
+    var that = this;
+    var suggestInput = that.data.suggestInput
+    var contactInput = that.data.contactInput
+    //建议为空时报错
+    if(suggestInput == ""){
+      that.showTopTips();
+      return;
+    }
+    //选择反馈结果时，未填写联系方式报错
+    if (that.data.showContactInput && contactInput == ""){
+      that.showTopTips();
+      return;
+    }
+    var utoken = wx.getStorageSync('utoken');
+    //请求服务器保存
+    wx.request({
+      url: 'https://www.qianzhuli.top/just/savesuggest',
+      method: 'POST',
+      data: {
+        utoken: utoken,
+        suggest: suggestInput,
+        contact: contactInput,
+      },
+      complete: function (res){  
+        setTimeout(function (){
+          //提示意见发送成功
+          wx.showToast({
+            title: '提交成功',
+          });
+        }, 500);
+        //跳回首页
+        wx.redirectTo({
+          url: '/pages/index/index',
+        });
+      }
+    });
+  },
+
+  /**
+   * showTopTips
+   */
   showTopTips: function () {
     var that = this;
     this.setData({
@@ -36,71 +62,32 @@ Page({
       });
     }, 3000);
   },
-  radioChange: function (e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value);
 
-    var radioItems = this.data.radioItems;
-    for (var i = 0, len = radioItems.length; i < len; ++i) {
-      radioItems[i].checked = radioItems[i].value == e.detail.value;
-    }
-
-    this.setData({
-      radioItems: radioItems
-    });
+  /**
+   * suggestInput
+   */
+  suggestInput: function (e){
+    // console.log(e.detail.value);
+    this.data.suggestInput = e.detail.value;
   },
-  checkboxChange: function (e) {
-    console.log('checkbox发生change事件，携带value值为：', e.detail.value);
 
-    var checkboxItems = this.data.checkboxItems, values = e.detail.value;
-    for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
-      checkboxItems[i].checked = false;
+  /**
+   * contactInput
+   */
+  contactInput: function (e) {
+    // console.log(e.detail.value);
+    this.data.contactInput = e.detail.value;
+  },
 
-      for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
-        if (checkboxItems[i].value == values[j]) {
-          checkboxItems[i].checked = true;
-          break;
-        }
-      }
-    }
-
-    this.setData({
-      checkboxItems: checkboxItems
-    });
-  },
-  bindDateChange: function (e) {
-    this.setData({
-      date: e.detail.value
-    })
-  },
-  bindTimeChange: function (e) {
-    this.setData({
-      time: e.detail.value
-    })
-  },
-  bindCountryCodeChange: function (e) {
-    console.log('picker country code 发生选择改变，携带值为', e.detail.value);
-
-    this.setData({
-      countryCodeIndex: e.detail.value
-    })
-  },
-  bindCountryChange: function (e) {
-    console.log('picker country 发生选择改变，携带值为', e.detail.value);
-
-    this.setData({
-      countryIndex: e.detail.value
-    })
-  },
-  bindAccountChange: function (e) {
-    console.log('picker account 发生选择改变，携带值为', e.detail.value);
-
-    this.setData({
-      accountIndex: e.detail.value
-    })
-  },
-  bindAgreeChange: function (e) {
-    this.setData({
-      isAgree: !!e.detail.value.length
+  /**
+   * 
+   */
+  switchChange: function (e){
+    var that = this;
+    //获取反馈结果按钮是否打开
+    var checkedValue = e.detail.value;
+    that.setData({
+      showContactInput: checkedValue
     });
   }
 });
