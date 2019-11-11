@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="page">
+<view class="page index-backgroud">
     <scroll-view scroll-y="true" enable-back-to-top="true" style="height:{{usefulWindowHeight}}px">
         <view wx:if="{{hasItem}}" class="page__bd page__bd_spacing">
               <!-- 点击顶部操作栏，出现下拉菜单 -->
@@ -34,15 +34,36 @@
                       </view>
                   </block>
               </view>
-              <!-- 展示待办事项 -->
-              <view wx:if="{{todoList}}" class="content-todo">
+              <!-- 置顶事项 -->
+              <view wx:if="{{todoList}}" class="content-top">
                 <block id="todolist" wx:for="{{todoList}}">
-                  <view class="card">
+                  <view class="card"  wx:if="{{item.top}}">
                     <view class="weui-cells">
                       <view class="weui-cell">
                         <!-- 删除 -->
                         <view class="weui-cell__hd">
-                          <image src="/images/del.png" style="width:100rpx;height:100rpx;" bindtap="deleteItem" data-id="{{item.id}}"></image>
+                          <image src="/images/top.png" style="width:100rpx;height:100rpx;" bindtap="downItem" data-id="{{item.id}}"></image>
+                        </view>
+                        <!-- 内容 -->
+                        <view class="weui-cell__bd"><input name='editInput' data-id="{{item.id}}" data-type="todo" type="text" value="{{item.title}}" bindblur="editItem"></input></view>
+                        <!-- 标记完成 -->
+                        <view class="weui-cell__ft">
+                          <image src="/images/undo.png" style="width:100rpx;height:100rpx;" bindtap="doToDone" data-id="{{item.id}}"></image>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+              <!-- 展示待办事项 -->
+              <view wx:if="{{todoList}}" class="content-todo">
+                <block id="todolist" wx:for="{{todoList}}">
+                  <view class="card"  wx:if="{{!item.top}}">
+                    <view class="weui-cells">
+                      <view class="weui-cell">
+                        <!-- 删除 -->
+                        <view class="weui-cell__hd">
+                          <image src="/images/toTop.png" style="width:100rpx;height:100rpx;" bindtap="topItem" data-id="{{item.id}}"></image>
                         </view>
                         <!-- 内容 -->
                         <view class="weui-cell__bd"><input name='editInput' data-id="{{item.id}}" data-type="todo" type="text" value="{{item.title}}" bindblur="editItem"></input></view>
@@ -93,37 +114,11 @@
       <!-- 无待办事项时给一个默认样式 -->
       <view wx:else class="welcome_style" style="height:{{usefulWindowHeight-70}}px">     
         <view>
-          <!-- 吃豆人图片 -->
-          <!-- <image src="/images/404-1.png" class="welcome_img"></image>
-          <image src="/images/404-2.png" class="welcome_img"></image>
-          <image src="/images/404-3.png" class="welcome_img"></image>
-          <image src="/images/404-4.png" class="welcome_img"></image>
-          <image src="/images/404-5.png" class="welcome_img"></image> -->
-
-          <!-- hello样式 -->
+          
+          <!-- 欢迎样式 -->
           <view>
             <image src="/images/welcome.png" class="welcome_img"></image>
-            <!-- <image src="/images/hello-E.png" class="welcome_img"></image>
-            <image src="/images/hello-L.png" class="welcome_img"></image>
-            <image src="/images/hello-L.png" class="welcome_img"></image>
-            <image src="/images/hello-O.png" class="welcome_img"></image> -->
           </view>
-
-          <!-- <view>
-            <image src="/images/hello-H.png" class="welcome_img_two"></image>
-            <image src="/images/hello-E.png" class="welcome_img_two"></image>
-            <image src="/images/hello-L.png" class="welcome_img_two"></image>
-            <image src="/images/hello-L.png" class="welcome_img_two"></image>
-            <image src="/images/hello-O.png" class="welcome_img_two"></image>
-          </view>
-
-          <view>
-            <image src="/images/hello-H.png" class="welcome_img_three"></image>
-            <image src="/images/hello-E.png" class="welcome_img_three"></image>
-            <image src="/images/hello-L.png" class="welcome_img_three"></image>
-            <image src="/images/hello-L.png" class="welcome_img_three"></image>
-            <image src="/images/hello-O.png" class="welcome_img_three"></image>
-          </view> -->
 
           <view class="weui-footer" style="margin-top:50rpx;">
             <navigator url="/pages/guide/guide"><text class="guide">使用指南</text></navigator>

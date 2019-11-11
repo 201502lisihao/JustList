@@ -19,6 +19,11 @@
   margin-top: -10rpx;
 } */
 
+/* .index-backgroud{
+  background-image: url(http://imgsrc.baidu.com/forum/pic/item/df470c24ab18972b0462dbc7e9cd7b899e510a30.jpg);
+  background-size: 100% 100%;
+} */
+
 .user{
 
 }

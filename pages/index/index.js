@@ -190,20 +190,6 @@ Page({
   },
 
   /**
-   * 修改事项时
-   */
-  loadWithEdit: function (editValue, oldId, itemType) {
-    var that = this;
-    var collection = wx.getStorageSync('todo');
-    if (collection.length > 2) {
-      var data = JSON.parse(collection);
-      data[oldId].title = editValue;
-      that.saveData(data);
-      that.load();
-    }
-  },
-
-  /**
    * 列表伸缩
    */
   kindToggle: function (e) {
@@ -227,14 +213,14 @@ Page({
   addTodo: function(e) {
     var that = this;
     var value = e.detail.value;
-    console.log(value);
+    // console.log(value);
     if( ! value){
       that.setData({
         errorMsg: '内容不能为空'
       });
     } else {
       var data = that.loadData();
-      var todo = {"title": value, "done": false};
+      var todo = {"title": value, "done": false, top: false};
       data.push(todo);
       that.saveData(data);
       // 回车后重置输入框
@@ -289,8 +275,40 @@ Page({
     wx.setStorageSync("todo", JSON.stringify(data));
   },
 
-  
-  
+  /**
+   * topItem 置顶待办事项
+   */
+  topItem: function (event) {
+    var that = this;
+    var id = event.currentTarget.dataset.id;
+    var collection = wx.getStorageSync('todo');
+    // console.log(collection);
+    if (collection.length > 2) {
+      var data = JSON.parse(collection);
+      // console.log(data);
+      data[id].top = true;
+      that.saveData(data);
+      that.load();
+    }
+  },
+
+  /**
+   * downItem 取消置顶待办事项
+   */
+  downItem: function (event) {
+    var that = this;
+    var id = event.currentTarget.dataset.id;
+    var collection = wx.getStorageSync('todo');
+    // console.log(collection);
+    if (collection.length > 2) {
+      var data = JSON.parse(collection);
+      // console.log(data);
+      data[id].top = false;
+      that.saveData(data);
+      that.load();
+    }
+  },
+
   /**
    * deleteItem 删除待办事项
    */
@@ -304,6 +322,40 @@ Page({
   },
 
   /**
+   * 修改事项内容
+   */
+  editItem: function (event) {
+    var that = this;
+    var editValue = event.detail.value;
+    if (editValue == "") {
+      wx.showToast({
+        title: '这是一个空事项哦',
+        icon: "none",
+      })
+      return;
+    }
+    // var type = event.currentTarget.dataset.type;
+    var oldId = event.currentTarget.dataset.id;
+    that.loadWithEdit(editValue, oldId);
+    //coding
+  },
+
+  /**
+  * 修改事项时
+  */
+  loadWithEdit: function (editValue, oldId, itemType) {
+    var that = this;
+    var collection = wx.getStorageSync('todo');
+    if (collection.length > 2) {
+      var data = JSON.parse(collection);
+      data[oldId].title = editValue;
+      that.saveData(data);
+      that.load();
+    }
+  },
+
+  //todo lisihao bug: 修改事项时点击勾选完成，会异常展示
+  /**
    * doToDone 完成item
    */
   doToDone: function(event){
@@ -312,6 +364,8 @@ Page({
     var data = that.loadData();
     var todo = data.splice(id, 1)[0];
     todo.done = true;
+    // 完成时取消置顶
+    // todo.top = false;
     data.splice(id, 0, todo);
     that.saveData(data);
     that.load();
@@ -329,25 +383,6 @@ Page({
     data.splice(id, 0, todo);
     that.saveData(data);
     that.load();
-  },
-
-  /**
-   * 修改事项内容
-   */
-  editItem: function(event){
-    var that = this;
-    var editValue = event.detail.value;
-    if (editValue == ""){
-      wx.showToast({
-        title: '这是一个空事项哦',
-        icon: "none",
-      })
-      return;
-    }
-    // var type = event.currentTarget.dataset.type;
-    var oldId = event.currentTarget.dataset.id;
-    that.loadWithEdit(editValue, oldId);
-    //coding
   },
   
   // editItemFocus: function(){
