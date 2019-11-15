@@ -9,7 +9,7 @@
                           <!-- 未登录 -->
                           <view wx:if="{{!hasUserInfo && canIUse}}" id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}">
                                 <view class="weui-flex__item" style="font-size:50rpx;">{{item.name}} · {{todoCount}}</view>  
-                                <image src="/images/login.png" style="width:50rpx; height:50rpx;"></image>
+                                <image src="/images/login.png" style="width:40rpx; height:40rpx;"></image>
                                 <button class="loginButton" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>                               
                           </view>
                           <!-- 已登录 -->
@@ -113,8 +113,7 @@
       </view>
       <!-- 无待办事项时给一个默认样式 -->
       <view wx:else class="welcome_style" style="height:{{usefulWindowHeight-70}}px">     
-        <view>
-          
+        <view> 
           <!-- 欢迎样式 -->
           <view>
             <image src="/images/welcome.png" class="welcome_img"></image>

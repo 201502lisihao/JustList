@@ -41,7 +41,7 @@
                         <text class="add">A</text><text> 新增 1.0版本页面UI\n</text>
                     </view>
                     <view class="weui-article__p">
-                        <text style="color:#1296db; font-size:28rpx;">意见、建议或你期待的功能，可登录后通过点击点击头像出现的下拉菜单中的意见反馈功能告知我们，我们将第一时间处理并反馈。</text>
+                        <text style="color:#1296db; font-size:28rpx;">tip:授权登录后，点击头像，发现更多功能。</text>
                     </view>
                     
                 </view>
