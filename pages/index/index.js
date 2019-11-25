@@ -46,6 +46,13 @@ Page({
     maskHidden: false,
     imagePath: '',
     avatarUrl: '',
+    //事项详情弹窗
+    itemDetailBoxHidden:false,
+    //事项详情的默认值
+    currentItemId: null,
+    currentTitle: null,
+    currentDone: null,
+    currentTop: null,
   },
 
   onLoad: function () {
@@ -144,7 +151,6 @@ Page({
   load: function () {
     var that = this;
     var collection = wx.getStorageSync('todo');
-    // that.data.list[0].open = false;
     if (collection.length > 2) {
       var data = JSON.parse(collection);
       console.log(data);
@@ -220,7 +226,7 @@ Page({
       });
     } else {
       var data = that.loadData();
-      var todo = {"title": value, "done": false, top: false};
+      var todo = {"title": value, "done": false, "top": false};
       data.push(todo);
       that.saveData(data);
       // 回车后重置输入框
@@ -244,7 +250,7 @@ Page({
       });
     } else {
       var data = that.loadData();
-      var todo = { "title": value, "done": false };
+      var todo = { "title": value, "done": false, "top": false};
       data.push(todo);
       that.saveData(data);
       // 回车后重置输入框
@@ -321,38 +327,7 @@ Page({
     that.load();
   },
 
-  /**
-   * 修改事项内容
-   */
-  editItem: function (event) {
-    var that = this;
-    var editValue = event.detail.value;
-    if (editValue == "") {
-      wx.showToast({
-        title: '这是一个空事项哦',
-        icon: "none",
-      })
-      return;
-    }
-    // var type = event.currentTarget.dataset.type;
-    var oldId = event.currentTarget.dataset.id;
-    that.loadWithEdit(editValue, oldId);
-    //coding
-  },
-
-  /**
-  * 修改事项时
-  */
-  loadWithEdit: function (editValue, oldId, itemType) {
-    var that = this;
-    var collection = wx.getStorageSync('todo');
-    if (collection.length > 2) {
-      var data = JSON.parse(collection);
-      data[oldId].title = editValue;
-      that.saveData(data);
-      that.load();
-    }
-  },
+  
 
   //todo lisihao bug: 修改事项时点击勾选完成，会异常展示
   /**
@@ -385,11 +360,6 @@ Page({
     that.load();
   },
   
-  // editItemFocus: function(){
-  //   this.setData({
-  //     editInput: 'editInput'
-  //   });
-  // },
 
   /**
    * 隐藏已完成事项
@@ -477,17 +447,7 @@ Page({
       icon: 'loading',
       duration: 1000
     });
-    console.log(that.data.userInfo.avatarUrl);
     // todo 先下载头像到本地
-    // wx.downloadFile({
-    //   url: that.data.userInfo.avatarUrl,
-    //   success: function (res) {
-    //     that.setData({
-    //       avatarUrl: res.tempFilePath
-    //     });
-    //   }
-    // })
-    console.log(that.data.userInfo.avatarUrl);
     wx.getImageInfo({
       src: that.data.userInfo.avatarUrl,
       success: function (res){
@@ -777,6 +737,16 @@ Page({
       maskHidden:false
     });
   },
+  
+  /**
+   * 生成海报后返回首页
+   */
+  goBackToListFromDetail: function () {
+    //实质是隐藏
+    this.setData({
+      itemDetailBoxHidden: false
+    });
+  },
 
   /**
    * 换一张海报
@@ -810,6 +780,95 @@ Page({
         }
       }
     })
+  },
+
+  itemDetail: function (event){
+    var that = this;
+    var itemId = event.currentTarget.dataset.id;
+    var collection = wx.getStorageSync('todo');
+    if (collection.length > 2) {
+      var data = JSON.parse(collection);
+      // 初始化页面数据
+      console.log(data[itemId].title);
+      console.log(data[itemId].done);
+      console.log(data[itemId].top);
+      that.setData({
+        currentItemId: itemId,
+        currentTitle: data[itemId].title,
+        currentDone: data[itemId].done,
+        currentTop: data[itemId].top,
+        itemDetailBoxHidden: true
+      });
+    } else {
+      //异常处理
+    }
     
+    //取这个id的相关数据，展示在浮窗上，可供修改
+    // wx.navigateTo({
+    //   url: '/pages/itemDetail/itemDetail?itemId=' + itemId,
+    // })
+  },
+
+  /**
+   * 事项详情中的按钮
+   */
+  switchChangeTop: function (event) {
+    var that = this;
+    //获取反馈结果按钮是否打开
+    var checkedValue = event.detail.value;
+    console.log(checkedValue);
+    that.setData({
+      currentTop: checkedValue,
+    });
+  },
+
+  /**
+   * 点击完成，提交修改事项
+   */
+  changeItem: function () {
+    //获取页面元素的值，校验，提交
+    var that = this;
+    var newTitle = that.data.currentTitle;
+    var newTop = that.data.currentTop;
+    var itemId = that.data.currentItemId;
+    //先不做非空校验
+
+    //保存事项
+    that.doEditItem(newTitle, newTop, itemId);
+    that.load();
+    //隱藏彈窗
+    that.setData({
+      itemDetailBoxHidden: false
+    });
+  },
+
+  /**
+  * 执行修改事项
+  */
+  doEditItem: function (newTitle, newTop, itemId) {
+    var that = this;
+    var collection = wx.getStorageSync('todo');
+    if (collection.length > 2) {
+      var data = JSON.parse(collection);
+      data[itemId].title = newTitle;
+      data[itemId].top = newTop;
+      wx.setStorageSync("todo", JSON.stringify(data));
+    }
+  },
+
+  /**
+   * 事项详情修改时触发
+   */
+  titleInput: function (event) {
+    var that = this;
+    var editValue = event.detail.value;
+    // console.log(editValue);
+    that.setData({
+      currentTitle: editValue
+    });
+  },
+
+  doNotMove: function () {
+    return;
   }
 })

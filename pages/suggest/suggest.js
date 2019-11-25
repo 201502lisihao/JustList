@@ -41,7 +41,7 @@ Page({
           });
         }, 500);
         //跳回首页
-        wx.redirectTo({
+        wx.navigateBack({
           url: '/pages/index/index',
         });
       }

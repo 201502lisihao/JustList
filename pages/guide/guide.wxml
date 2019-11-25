@@ -15,6 +15,10 @@
                     <view class="weui-article__p">
                         <text class="artcile__title">更新日志：</text>
                     </view>
+                    <view class="weui-article__h2">2019.11.22</view>
+                    <view class="weui-article__p">
+                        <text class="update">U</text><text> 优化 事项修改调整为弹窗形式\n</text>
+                    </view>
                     <view class="weui-article__h2">2019.11.8</view>
                     <view class="weui-article__p">
                         <text class="add">A</text><text> 新增 置顶待办事项功能\n</text>
