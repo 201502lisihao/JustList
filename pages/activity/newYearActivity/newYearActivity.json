@@ -1,0 +1,8 @@
+{
+  "usingComponents": {},
+  "enablePullDownRefresh": true,
+  "navigationBarBackgroundColor": "#c21b1b",
+  "navigationBarTitleText": "Just清单许愿墙",
+  "backgroundTextStyle": "light",
+  "navigationBarTextStyle": "white"
+}

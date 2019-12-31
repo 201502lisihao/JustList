@@ -1,0 +1,87 @@
+<!-- 情景一：未登录样式 -->
+<view wx:if="{{!hasUserInfo && canIUse}}">
+  <!-- 提示登录 -->
+  <text>提示登录</text>
+</view>
+
+<!-- 情景二：已登录但无userId，历史用户 -->
+<view wx:elif="{{!hasUserId}}">
+  <!-- 展示退出 -->
+  <!-- 然后刷新页面到登录 -->
+  <text>提示退出，然后刷新页面到登录</text>
+</view>
+
+<!-- 情景三：已登录且有userId -->
+<view wx:else>
+  <!-- 顶部图片 -->
+  <image src="{{img}}" class='bgImg'></image>
+  <!-- <text class='mine'>我的邀请码</text>
+  <text class='code'>{{code}}</text> -->
+  <!-- <text class='who'>谁邀请你一起吃面?</text> -->
+
+  <!-- 许愿框 -->
+  <view class='inputBox'>
+    <input placeholder='立下你的新年Flag' class='input' bindinput='bindKeyInput'/>
+    <button bindtap='addTodo' class='btn'>完成</button>
+  </view>
+  <!-- <text class='tishi'>朋友和你各自获得通用抽奖券1张</text> -->
+
+  <!-- 一个宣传位，点击生成海报 -->
+  <view>
+    <button class='btn1' bindtap='createPoster'>
+      <image class='btnImg' src='/images/pengyouquan.png'></image>
+      <view>邀请好友助力</view>
+    </button>
+  </view>
+  <!-- <view class='imgBox'>
+    <button open-type="share" class='zfbtn'><image src="{{wechat}}" class='img'></image></button>
+    <button class='zfbtn m_l' bindtap='createPoster'><image src="{{quan}}" class='img'></image></button>
+  </view> -->
+
+  <!-- 我的奖券 -->
+  <!-- 订单列表展示 -->
+  <view wx:if="{{hasRaffleTicket}}">
+    <text class='tishi'>我的抽奖券</text>
+    <view class="container">
+      <block wx:for="{{raffleTicketList}}" wx:key="id">
+        <view class="card">
+          <view class="weui-cells">
+            <view class="weui-cell">
+              <view class="weui-cell__bd">获取方式：{{item.channel}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd" style="color:#000;font-size:36rpx;">兑奖码：{{item.ticket_code}}</view>
+              <view class="weui-cell__ft"><button class="detailButton" hover-class="detailButton-hover" size="mini" bindtap="orderDetail" data-id="{{item.id}}">开奖</button></view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 活动介绍 -->
+  <text class='tishi'>活动介绍</text>
+  <view class="activityInfoBox">
+    <view class="activityInfo">
+      <text class='rule'>1.首次立下新年Flag后，可获得一张抽奖券，限每个用户参与一次。</text>
+      <text class='rule'>2.生成新年Flag海报后，可邀请好友助力，自己和好友均可额外获得一张抽奖券。</text>
+      <text class='rule'>3.到截止日期后，将从活动产生的奖券中随机抽取1位小朋友送出200元压岁钱，中奖结果将通过微信推送给所有参与者。</text>
+      <text class='rule'>4.活动时间：2020.01.23-2020.02.01。</text>
+      <text class='rule'>5.如发现有恶意刷券行为，Just清单有权不发放或撤回发放的奖品。</text>
+      <text class='rule'>6.此活动最终解释权归Just清单所有。</text>
+    </view>
+  </view>
+
+  <!--生成海报  -->
+  <view>
+    <view class='imagePathBox' hidden="{{maskHidden == false}}" catchtouchmove = "doNotMove">
+        <image src="{{imagePath}}" class='shengcheng' style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;"></image>
+        <view class="posterButton">
+          <button class='baocun' bindtap='goBackToList'>取消</button>
+          <button class='baocun' bindtap='saveToAlbum' style="background-color: #c21b1b;">保存相册</button>
+        </view>
+    </view>
+    <view class="canvas-box">
+        <canvas  style="width: 900px;height: 1043px;position:fixed;top:9999px" canvas-id="mycanvas"/>
+    </view>
+  </view>
+</view>

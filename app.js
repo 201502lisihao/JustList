@@ -45,7 +45,7 @@ App({
                 //设置用户缓存
                 try {
                   wx.setStorageSync('utoken', res.data.utoken);
-                  // wx.setStorageSync('userId', res.data.user_id);
+                  wx.setStorageSync('userId', res.data.user_id);
                 } catch (e) {
                   console.log(e);
                 }

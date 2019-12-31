@@ -88,7 +88,7 @@
                           <image wx:else src="/images/hide.png" style="width:100rpx;height:100rpx;" bindtap="showDoneList"></image>
                         </view>
                         <view class="weui-cell__bd">
-                          <text>完成 · {{doneCount}}</text>
+                          <text>已完成 · {{doneCount}}</text>
                         </view>
                   </view>
                 </view>
@@ -119,7 +119,7 @@
         <view> 
           <!-- 欢迎样式 -->
           <view>
-            <image src="/images/welcome.png" class="welcome_img"></image>
+            <image src="/images/welcome.png" class="welcome_img" bindtap="welcomeImg"></image>
           </view>
 
           <view class="weui-footer" style="margin-top:50rpx;">
@@ -159,12 +159,13 @@
   </view>
 </view>
 
+<!-- 事项详情弹窗 -->
 <view>
   <view class='itemDetailBox' hidden="{{itemDetailBoxHidden == false}}" catchtouchmove = "doNotMove">
     <view class="itemDetailBox-body">
       <view class="weui-cells">
               <view class="weui-cell weui-cell-detail">
-                  <textarea style="height:180rpx;background-color:#fff;margin-top:6rpx;" maxlength="50" type="text" value="{{currentTitle}}" bindinput="titleInput" placeholder="+待办事项.."></textarea>
+                  <textarea style="padding:20rpx;height:180rpx;background-color:#fff;margin-top:6rpx;" maxlength="50" type="text" value="{{currentTitle}}" bindinput="titleInput" placeholder="+待办事项.."></textarea>
               </view>
       </view>
       <view class="weui-cells">

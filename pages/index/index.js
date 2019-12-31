@@ -39,6 +39,11 @@ Page({
             src: '/images/logout.png',
             bindtap: 'logout'
           },
+          // {
+          //   name: '新年活动',
+          //   src: '/images/hongbao.png',
+          //   bindtap: 'welcomeImg'
+          // }
         ]
       }
     ],
@@ -400,7 +405,7 @@ Page({
       success: function (res) {
         console.log(res);
         if (res.confirm) {
-          that.clearAll();
+          that.clearAllTodoList();
         } else {
           //console.log('用户点击辅助操作')
         }
@@ -409,10 +414,11 @@ Page({
   },
 
   /**
-   * clearAll 清除所有缓存
+   * clearAllTodoList 清除所有缓存
    */
-  clearAll: function(){
-    wx.clearStorageSync();
+  clearAllTodoList: function(){
+    //
+    wx.removeStorageSync('todo');
     this.load();
   },
 
@@ -870,5 +876,18 @@ Page({
 
   doNotMove: function () {
     return;
+  },
+
+  welcomeImg: function () {
+    wx.showToast({
+      title: '小主别着急，11月22号后点我免费抽奖！',
+      icon: 'none'
+    })
+    // wx.navigateTo({
+    //   url: '/pages/activity/newYearActivity/newYearActivity',
+    //   success: function(res) {},
+    //   fail: function(res) {},
+    //   complete: function(res) {},
+    // })
   }
 })

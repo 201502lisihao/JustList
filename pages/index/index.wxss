@@ -212,7 +212,7 @@
 
 .welcome_img{
   width: 600rpx;
-  height: 210rpx;
+  height: 256rpx;
 }
 
 /* .welcome_img_two{
@@ -355,7 +355,7 @@ button[class="baocun"]::after{
   border-radius: 32rpx;
   margin-top: 300rpx;
   width: 600rpx;
-  height: 520rpx;
+  height: 560rpx;
   background-color: #F8F8F8;
 }
 

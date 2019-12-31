@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/guide/guide",
-    "pages/suggest/suggest"
+    "pages/suggest/suggest",
+    "pages/activity/newYearActivity/newYearActivity"
   ],
   "window": {
     "backgroundTextStyle": "light",
