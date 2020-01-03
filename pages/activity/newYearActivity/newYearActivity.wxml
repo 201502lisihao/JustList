@@ -1,14 +1,9 @@
-<!-- 情景一：未登录样式 -->
-<view wx:if="{{!hasUserInfo && canIUse}}">
-  <!-- 提示登录 -->
-  <text>提示登录</text>
-</view>
-
 <!-- 情景二：已登录但无userId，历史用户 -->
-<view wx:elif="{{!hasUserId}}">
+<view wx:if="{{!hasUserId}}">
   <!-- 展示退出 -->
   <!-- 然后刷新页面到登录 -->
-  <text>提示退出，然后刷新页面到登录</text>
+  <text>提示登录</text>
+  <button class="loginButton" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>
 </view>
 
 <!-- 情景三：已登录且有userId -->

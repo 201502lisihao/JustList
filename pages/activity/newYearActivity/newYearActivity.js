@@ -53,7 +53,7 @@ Page({
       })
     }
 
-    //检查是否有userId
+    //检查是否有userId，没有userId的话，清除登录相关信息，前端页面重新登录
     this.checkHasUserId();
 
     //获取用户已有奖券
@@ -71,17 +71,22 @@ Page({
 
   //检验登录，未登录的话提示登录
   getUserInfo: function (e) {
+    var that = this;
     wx.showLoading({
       title: '正在登录',
     })
     // console.log(e)
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
     //访问服务器保存用户信息并缓存在本地
     app.loginUser();
+    that.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true,
+      hasUserId: true,
+    });
     wx.hideLoading();
+    setTimeout(function (){
+      that.onLoad();
+    }, 1000);
   },
 
   bindKeyInput: function (e) {
@@ -471,6 +476,11 @@ Page({
     var bool = false;
     if(wx.getStorageSync('userId')){
       bool = true;
+    }else{
+      //从缓存中清除用户信息，兼容历史用户无userId的问题
+      wx.removeStorageSync('userInfo');
+      wx.removeStorageSync('utoken');
+      wx.removeStorageSync('userId');
     }
     that.setData({
       hasUserId: bool,

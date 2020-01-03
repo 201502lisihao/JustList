@@ -97,6 +97,18 @@ Page({
     that.pageInit();
     //事项数据初始化
     that.load();
+    console.log('aaaaaaaaaaaaaaaaa');
+    console.log(wx.getStorageSync('userInfo'));
+    console.log(wx.getStorageSync('utoken'));
+    console.log(wx.getStorageSync('userId'));
+  },
+
+  /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+  onPullDownRefresh: function () {
+    this.onLoad();
+    wx.stopPullDownRefresh();
   },
 
   getUserInfo: function(e) {
@@ -776,6 +788,7 @@ Page({
         if (res.confirm) {
           wx.removeStorageSync('userInfo');
           wx.removeStorageSync('utoken');
+          wx.removeStorageSync('userId');
           that.setData({
             hasUserInfo: false,
             userInfo: {},
@@ -880,7 +893,7 @@ Page({
 
   welcomeImg: function () {
     wx.showToast({
-      title: '小主别着急，11月22号后点我免费抽奖！',
+      title: '小主别着急，1月22号后点我免费抽奖！',
       icon: 'none'
     })
     // wx.navigateTo({
