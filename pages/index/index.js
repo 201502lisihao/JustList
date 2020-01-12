@@ -39,11 +39,11 @@ Page({
             src: '/images/logout.png',
             bindtap: 'logout'
           },
-          // {
-          //   name: '新年活动',
-          //   src: '/images/hongbao.png',
-          //   bindtap: 'welcomeImg'
-          // }
+          {
+            name: '新年活动',
+            src: '/images/hongbao.png',
+            bindtap: 'welcomeImg'
+          }
         ]
       }
     ],
@@ -62,10 +62,12 @@ Page({
 
   onLoad: function () {
     var that = this;
+
     //当前页面展示分享
     wx.showShareMenu({
       withShareTicket: true
     })
+
     if(wx.getStorageSync('userInfo')){
       that.setData({
         userInfo: wx.getStorageSync('userInfo'),
@@ -97,10 +99,6 @@ Page({
     that.pageInit();
     //事项数据初始化
     that.load();
-    console.log('aaaaaaaaaaaaaaaaa');
-    console.log(wx.getStorageSync('userInfo'));
-    console.log(wx.getStorageSync('utoken'));
-    console.log(wx.getStorageSync('userId'));
   },
 
   /**
@@ -892,15 +890,15 @@ Page({
   },
 
   welcomeImg: function () {
-    wx.showToast({
-      title: '小主别着急，1月22号后点我免费抽奖！',
-      icon: 'none'
-    })
-    // wx.navigateTo({
-    //   url: '/pages/activity/newYearActivity/newYearActivity',
-    //   success: function(res) {},
-    //   fail: function(res) {},
-    //   complete: function(res) {},
+    // wx.showToast({
+    //   title: '小主别着急，1月22号后点我免费抽奖！',
+    //   icon: 'none'
     // })
+    wx.navigateTo({
+      url: '/pages/activity/newYearActivity/newYearActivity',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   }
 })

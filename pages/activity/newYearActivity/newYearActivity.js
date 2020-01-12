@@ -18,14 +18,25 @@ Page({
     inputValue: "",
     hasRaffleTicket: false,
     raffleTicketList: [],
+    aqrCodeLocalPath: ""
   },
 
-  onLoad: function () {
+  onLoad: function (options) {
     var that = this;
+    //好友助力逻辑 感觉应该放在后面 或者引导进入一个新页面
+    // if (options.scene) {
+    //   let scene = decodeURIComponent(options.scene);
+    //   //&是我们定义的参数链接方式
+    //   let userId = scene.split("&")[0];
+    //   let recommendId = scene.split('&')[1];
+    //   //其他逻辑处理。。。。。
+    // }
+
     //当前页面展示分享
     wx.showShareMenu({
       withShareTicket: true
     });
+
     if (wx.getStorageSync('userInfo')) {
       that.setData({
         userInfo: wx.getStorageSync('userInfo'),
@@ -108,7 +119,70 @@ Page({
       icon: 'loading',
       duration: 1000
     });
-    // todo 先下载头像到本地
+    
+    //校验是否有带参数二维码缓存
+    var aqrCodePath = app.getCache('my_aqr_code_path');
+    if(aqrCodePath){ 
+      console.log('生成活动二维码命中缓存');
+    } else {
+      //从服务器获取access_token
+      wx.request({
+        url: 'https://www.qianzhuli.top/just/getaccesstoken',
+        success: function (res) {
+          console.log(res);
+          if (res.data.access_token) {
+            //从服务器获取二维码url
+            wx.request({
+              url: 'https://www.qianzhuli.top/just/getaqrcodepath',
+              data: {
+                scene: '999',
+                page: "pages/activity/newYearActivity/newYearActivity",
+                access_token: res.data.access_token
+              },
+              method: "POST",
+              success: function (res) {
+                console.log('服务器生成二维码接口返回:')
+                console.log(res);
+
+                if (res.data.url != 'undefined' || res.data.url != null) {
+                  //放入缓存，过期时间1天
+                  app.setCache('my_aqr_code_path', res.data.url, 86400);
+                  aqrCodePath = res.data.url;
+                } else {
+                  console.log('二维码url为空,msg='+res.data.errmsg);
+                }
+              }
+            })
+          } else {
+            console.log('getaccesstoken未返回token');
+          }
+        },
+        fail: function (res) {
+          console.log('调用服务器获取access_token失败');
+        }
+      });
+    }
+
+    //下载带参数二维码到本地，供生成海报时使用
+    if(aqrCodePath){
+      wx.getImageInfo({
+        src: aqrCodePath,
+        success: function (res) {
+          that.setData({
+            aqrCodeLocalPath: res.path
+          });
+        }
+      });
+    } else {
+      //todo 获取分享码失败，提示用户失败
+      wx.showToast({
+        title: '服务繁忙，请小主稍后再试',
+        icon: 'none'
+      });
+      return;
+    }
+    
+    //下载头像
     // wx.getImageInfo({
     //   src: that.data.userInfo.avatarUrl,
     //   success: function (res) {
@@ -118,14 +192,14 @@ Page({
     //   }
     // });
 
-    //延时，等待图片下载
+    //延时，等待图片下载完成
     setTimeout(function () {
       that.doCreateNewPoster();
       wx.hideToast()
       that.setData({
         maskHidden: true
       });
-    }, 1000);
+    }, 1500);
   },
 
   /**
@@ -136,170 +210,17 @@ Page({
     var context = wx.createCanvasContext('mycanvas');
     var path = "/images/newYearPoster.png";
     //绘制背景
-    context.drawImage(path, 0, 0, 900, 1043);
-    //绘制日期-天
-    // var date = new Date();
-    // var word = date.getDate();
-    // if (word >= 10) {
-    //   context.setFontSize(68);
-    //   context.setFillStyle('#fff');
-    //   //绘制两遍，加粗
-    //   context.fillText(word, 42, 143);
-    //   context.fillText(word, 41, 144);
-    // } else {
-    //   //一位数的天数，补0
-    //   context.setFontSize(68);
-    //   context.setFillStyle('#fff');
-    //   //绘制两遍，加粗
-    //   context.fillText(0, 42, 143);
-    //   context.fillText(0, 41, 144);
-    //   context.fillText(word, 85, 143);
-    //   context.fillText(word, 84, 144);
-    // }
-    // //绘制日期-月
-    // var word = date.toDateString().split(" ")[1];
-    // context.setFontSize(48);
-    // context.setFillStyle('#fff');
-    // context.fillText(word, 142, 144);
+    context.drawImage(path, 0, 0, 500, 631);
 
+    //绘制用户名
+    var userName = '@' + that.data.userInfo.nickName;
+    context.setFontSize(20);
+    context.setFillStyle('#000000');
+    context.fillText(userName, 20, 611);
 
-    // //绘制名人名言，随机数决定展示啥
-    // var wordOne = "";
-    // var wordTwo = "";
-    // var wordThree = "";
-    // var randNumber = parseInt(Math.random() * 19, 10) + 1;
-    // switch (randNumber) {
-    //   case 1:
-    //     wordOne = '世界上最快乐的事，';
-    //     wordTwo = '莫过于为理想而奋斗。';
-    //     break;
-    //   case 2:
-    //     wordOne = '希望你也能成为，';
-    //     wordTwo = '你望着的那颗星。';
-    //     break;
-    //   case 3:
-    //     wordOne = '做想做的事，见想见的人，';
-    //     wordTwo = '不要考虑结果如何，奔跑便是了。';
-    //     break;
-    //   case 4:
-    //     wordOne = '梦想是一场华美的旅途，';
-    //     wordTwo = '每个人在找到它之前，都只是孤独的少年。';
-    //     break;
-    //   case 5:
-    //     wordOne = '昨天的你确实很了不起，';
-    //     wordTwo = '今天的你做了什么呢？';
-    //     break;
-    //   case 6:
-    //     wordOne = '生活在阴沟里，';
-    //     wordTwo = '依然有仰望星空的权利。';
-    //     wordThree = '——王尔德'
-    //     break;
-    //   case 7:
-    //     wordOne = '生活最佳状态是冷冷清清地风风火火。';
-    //     wordTwo = '——木心';
-    //     break;
-    //   case 8:
-    //     wordOne = '所有你乐于挥霍的时间都不能算作浪费。';
-    //     wordTwo = '——约翰·列侬';
-    //     break;
-    //   case 9:
-    //     wordOne = '每一个不曾起舞的日子，';
-    //     wordTwo = '都是对生命的辜负。'
-    //     wordThree = '——尼采';
-    //     break;
-    //   case 10:
-    //     wordOne = '你千万不要见怪，';
-    //     wordTwo = '城市是一个几百万人一起孤独生活的地方。'
-    //     wordThree = '——梭罗';
-    //     break;
-    //   case 11:
-    //     wordOne = '我用尽了全力，过着平凡的一生。';
-    //     wordTwo = '——《月亮与六便士》'
-    //     break;
-    //   case 12:
-    //     wordOne = '剑未佩妥，出门已是江湖。';
-    //     wordTwo = '——痞子蔡'
-    //     break;
-    //   case 13:
-    //     wordOne = '我见青山多妩媚，料青山见我应如是。';
-    //     wordTwo = '——辛弃疾《贺新郎》'
-    //     break;
-    //   case 14:
-    //     wordOne = '我当然不会试图摘月，我要月亮奔我而来。';
-    //     wordTwo = '——奥黛丽·赫本'
-    //     break;
-    //   case 15:
-    //     wordOne = '笨蛋才思考，聪明人用灵感，';
-    //     wordTwo = '我们大多时间都是笨蛋，偶尔才成为聪明人。'
-    //     wordThree = '——斯坦利·库布里克';
-    //     break;
-    //   case 16:
-    //     wordOne = '人们在讨论“有朝一日”的时候，';
-    //     wordTwo = '其真正意思就是“永不”。'
-    //     wordThree = '——迈克尔·克莱顿《西部世界》';
-    //     break;
-    //   case 17:
-    //     wordOne = '三月桃花，两人一马，明日天涯。';
-    //     wordTwo = '——七堇年'
-    //     break;
-    //   case 18:
-    //     wordOne = '我知道在这个世界上我无处容身，';
-    //     wordTwo = '只是，你凭什么审判我的灵魂?';
-    //     wordThree = '——加缪《局外人》';
-    //     break;
-    //   case 19:
-    //     wordOne = '记住一个道理，只有自己变优秀了，';
-    //     wordTwo = '其他事情才会跟着好起来';
-    //     break;
-    // }
-    // //绘制名言，第一行和第二行
-    // context.setFontSize(34);
-    // context.setFillStyle('#fff');
-    // context.fillText(wordOne, 42, 224);
-    // context.fillText(wordTwo, 42, 290);
-    // if (wordThree != "") {
-    //   context.fillText(wordThree, 42, 356);
-    // }
-
-
-    // //绘制今日完成前缀
-    // //todo lisihao 获取新年愿望
-    // var word = that.data.inputValue;
-    // context.setFontSize(35);
-    // context.setFillStyle('#fff');
-    // context.fillText(word, 140, 1115);
-
-    //绘制今日完成数
-    //获取完成事项数目
-    //判断位数是1位还是2位
-    //根据位数绘制完成数和后缀
-    // var word = that.data.doneCount;
-    // context.setFontSize(59);
-    // context.setFillStyle('#fff');
-    // context.fillText(word, 303, 1115);
-    // context.fillText(word, 302, 1115);
-    // if (word < 10) {
-    //   var word = '个小目标';
-    //   context.setFontSize(35);
-    //   context.setFillStyle('#fff');
-    //   context.fillText(word, 358, 1115);
-    // } else {
-    //   //绘制今日完成后缀
-    //   var word = '个小目标';
-    //   context.setFontSize(35);
-    //   context.setFillStyle('#fff');
-    //   context.fillText(word, 388, 1115);
-    // }
-
-    //绘制底部广告语
-    // var word = '即刻开启自己的Just清单，扫码get';
-    // context.setFontSize(30);
-    // context.setFillStyle('#08ac57');
-    // context.fillText(word, 42, 1182);
-
-    //绘制头像
-    // var path1 = that.data.avatarUrl;
-    // context.drawImage(path1, 42, 1060, 75, 75); // 在刚刚裁剪的园上画图
+    //绘制个人邀请二维码
+    var aqrCodeLocalPath = that.data.aqrCodeLocalPath;
+    context.drawImage(aqrCodeLocalPath, 155, 375, 200, 200);
 
     // 最终绘制
     context.draw();
@@ -307,8 +228,8 @@ Page({
     setTimeout(function () {
       wx.canvasToTempFilePath({
         canvasId: 'mycanvas',
-        destWidth: 900,
-        destHeight: 1043,
+        destWidth: 500,
+        destHeight: 631,
         fileType: 'jpg',
         quality: 1,
         success: function (res) {
@@ -318,7 +239,7 @@ Page({
           var systemInfo = wx.getSystemInfoSync();
           var canvasWidth = systemInfo.windowWidth * 0.8;
           // var canvasHeight = canvasWidth / (375 / 614);
-          var canvasHeight = canvasWidth / (900 / 1043);
+          var canvasHeight = canvasWidth / (500 / 631);
           console.log('宽：' + canvasWidth + ' 高：' + canvasHeight);
 
           that.setData({
@@ -473,18 +394,16 @@ Page({
    */
   checkHasUserId: function (){
     var that = this;
-    var bool = false;
     if(wx.getStorageSync('userId')){
-      bool = true;
+      that.setData({
+        hasUserId: true,
+      });
     }else{
       //从缓存中清除用户信息，兼容历史用户无userId的问题
       wx.removeStorageSync('userInfo');
       wx.removeStorageSync('utoken');
       wx.removeStorageSync('userId');
     }
-    that.setData({
-      hasUserId: bool,
-    });
   },
 
   /**

@@ -1,4 +1,4 @@
-<!-- 情景二：已登录但无userId，历史用户 -->
+<!-- 情景一：已登录但无userId，历史用户 -->
 <view wx:if="{{!hasUserId}}">
   <!-- 展示退出 -->
   <!-- 然后刷新页面到登录 -->
@@ -6,13 +6,10 @@
   <button class="loginButton" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>
 </view>
 
-<!-- 情景三：已登录且有userId -->
+<!-- 情景二：已登录且有userId -->
 <view wx:else>
   <!-- 顶部图片 -->
   <image src="{{img}}" class='bgImg'></image>
-  <!-- <text class='mine'>我的邀请码</text>
-  <text class='code'>{{code}}</text> -->
-  <!-- <text class='who'>谁邀请你一起吃面?</text> -->
 
   <!-- 许愿框 -->
   <view class='inputBox'>
@@ -76,7 +73,7 @@
         </view>
     </view>
     <view class="canvas-box">
-        <canvas  style="width: 900px;height: 1043px;position:fixed;top:9999px" canvas-id="mycanvas"/>
+        <canvas  style="width: 500px;height: 631px;position:fixed;top:9999px" canvas-id="mycanvas"/>
     </view>
   </view>
 </view>
