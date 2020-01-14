@@ -24,11 +24,12 @@ Page({
             src: '/images/delAll.png',
             bindtap: 'openConfirm'
           },
-          {
-            name: '生成海报',
-            src: '/images/pengyouquan.png',
-            bindtap: 'createPoster'
-          },
+          // 暂时下掉
+          // {
+          //   name: '生成海报',
+          //   src: '/images/pengyouquan.png',
+          //   bindtap: 'createPoster'
+          // },
           {
             name: '意见反馈',
             src: '/images/suggest.png',
@@ -453,309 +454,309 @@ Page({
   /**
    * 触发生成海报
    */
-  createPoster: function (){
-    var that = this;
-    that.setData({
-      maskHidden: false
-    });
-    wx.showToast({
-      title: '海报生成中...',
-      icon: 'loading',
-      duration: 1000
-    });
-    // todo 先下载头像到本地
-    wx.getImageInfo({
-      src: that.data.userInfo.avatarUrl,
-      success: function (res){
-        that.setData({
-          avatarUrl: res.path
-        });
-      }
-    });
-    setTimeout(function () {
-      that.doCreateNewPoster();
-      wx.hideToast()
-      that.setData({
-        maskHidden: true
-      });
-    }, 1000);
-  },
+  // createPoster: function (){
+  //   var that = this;
+  //   that.setData({
+  //     maskHidden: false
+  //   });
+  //   wx.showToast({
+  //     title: '海报生成中...',
+  //     icon: 'loading',
+  //     duration: 1000
+  //   });
+  //   // todo 先下载头像到本地
+  //   wx.getImageInfo({
+  //     src: that.data.userInfo.avatarUrl,
+  //     success: function (res){
+  //       that.setData({
+  //         avatarUrl: res.path
+  //       });
+  //     }
+  //   });
+  //   setTimeout(function () {
+  //     that.doCreateNewPoster();
+  //     wx.hideToast()
+  //     that.setData({
+  //       maskHidden: true
+  //     });
+  //   }, 1000);
+  // },
 
   /**
    * 执行生成海报
    */
-  doCreateNewPoster: function () {
-    var that = this;
-    var context = wx.createCanvasContext('mycanvas');   
-    var path = "/images/poster/posterOne.png";
-    var randNumber = parseInt(Math.random() * 5, 10) + 1;
-    switch (randNumber){
-      case 1:
-        path = "/images/poster/posterOne.png";
-        break;
-      case 2:
-        path = "/images/poster/posterTwo.png";
-        break;
-      case 3:
-        path = "/images/poster/posterThree.png";
-        break;
-      case 4:
-        path = "/images/poster/posterFour.png";
-        break;
-      case 5:
-        path = "/images/poster/posterFive.png";
-        break;
-    }
-    //绘制背景
-    context.drawImage(path, 0, 0, 750, 1228);
-    //绘制日期-天
-    var date = new Date();
-    var word = date.getDate();
-    if(word >= 10){
-      context.setFontSize(68);
-      context.setFillStyle('#fff');
-      //绘制两遍，加粗
-      context.fillText(word, 42, 143);
-      context.fillText(word, 41, 144);
-    } else {
-      //一位数的天数，补0
-      context.setFontSize(68);
-      context.setFillStyle('#fff');
-      //绘制两遍，加粗
-      context.fillText(0, 42, 143);
-      context.fillText(0, 41, 144);
-      context.fillText(word, 85, 143);
-      context.fillText(word, 84, 144);
-    }
-    //绘制日期-月
-    var word = date.toDateString().split(" ")[1];
-    context.setFontSize(48);
-    context.setFillStyle('#fff');
-    context.fillText(word, 142, 144);
+  // doCreateNewPoster: function () {
+  //   var that = this;
+  //   var context = wx.createCanvasContext('mycanvas');   
+  //   var path = "/images/poster/posterOne.png";
+  //   var randNumber = parseInt(Math.random() * 5, 10) + 1;
+  //   switch (randNumber){
+  //     case 1:
+  //       path = "/images/poster/posterOne.png";
+  //       break;
+  //     case 2:
+  //       path = "/images/poster/posterTwo.png";
+  //       break;
+  //     case 3:
+  //       path = "/images/poster/posterThree.png";
+  //       break;
+  //     case 4:
+  //       path = "/images/poster/posterFour.png";
+  //       break;
+  //     case 5:
+  //       path = "/images/poster/posterFive.png";
+  //       break;
+  //   }
+  //   //绘制背景
+  //   context.drawImage(path, 0, 0, 750, 1228);
+  //   //绘制日期-天
+  //   var date = new Date();
+  //   var word = date.getDate();
+  //   if(word >= 10){
+  //     context.setFontSize(68);
+  //     context.setFillStyle('#fff');
+  //     //绘制两遍，加粗
+  //     context.fillText(word, 42, 143);
+  //     context.fillText(word, 41, 144);
+  //   } else {
+  //     //一位数的天数，补0
+  //     context.setFontSize(68);
+  //     context.setFillStyle('#fff');
+  //     //绘制两遍，加粗
+  //     context.fillText(0, 42, 143);
+  //     context.fillText(0, 41, 144);
+  //     context.fillText(word, 85, 143);
+  //     context.fillText(word, 84, 144);
+  //   }
+  //   //绘制日期-月
+  //   var word = date.toDateString().split(" ")[1];
+  //   context.setFontSize(48);
+  //   context.setFillStyle('#fff');
+  //   context.fillText(word, 142, 144);
     
     
-    //绘制名人名言，随机数决定展示啥
-    var wordOne = "";
-    var wordTwo = "";
-    var wordThree = "";
-    var randNumber = parseInt(Math.random() * 19, 10) + 1;
-    switch (randNumber) {
-      case 1:
-        wordOne = '世界上最快乐的事，';
-        wordTwo = '莫过于为理想而奋斗。';
-        break;
-      case 2:
-        wordOne = '希望你也能成为，';
-        wordTwo = '你望着的那颗星。';
-        break;
-      case 3:
-        wordOne = '做想做的事，见想见的人，';
-        wordTwo = '不要考虑结果如何，奔跑便是了。';
-        break;
-      case 4:
-        wordOne = '梦想是一场华美的旅途，';
-        wordTwo = '每个人在找到它之前，都只是孤独的少年。';
-        break;
-      case 5:
-        wordOne = '昨天的你确实很了不起，';
-        wordTwo = '今天的你做了什么呢？';
-        break;
-      case 6:
-        wordOne = '生活在阴沟里，';
-        wordTwo = '依然有仰望星空的权利。';
-        wordThree = '——王尔德'
-        break;
-      case 7:
-        wordOne = '生活最佳状态是冷冷清清地风风火火。';
-        wordTwo = '——木心';
-        break;
-      case 8:
-        wordOne = '所有你乐于挥霍的时间都不能算作浪费。';
-        wordTwo = '——约翰·列侬';
-        break;
-      case 9:
-        wordOne = '每一个不曾起舞的日子，';
-        wordTwo = '都是对生命的辜负。'
-        wordThree = '——尼采';
-        break;
-      case 10:
-        wordOne = '你千万不要见怪，';
-        wordTwo = '城市是一个几百万人一起孤独生活的地方。'
-        wordThree = '——梭罗';
-        break;
-      case 11:
-        wordOne = '我用尽了全力，过着平凡的一生。';
-        wordTwo = '——《月亮与六便士》'
-        break;
-      case 12:
-        wordOne = '剑未佩妥，出门已是江湖。';
-        wordTwo = '——痞子蔡'
-        break;
-      case 13:
-        wordOne = '我见青山多妩媚，料青山见我应如是。';
-        wordTwo = '——辛弃疾《贺新郎》'
-        break;
-      case 14:
-        wordOne = '我当然不会试图摘月，我要月亮奔我而来。';
-        wordTwo = '——奥黛丽·赫本'
-        break;
-      case 15:
-        wordOne = '笨蛋才思考，聪明人用灵感，';
-        wordTwo = '我们大多时间都是笨蛋，偶尔才成为聪明人。'
-        wordThree = '——斯坦利·库布里克';
-        break;
-      case 16:
-        wordOne = '人们在讨论“有朝一日”的时候，';
-        wordTwo = '其真正意思就是“永不”。'
-        wordThree = '——迈克尔·克莱顿《西部世界》';
-        break;
-      case 17:
-        wordOne = '三月桃花，两人一马，明日天涯。';
-        wordTwo = '——七堇年'
-        break;
-      case 18:
-        wordOne = '我知道在这个世界上我无处容身，';
-        wordTwo = '只是，你凭什么审判我的灵魂?';
-        wordThree = '——加缪《局外人》';
-        break;
-      case 19:
-        wordOne = '记住一个道理，只有自己变优秀了，';
-        wordTwo = '其他事情才会跟着好起来';
-        break;
-    }
-    //绘制名言，第一行和第二行
-    context.setFontSize(34);
-    context.setFillStyle('#fff');
-    context.fillText(wordOne, 42, 224);
-    context.fillText(wordTwo, 42, 290);
-    if (wordThree != ""){
-      context.fillText(wordThree, 42, 356);
-    }
+  //   //绘制名人名言，随机数决定展示啥
+  //   var wordOne = "";
+  //   var wordTwo = "";
+  //   var wordThree = "";
+  //   var randNumber = parseInt(Math.random() * 19, 10) + 1;
+  //   switch (randNumber) {
+  //     case 1:
+  //       wordOne = '世界上最快乐的事，';
+  //       wordTwo = '莫过于为理想而奋斗。';
+  //       break;
+  //     case 2:
+  //       wordOne = '希望你也能成为，';
+  //       wordTwo = '你望着的那颗星。';
+  //       break;
+  //     case 3:
+  //       wordOne = '做想做的事，见想见的人，';
+  //       wordTwo = '不要考虑结果如何，奔跑便是了。';
+  //       break;
+  //     case 4:
+  //       wordOne = '梦想是一场华美的旅途，';
+  //       wordTwo = '每个人在找到它之前，都只是孤独的少年。';
+  //       break;
+  //     case 5:
+  //       wordOne = '昨天的你确实很了不起，';
+  //       wordTwo = '今天的你做了什么呢？';
+  //       break;
+  //     case 6:
+  //       wordOne = '生活在阴沟里，';
+  //       wordTwo = '依然有仰望星空的权利。';
+  //       wordThree = '——王尔德'
+  //       break;
+  //     case 7:
+  //       wordOne = '生活最佳状态是冷冷清清地风风火火。';
+  //       wordTwo = '——木心';
+  //       break;
+  //     case 8:
+  //       wordOne = '所有你乐于挥霍的时间都不能算作浪费。';
+  //       wordTwo = '——约翰·列侬';
+  //       break;
+  //     case 9:
+  //       wordOne = '每一个不曾起舞的日子，';
+  //       wordTwo = '都是对生命的辜负。'
+  //       wordThree = '——尼采';
+  //       break;
+  //     case 10:
+  //       wordOne = '你千万不要见怪，';
+  //       wordTwo = '城市是一个几百万人一起孤独生活的地方。'
+  //       wordThree = '——梭罗';
+  //       break;
+  //     case 11:
+  //       wordOne = '我用尽了全力，过着平凡的一生。';
+  //       wordTwo = '——《月亮与六便士》'
+  //       break;
+  //     case 12:
+  //       wordOne = '剑未佩妥，出门已是江湖。';
+  //       wordTwo = '——痞子蔡'
+  //       break;
+  //     case 13:
+  //       wordOne = '我见青山多妩媚，料青山见我应如是。';
+  //       wordTwo = '——辛弃疾《贺新郎》'
+  //       break;
+  //     case 14:
+  //       wordOne = '我当然不会试图摘月，我要月亮奔我而来。';
+  //       wordTwo = '——奥黛丽·赫本'
+  //       break;
+  //     case 15:
+  //       wordOne = '笨蛋才思考，聪明人用灵感，';
+  //       wordTwo = '我们大多时间都是笨蛋，偶尔才成为聪明人。'
+  //       wordThree = '——斯坦利·库布里克';
+  //       break;
+  //     case 16:
+  //       wordOne = '人们在讨论“有朝一日”的时候，';
+  //       wordTwo = '其真正意思就是“永不”。'
+  //       wordThree = '——迈克尔·克莱顿《西部世界》';
+  //       break;
+  //     case 17:
+  //       wordOne = '三月桃花，两人一马，明日天涯。';
+  //       wordTwo = '——七堇年'
+  //       break;
+  //     case 18:
+  //       wordOne = '我知道在这个世界上我无处容身，';
+  //       wordTwo = '只是，你凭什么审判我的灵魂?';
+  //       wordThree = '——加缪《局外人》';
+  //       break;
+  //     case 19:
+  //       wordOne = '记住一个道理，只有自己变优秀了，';
+  //       wordTwo = '其他事情才会跟着好起来';
+  //       break;
+  //   }
+  //   //绘制名言，第一行和第二行
+  //   context.setFontSize(34);
+  //   context.setFillStyle('#fff');
+  //   context.fillText(wordOne, 42, 224);
+  //   context.fillText(wordTwo, 42, 290);
+  //   if (wordThree != ""){
+  //     context.fillText(wordThree, 42, 356);
+  //   }
     
     
-    //绘制今日完成前缀
-    var word = '今日完成';
-    context.setFontSize(35);
-    context.setFillStyle('#fff');
-    context.fillText(word, 140, 1115);
-    //绘制今日完成数
-    //获取完成事项数目
-    //判断位数是1位还是2位
-    //根据位数绘制完成数和后缀
-    var word = that.data.doneCount;
-    context.setFontSize(59);
-    context.setFillStyle('#fff');
-    context.fillText(word, 303, 1115);
-    context.fillText(word, 302, 1115);
-    if (word < 10) {
-      var word = '个小目标';
-      context.setFontSize(35);
-      context.setFillStyle('#fff');
-      context.fillText(word, 358, 1115);
-    } else {
-      //绘制今日完成后缀
-      var word = '个小目标';
-      context.setFontSize(35);
-      context.setFillStyle('#fff');
-      context.fillText(word, 388, 1115);
-    }
-    //绘制底部广告语
-    var word = '即刻开启自己的Just清单，扫码get';
-    context.setFontSize(30);
-    context.setFillStyle('#08ac57');
-    context.fillText(word, 42, 1182);
+  //   //绘制今日完成前缀
+  //   var word = '今日完成';
+  //   context.setFontSize(35);
+  //   context.setFillStyle('#fff');
+  //   context.fillText(word, 140, 1115);
+  //   //绘制今日完成数
+  //   //获取完成事项数目
+  //   //判断位数是1位还是2位
+  //   //根据位数绘制完成数和后缀
+  //   var word = that.data.doneCount;
+  //   context.setFontSize(59);
+  //   context.setFillStyle('#fff');
+  //   context.fillText(word, 303, 1115);
+  //   context.fillText(word, 302, 1115);
+  //   if (word < 10) {
+  //     var word = '个小目标';
+  //     context.setFontSize(35);
+  //     context.setFillStyle('#fff');
+  //     context.fillText(word, 358, 1115);
+  //   } else {
+  //     //绘制今日完成后缀
+  //     var word = '个小目标';
+  //     context.setFontSize(35);
+  //     context.setFillStyle('#fff');
+  //     context.fillText(word, 388, 1115);
+  //   }
+  //   //绘制底部广告语
+  //   var word = '即刻开启自己的Just清单，扫码get';
+  //   context.setFontSize(30);
+  //   context.setFillStyle('#08ac57');
+  //   context.fillText(word, 42, 1182);
 
-    //绘制头像
-    var path1 = that.data.avatarUrl;
-    // console.log('path1');
-    // console.log(path1);
-    // context.arc(186, 246, 50, 0, 2 * Math.PI) //画出圆
-    // context.strokeStyle = "#ffe200";
-    // context.clip(); //裁剪上面的圆形
-    context.drawImage(path1, 42, 1060, 75, 75); // 在刚刚裁剪的园上画图
+  //   //绘制头像
+  //   var path1 = that.data.avatarUrl;
+  //   // console.log('path1');
+  //   // console.log(path1);
+  //   // context.arc(186, 246, 50, 0, 2 * Math.PI) //画出圆
+  //   // context.strokeStyle = "#ffe200";
+  //   // context.clip(); //裁剪上面的圆形
+  //   context.drawImage(path1, 42, 1060, 75, 75); // 在刚刚裁剪的园上画图
 
-    // 最终绘制
-    context.draw();
-    //将生成好的图片保存到本地，需要延迟一会，绘制期间耗时
-    setTimeout(function () {
-      wx.canvasToTempFilePath({
-        canvasId: 'mycanvas',
-        destWidth: 750,
-        destHeight: 1228,
-        fileType: 'jpg',
-        quality: 1,
-        success: function (res) {
-          var tempFilePath = res.tempFilePath;
-          //获取屏幕可用高度，计算海报距离屏幕顶部距离
-          //todo lisihao 不同宽高比下，适配问题
-          var systemInfo = wx.getSystemInfoSync();
-          var canvasWidth = systemInfo.windowWidth * 0.8;
-          var canvasHeight = canvasWidth / (375 / 614);
-          console.log('宽：' + canvasWidth + ' 高：' + canvasHeight);
+  //   // 最终绘制
+  //   context.draw();
+  //   //将生成好的图片保存到本地，需要延迟一会，绘制期间耗时
+  //   setTimeout(function () {
+  //     wx.canvasToTempFilePath({
+  //       canvasId: 'mycanvas',
+  //       destWidth: 750,
+  //       destHeight: 1228,
+  //       fileType: 'jpg',
+  //       quality: 1,
+  //       success: function (res) {
+  //         var tempFilePath = res.tempFilePath;
+  //         //获取屏幕可用高度，计算海报距离屏幕顶部距离
+  //         //todo lisihao 不同宽高比下，适配问题
+  //         var systemInfo = wx.getSystemInfoSync();
+  //         var canvasWidth = systemInfo.windowWidth * 0.8;
+  //         var canvasHeight = canvasWidth / (375 / 614);
+  //         console.log('宽：' + canvasWidth + ' 高：' + canvasHeight);
 
-          that.setData({
-            imagePath: tempFilePath,
-            canvasWidth: canvasWidth,
-            canvasHeight: canvasHeight
-            // canvasHidden: true
-          });
-        },
-        fail: function (res) {
-          console.log(res);
-        }
-      });
-    }, 200);
-  },
+  //         that.setData({
+  //           imagePath: tempFilePath,
+  //           canvasWidth: canvasWidth,
+  //           canvasHeight: canvasHeight
+  //           // canvasHidden: true
+  //         });
+  //       },
+  //       fail: function (res) {
+  //         console.log(res);
+  //       }
+  //     });
+  //   }, 200);
+  // },
 
-  /**
-   * 用户点击保存到本地
-   */
-  saveToAlbum: function () {
-    var that = this
-    wx.saveImageToPhotosAlbum({
-      filePath: that.data.imagePath,
-      success(res) {
-        that.setData({
-          maskHidden: false
-        })
-        wx.showToast({
-          title: '分享到朋友圈吧',
-        })
-        // wx.showModal({
-        //   content: '保存成功，分享到朋友圈吧',
-        //   showCancel: false,
-        //   confirmText: '好的',
-        //   confirmColor: '#333',
-        //   success: function (res) {
-        //     if (res.confirm) {
-        //       console.log('用户点击确定');
-        //       /* 该隐藏的隐藏 */
-        //       that.setData({
-        //         maskHidden: false
-        //       })
-        //       // 给用户奖励积分
-        //       // that.shareOk();
-        //     }
-        //   }, fail: function (res) {
-        //     console.log("用户点击确定失败");
-        //   }
-        // })
-      }
-    })
-  },
+  // /**
+  //  * 用户点击保存到本地
+  //  */
+  // saveToAlbum: function () {
+  //   var that = this
+  //   wx.saveImageToPhotosAlbum({
+  //     filePath: that.data.imagePath,
+  //     success(res) {
+  //       that.setData({
+  //         maskHidden: false
+  //       })
+  //       wx.showToast({
+  //         title: '分享到朋友圈吧',
+  //       })
+  //       // wx.showModal({
+  //       //   content: '保存成功，分享到朋友圈吧',
+  //       //   showCancel: false,
+  //       //   confirmText: '好的',
+  //       //   confirmColor: '#333',
+  //       //   success: function (res) {
+  //       //     if (res.confirm) {
+  //       //       console.log('用户点击确定');
+  //       //       /* 该隐藏的隐藏 */
+  //       //       that.setData({
+  //       //         maskHidden: false
+  //       //       })
+  //       //       // 给用户奖励积分
+  //       //       // that.shareOk();
+  //       //     }
+  //       //   }, fail: function (res) {
+  //       //     console.log("用户点击确定失败");
+  //       //   }
+  //       // })
+  //     }
+  //   })
+  // },
 
-  /**
-   * 生成海报后返回首页
-   */
-  goBackToList: function () {
-    //实质是隐藏
-    this.setData({
-      maskHidden:false
-    });
-  },
+  // /**
+  //  * 生成海报后返回首页
+  //  */
+  // goBackToList: function () {
+  //   //实质是隐藏
+  //   this.setData({
+  //     maskHidden:false
+  //   });
+  // },
   
   /**
-   * 生成海报后返回首页
+   * 查看事项详情后返回首页
    */
   goBackToListFromDetail: function () {
     //实质是隐藏
@@ -767,10 +768,10 @@ Page({
   /**
    * 换一张海报
    */
-  createPosterAgain: function (){
-    //省略弹窗&获取头像等步骤，直接重新绘制
-    this.doCreateNewPoster();
-  },
+  // createPosterAgain: function (){
+  //   //省略弹窗&获取头像等步骤，直接重新绘制
+  //   this.doCreateNewPoster();
+  // },
 
   /**
    * logout

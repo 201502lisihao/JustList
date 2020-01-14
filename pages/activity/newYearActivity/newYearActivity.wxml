@@ -13,7 +13,7 @@
 
   <!-- 许愿框 -->
   <view class='inputBox'>
-    <input placeholder='立下你的新年Flag' class='input' bindinput='bindKeyInput'/>
+    <input placeholder='立下你的鼠年小目标' class='input' bindinput='bindKeyInput'/>
     <button bindtap='addTodo' class='btn'>完成</button>
   </view>
   <!-- <text class='tishi'>朋友和你各自获得通用抽奖券1张</text> -->
@@ -22,7 +22,7 @@
   <view>
     <button class='btn1' bindtap='createPoster'>
       <image class='btnImg' src='/images/pengyouquan.png'></image>
-      <view>邀请好友助力</view>
+      <view>邀请好友，各得一张奖券</view>
     </button>
   </view>
   <!-- <view class='imgBox'>
@@ -54,11 +54,11 @@
   <text class='tishi'>活动介绍</text>
   <view class="activityInfoBox">
     <view class="activityInfo">
-      <text class='rule'>1.首次立下新年Flag后，可获得一张抽奖券，限每个用户参与一次。</text>
-      <text class='rule'>2.生成新年Flag海报后，可邀请好友助力，自己和好友均可额外获得一张抽奖券。</text>
-      <text class='rule'>3.到截止日期后，将从活动产生的奖券中随机抽取1位小朋友送出200元压岁钱，中奖结果将通过微信推送给所有参与者。</text>
+      <text class='rule'>1.首次立下鼠年小目标后，可获得一张抽奖券，限每个用户参与一次。</text>
+      <text class='rule'>2.点击邀请好友助力按钮，可生成个人专属邀请海报，好友扫码助力后，自己和好友均可额外获得一张抽奖券。</text>
+      <text class='rule'>3.到截止日期后，将从活动产生的所有奖券中随机抽取1位小朋友送出200元压岁钱，点击任意一张奖券的开奖按钮，可查看中奖结果</text>
       <text class='rule'>4.活动时间：2020.01.23-2020.02.01。</text>
-      <text class='rule'>5.如发现有恶意刷券行为，Just清单有权不发放或撤回发放的奖品。</text>
+      <text class='rule'>5.如发现有恶意刷券行为，Just清单有权不发放或收回压岁钱。</text>
       <text class='rule'>6.此活动最终解释权归Just清单所有。</text>
     </view>
   </view>

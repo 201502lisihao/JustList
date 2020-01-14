@@ -23,15 +23,17 @@ Page({
 
   onLoad: function (options) {
     var that = this;
-    //好友助力逻辑 感觉应该放在后面 或者引导进入一个新页面
-    // if (options.scene) {
-    //   let scene = decodeURIComponent(options.scene);
-    //   //&是我们定义的参数链接方式
-    //   let userId = scene.split("&")[0];
-    //   let recommendId = scene.split('&')[1];
-    //   //其他逻辑处理。。。。。
-    // }
 
+    //看是否有scene，有就解析后放缓存里
+    if(typeof(options) != "undefined" && options != null){
+      if (typeof (options.scene) != 'undefined' && options.scene != null) {
+        var scene = decodeURIComponent(options.scene);
+        var friendUserId = scene.split('&')[0];
+        app.setCache('friendUserId', friendUserId, 86400);
+        console.log('缓存friendUserId成功：' + friendUserId);
+      }
+    }
+    
     //当前页面展示分享
     wx.showShareMenu({
       withShareTicket: true
@@ -64,11 +66,20 @@ Page({
       })
     }
 
-    //检查是否有userId，没有userId的话，清除登录相关信息，前端页面重新登录
-    this.checkHasUserId();
+    //检查是否有userId，没有userId的话，清除登录相关信息，退出前端页面重新登录
+    if(!that.checkHasUserId()){
+      return;
+    }
 
     //获取用户已有奖券
-    this.getRaffleTicketListByUserId();
+    that.getRaffleTicketListByUserId();
+
+    //好友助力
+    if(app.getCache('friendUserId')){
+      console.log('缓存中的friendUserId' + app.getCache('friendUserId'));
+      //助力逻辑
+      that.friendHelp();
+    }
   },
 
   /**
@@ -124,6 +135,15 @@ Page({
     var aqrCodePath = app.getCache('my_aqr_code_path');
     if(aqrCodePath){ 
       console.log('生成活动二维码命中缓存');
+      //下载带参数二维码到本地，供生成海报时使用
+      wx.getImageInfo({
+        src: aqrCodePath,
+        success: function (res) {
+          that.setData({
+            aqrCodeLocalPath: res.path
+          });
+        }
+      });
     } else {
       //从服务器获取access_token
       wx.request({
@@ -132,10 +152,11 @@ Page({
           console.log(res);
           if (res.data.access_token) {
             //从服务器获取二维码url
+            var userId = wx.getStorageSync('userId');
             wx.request({
               url: 'https://www.qianzhuli.top/just/getaqrcodepath',
               data: {
-                scene: '999',
+                scene: userId,
                 page: "pages/activity/newYearActivity/newYearActivity",
                 access_token: res.data.access_token
               },
@@ -144,10 +165,19 @@ Page({
                 console.log('服务器生成二维码接口返回:')
                 console.log(res);
 
-                if (res.data.url != 'undefined' || res.data.url != null) {
+                if (res.data.url != undefined || res.data.url != null) {
                   //放入缓存，过期时间1天
                   app.setCache('my_aqr_code_path', res.data.url, 86400);
                   aqrCodePath = res.data.url;
+                  //下载带参数二维码到本地，供生成海报时使用
+                  wx.getImageInfo({
+                    src: aqrCodePath,
+                    success: function (res) {
+                      that.setData({
+                        aqrCodeLocalPath: res.path
+                      });
+                    }
+                  });
                 } else {
                   console.log('二维码url为空,msg='+res.data.errmsg);
                 }
@@ -163,37 +193,15 @@ Page({
       });
     }
 
-    //下载带参数二维码到本地，供生成海报时使用
-    if(aqrCodePath){
-      wx.getImageInfo({
-        src: aqrCodePath,
-        success: function (res) {
-          that.setData({
-            aqrCodeLocalPath: res.path
-          });
-        }
-      });
-    } else {
-      //todo 获取分享码失败，提示用户失败
-      wx.showToast({
-        title: '服务繁忙，请小主稍后再试',
-        icon: 'none'
-      });
-      return;
-    }
-    
-    //下载头像
-    // wx.getImageInfo({
-    //   src: that.data.userInfo.avatarUrl,
-    //   success: function (res) {
-    //     that.setData({
-    //       avatarUrl: res.path
-    //     });
-    //   }
-    // });
-
     //延时，等待图片下载完成
     setTimeout(function () {
+      if(that.data.aqrCodeLocalPath == "" || that.data.aqrCodeLocalPath == undefined){
+        wx.showToast({
+          title: '出了点小状况，小主稍后再试',
+          icon: 'none'
+        });
+        return;
+      }
       that.doCreateNewPoster();
       wx.hideToast()
       that.setData({
@@ -355,6 +363,51 @@ Page({
   },
 
   /**
+   * 好友助力逻辑
+   */
+  friendHelp: function(){
+    var that = this;
+
+    //获取缓存中的friendUserId（被助力人）
+    var friendUserId = app.getCache('friendUserId');
+    console.log('friendUserId:'+friendUserId);
+    
+    //获取userId
+    var userId = wx.getStorageSync('userId');
+    console.log('userId:' + userId);
+
+    //调用服务器奖励奖券
+    wx.request({
+      url: 'https://www.qianzhuli.top/just/friendhelp',
+      method: 'POST',
+      data: {
+        userId: userId,
+        friendUserId: friendUserId,
+      },
+      success: function (res){
+        console.log(res);
+        if(res.data.code == 200){
+          //提示用户助力成功！然后刷新页面
+          wx.showModal({
+            content: '助力成功，同时奖励你一张奖券',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                app.deleteCache('friendUserId');
+                that.onLoad();
+              }
+            }
+          });
+        }
+      }
+    })
+    
+    //助力完成后删除scene缓存
+    // app.deleteCache('scene');
+    // console.log('执行完助力逻辑，删除scene缓存');
+  },
+
+  /**
    * 根据userId获取用户奖券
    */
   getRaffleTicketListByUserId: function () {
@@ -403,7 +456,9 @@ Page({
       wx.removeStorageSync('userInfo');
       wx.removeStorageSync('utoken');
       wx.removeStorageSync('userId');
+      return false;
     }
+    return true;
   },
 
   /**
