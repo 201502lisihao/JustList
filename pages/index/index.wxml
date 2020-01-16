@@ -185,3 +185,11 @@
   </view>
   <!-- <view class="mask" catchtouchmove="preventTouchMove" hidden="{{itemDetailBoxHidden == false}}"></view> -->
 </view>
+
+<!-- 浮窗 -->
+<view wx:if="{{isShowThisWindow}}">
+	<!-- <contact-button class="img-plus-style zindex100 yc"></contact-button> -->
+	<image src="/images/del.png" class="img-plus-style-del" bindtap="delThisWindow"></image>
+  <!-- <text class="img-plus-style-del-1">不再显示</text> -->
+	<image src="/images/hongbao.png" class="img-plus-style" bindtap="welcomeImg"></image>
+</view>

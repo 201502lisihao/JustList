@@ -18,16 +18,12 @@ App({
     var that = this;
     wx.login({
       success: function (res) {
-        // console.log('11111111');
-        // console.log(res);
         //code获取成功，保存为当前页面的全局变量code
-        // that.setData({ code: res.code });
         var code = res.code;
         wx.getUserInfo({
           success: function (res) {
             //存入缓存，用于自动登录
             wx.setStorageSync('userInfo', res.userInfo);
-            // that.globalData.userInfo = res.userInfo;
             var utoken = wx.getStorageSync('utoken');
             wx.request({
               url: 'https://www.qianzhuli.top/just/userauthlogin',

@@ -1,0 +1,55 @@
+<view>
+  <!-- 奖品图片 -->
+  <image src="{{img}}" class='bgImg'></image>
+  <view class="win_title">
+        <view class="page__title">200元压岁钱 x1</view>
+        <view class="page__desc">2020年1月31日 20:00 自动开奖</view>
+  </view>
+</view>
+
+<!-- 未到时间的页面 -->
+<view wx:if="{{!isTimeToShow}}">
+  <view class="page__hd">
+        <view class="page__title">未到开奖时间O_o!</view>
+  </view>
+</view>
+
+<!-- 开奖日期后的页面 -->
+<view wx:else>
+  <!-- 展示中奖号码，中奖者头像、昵称 -->
+  <view class="winner_info" wx:if="{{hasWinUserInfo}}">
+    <view>
+      <text>中奖码：</text>
+    </view>
+
+    <view class="winner_info_view">
+      <text style="font-size:50rpx;font-weight: bold;">{{winCode}}</text>
+    </view>
+
+    <view style="margin-bottom:20rpx;">
+      <text>中奖用户：</text>
+    </view>
+
+    <view>
+      <image class="winUserImg" src="{{winUserImgPath}}"></image>
+    </view>
+
+    <view>
+      <text>{{winUserNickname}}</text>
+    </view>
+
+    <view class="weui-footer" style="margin-bottom:20rpx;margin-top:60rpx;">
+      <navigator url="/pages/index/index" style="text-decoration:underline;">领奖或有任何疑问，请联系微信：l735407073</navigator>
+    </view>
+
+    <!-- 提示语 -->
+    <!-- <view><text>快来康康是哪个幸运鹅！</text></view> -->
+  </view>
+
+  <!-- 中奖数据丢失情况 -->
+  <view wx:else>
+    <view class="page__hd">
+        <view class="page__title">正在开奖，请稍后再来O_o!</view>
+    </view>
+  </view>
+</view>

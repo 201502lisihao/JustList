@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/guide/guide",
     "pages/suggest/suggest",
-    "pages/activity/newYearActivity/newYearActivity"
+    "pages/activity/newYearActivity/newYearActivity",
+    "pages/activity/newYearResult/newYearResult"
   ],
   "window": {
     "backgroundTextStyle": "light",

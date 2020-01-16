@@ -18,7 +18,8 @@ Page({
     inputValue: "",
     hasRaffleTicket: false,
     raffleTicketList: [],
-    aqrCodeLocalPath: ""
+    aqrCodeLocalPath: "",
+    isFriendHelp:false,
   },
 
   onLoad: function (options) {
@@ -31,6 +32,9 @@ Page({
         var friendUserId = scene.split('&')[0];
         app.setCache('friendUserId', friendUserId, 86400);
         console.log('缓存friendUserId成功：' + friendUserId);
+        that.setData({
+          isFriendHelp: true
+        })
       }
     }
     
@@ -357,7 +361,6 @@ Page({
             url: '/pages/index/index'
           });
         }, 1500);
-        
       }
     })
   },
@@ -386,19 +389,21 @@ Page({
       },
       success: function (res){
         console.log(res);
+        var content = '已助力好友';
         if(res.data.code == 200){
-          //提示用户助力成功！然后刷新页面
-          wx.showModal({
-            content: '助力成功，同时奖励你一张奖券',
-            showCancel: false,
-            success: function (res) {
-              if (res.confirm) {
-                app.deleteCache('friendUserId');
-                that.onLoad();
-              }
-            }
-          });
+          content = '助力好友成功，奖励你一张奖券！';
         }
+        //提示用户助力成功！然后刷新页面
+        wx.showModal({
+          content: content,
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              app.deleteCache('friendUserId');
+              that.onLoad();
+            }
+          }
+        });
       }
     })
     
@@ -502,4 +507,13 @@ Page({
   saveData: function (data) {
     wx.setStorageSync("todo", JSON.stringify(data));
   },
+
+  /**
+   * 开奖页
+   */
+  newYearResult: function (e){
+    wx.navigateTo({
+      url: '/pages/activity/newYearResult/newYearResult?ticketCode=' + e.currentTarget.dataset.ticketcode,
+    })
+  }
 })

@@ -211,8 +211,8 @@
 }
 
 .welcome_img{
-  width: 600rpx;
-  height: 256rpx;
+  width: 606rpx;
+  height: 379rpx;
 }
 
 /* .welcome_img_two{
@@ -387,4 +387,23 @@ button[class="baocun"]::after{
 .wx-switch-input::after{
     width: 26px !important;
     height: 25px !important;
+}
+
+/* 悬窗 */
+.img-plus-style {
+height: 120rpx;
+width: 120rpx;
+position: fixed;
+bottom: 200rpx;
+right: 13rpx;
+opacity: 0.7
+}
+
+.img-plus-style-del {
+height: 70rpx;
+width: 70rpx;
+position: fixed;
+bottom: 310rpx;
+right: 9rpx;
+opacity: 0.7
 }

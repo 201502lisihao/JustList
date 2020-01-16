@@ -1,16 +1,20 @@
+<!-- 顶部图片 -->
+<image src="{{img}}" class='bgImg'></image>
+
 <!-- 情景一：已登录但无userId，历史用户 -->
-<view wx:if="{{!hasUserId}}">
+<view wx:if="{{!hasUserId && canIUse}}">
   <!-- 展示退出 -->
   <!-- 然后刷新页面到登录 -->
-  <text>提示登录</text>
-  <button class="loginButton" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>
+  <view class="page__hd">
+        <view class="page__title">Just清单祝您鼠年大吉！ <image src="/images/tip.png" style="width:40rpx;height:40rpx;margin-bottom:-8rpx;"></image></view>
+        <view class="page__desc">小主，点击下方按钮参加活动</view>
+    </view>
+  <button class="loginButton" wx:if="{{isFriendHelp}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">一键助力好友</button>
+  <button class="loginButton" wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo">一键登录</button>
 </view>
 
 <!-- 情景二：已登录且有userId -->
 <view wx:else>
-  <!-- 顶部图片 -->
-  <image src="{{img}}" class='bgImg'></image>
-
   <!-- 许愿框 -->
   <view class='inputBox'>
     <input placeholder='立下你的鼠年小目标' class='input' bindinput='bindKeyInput'/>
@@ -43,7 +47,7 @@
             </view>
             <view class="weui-cell">
               <view class="weui-cell__bd" style="color:#000;font-size:36rpx;">兑奖码：{{item.ticket_code}}</view>
-              <view class="weui-cell__ft"><button class="detailButton" hover-class="detailButton-hover" size="mini" bindtap="orderDetail" data-id="{{item.id}}">开奖</button></view>
+              <view class="weui-cell__ft"><button class="detailButton" hover-class="detailButton-hover" size="mini" bindtap="newYearResult" data-ticketcode="{{item.ticket_code}}">开奖</button></view>
             </view>
           </view>
         </view>
@@ -54,13 +58,16 @@
   <text class='tishi'>活动介绍</text>
   <view class="activityInfoBox">
     <view class="activityInfo">
-      <text class='rule'>1.首次立下鼠年小目标后，可获得一张抽奖券，限每个用户参与一次。</text>
-      <text class='rule'>2.点击邀请好友助力按钮，可生成个人专属邀请海报，好友扫码助力后，自己和好友均可额外获得一张抽奖券。</text>
-      <text class='rule'>3.到截止日期后，将从活动产生的所有奖券中随机抽取1位小朋友送出200元压岁钱，点击任意一张奖券的开奖按钮，可查看中奖结果</text>
-      <text class='rule'>4.活动时间：2020.01.23-2020.02.01。</text>
-      <text class='rule'>5.如发现有恶意刷券行为，Just清单有权不发放或收回压岁钱。</text>
-      <text class='rule'>6.此活动最终解释权归Just清单所有。</text>
+      <text class='rule'>1.首次立下鼠年小目标后，可获得一张抽奖券，每个用户限一次。</text>
+      <text class='rule'>2.点击邀请好友助力按钮，可生成个人专属邀请码，邀请好友扫码助力，自己和好友均可额外获得一张抽奖券。</text>
+      <text class='rule'>3.2020年1月31日20:00开奖，将从活动产生的奖券中随机抽取1张奖券，并为中奖的小朋友送出200元压岁钱和最诚挚的鼠年祝福</text>
+      <text class='rule'>4.如发现有恶意刷券行为，Just清单有权不发放或收回压岁钱。</text>
+      <text class='rule'>5.此活动最终解释权归Just清单所有。</text>
     </view>
+  </view>
+
+  <view class="weui-footer" style="margin-bottom:20rpx;">
+    <navigator url="/pages/index/index" style="text-decoration:underline;">@Just清单</navigator>
   </view>
 
   <!--生成海报  -->

@@ -231,7 +231,7 @@ button[class="baocun"]::after{
   width: 85%;
   margin-top: 30rpx;
   margin-bottom: 60rpx;
-  background-color: transparent;
+  background-color: #fff;
   color: #c21b1b;
   /* border-radius: 98rpx; */
   display: flex;
@@ -244,4 +244,11 @@ button[class="baocun"]::after{
   margin-right: 8rpx;
   width: 60rpx;
   height: 60rpx;
+}
+
+/* 登录按钮 */
+.loginButton{
+  width: 85%;
+  background-color: #c21b1b;
+  color: #fff;
 }

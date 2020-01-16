@@ -1,0 +1,33 @@
+/* pages/activity/newYearResult/newYearResult.wxss */
+
+.winUserImg{
+  width: 168rpx;
+  height: 168rpx;
+  border-radius: 50%;
+  border: 6rpx solid #f4f81b;
+}
+
+.bgImg{
+  display: block;
+  width: 100%;
+  height: 330rpx;
+}
+
+.win_title{
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.winner_info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  margin-top: 70rpx;
+}
+
+.winner_info_view{
+  margin-bottom: 30rpx;
+}

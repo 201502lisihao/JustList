@@ -41,7 +41,7 @@ Page({
             bindtap: 'logout'
           },
           {
-            name: '新年活动',
+            name: '鼠年小目标',
             src: '/images/hongbao.png',
             bindtap: 'welcomeImg'
           }
@@ -93,6 +93,13 @@ Page({
             hasUserInfo: true
           })
         }
+      })
+    }
+
+    //看是否展示新年弹窗
+    if ( ! wx.getStorageSync('notShowThisWindow')){
+      that.setData({
+        isShowThisWindow: true
       })
     }
 
@@ -892,7 +899,7 @@ Page({
 
   welcomeImg: function () {
     // wx.showToast({
-    //   title: '小主别着急，1月22号后点我免费抽奖！',
+    //   title: '小主别着急，1月23日后点我拿压岁钱！',
     //   icon: 'none'
     // })
     wx.navigateTo({
@@ -901,5 +908,14 @@ Page({
       fail: function(res) {},
       complete: function(res) {},
     })
+  },
+  
+  // 删除新年活动悬窗
+  delThisWindow: function (){
+    //被删除后就别出现了
+    wx.setStorageSync('notShowThisWindow', 1);
+    this.setData({
+      isShowThisWindow: false
+    });
   }
 })
