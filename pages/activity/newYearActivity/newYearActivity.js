@@ -201,7 +201,7 @@ Page({
     setTimeout(function () {
       if(that.data.aqrCodeLocalPath == "" || that.data.aqrCodeLocalPath == undefined){
         wx.showToast({
-          title: '出了点小状况，小主稍后再试',
+          title: '出了点小状况，点击重试',
           icon: 'none'
         });
         return;
@@ -211,7 +211,7 @@ Page({
       that.setData({
         maskHidden: true
       });
-    }, 1500);
+    }, 2000);
   },
 
   /**

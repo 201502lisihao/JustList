@@ -212,7 +212,7 @@
 
 .welcome_img{
   width: 606rpx;
-  height: 379rpx;
+  height: 258rpx;
 }
 
 /* .welcome_img_two{
@@ -389,7 +389,7 @@ button[class="baocun"]::after{
     height: 25px !important;
 }
 
-/* 悬窗 */
+/* 红包浮窗 */
 .img-plus-style {
 height: 120rpx;
 width: 120rpx;

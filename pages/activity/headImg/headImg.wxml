@@ -1,0 +1,36 @@
+<!-- 顶部图片 -->
+<image src="{{img}}" class='bgImg'></image>
+<view class="page__hd">
+        <view class="page__title">中国加油！武汉加油！ <image src="/images/tip.png" style="width:40rpx;height:40rpx;margin-bottom:-8rpx;"></image></view>
+        <view class="page__desc">#微倡议# 我们倡议通过在微信头像上加入“中国加油”口号的方式，声援祖国、声援武汉、声援前线医护人员。全国无数的医护人员正在不顾个人安危，主动出征！请让他们感受到，此时此刻在他们背后，是十四亿中国人在为他们加油！</view>
+</view>
+
+<!-- 情景一：已登录但无userId，历史用户 -->
+<view wx:if="{{!hasUserInfo && canIUse}}">
+  <!-- 展示退出 -->
+  <!-- 然后刷新页面到登录 -->
+  <button class="loginButton" open-type="getUserInfo" bindgetuserinfo="getUserInfo">一键登录后生成头像</button>
+</view>
+
+<!-- 情景二：已登录且有userId -->
+<view wx:else>
+  <!--生成海报  -->
+  <view>
+    <view class='imagePathBox' hidden="{{maskHidden == false}}" catchtouchmove = "doNotMove">
+        <image src="{{imagePath}}" class='shengcheng' style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;"></image>
+        <view class="posterButton">
+          <button class='baocun' bindtap='goBackToList'>取消</button>
+          <button class='baocun' bindtap='saveToAlbum' style="background-color: #3e65bb;">保存相册</button>
+        </view>
+    </view>
+    <view class="canvas-box">
+        <canvas  style="width: 500px;height: 500px;position:fixed;top:9999px" canvas-id="mycanvas"/>
+    </view>
+  </view>
+  <button class="loginButton" bindtap="createPoster">生成中国加油头像</button>
+  <button class="loginButton" open-type="share">分享给更多人</button>
+</view>
+
+<view class="weui-footer" style="margin-top:50rpx;margin-bottom:20rpx;">
+    <navigator url="/pages/index/index" style="text-decoration:underline;">@Just清单</navigator>
+</view>

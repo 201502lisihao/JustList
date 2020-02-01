@@ -17,11 +17,13 @@ Page({
           {
             name: '使用指南',
             src: '/images/wenhao.png',
+            // src: '/images/wenhao.png',
             bindtap: 'goToGuide'
           },
           {
-            name: '清除全部',
+            name: '清空事项',
             src: '/images/delAll.png',
+            // src: '/images/delAll.png',
             bindtap: 'openConfirm'
           },
           // 暂时下掉
@@ -33,18 +35,25 @@ Page({
           {
             name: '意见反馈',
             src: '/images/suggest.png',
+            // src: '/images/suggest.png',
             bindtap: 'goToSuggest'
           },
           {
             name: '退出登录',
             src: '/images/logout.png',
+            // src: '/images/logout.png',
             bindtap: 'logout'
           },
           {
-            name: '鼠年小目标',
-            src: '/images/hongbao.png',
-            bindtap: 'welcomeImg'
+            name: '中国加油',
+            src: '/images/zhongguojiayou2.png',
+            bindtap: 'goToHeadImg'
           }
+          // {
+          //   name: '领压岁钱',
+          //   src: '/images/jinbi.png',
+          //   bindtap: 'welcomeImg'
+          // }
         ]
       }
     ],
@@ -96,7 +105,7 @@ Page({
       })
     }
 
-    //看是否展示新年弹窗
+    // 看是否展示新年弹窗
     if ( ! wx.getStorageSync('notShowThisWindow')){
       that.setData({
         isShowThisWindow: true
@@ -897,18 +906,19 @@ Page({
     return;
   },
 
-  welcomeImg: function () {
-    // wx.showToast({
-    //   title: '小主别着急，1月23日后点我拿压岁钱！',
-    //   icon: 'none'
-    // })
-    wx.navigateTo({
-      url: '/pages/activity/newYearActivity/newYearActivity',
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
-    })
-  },
+  // 红包浮窗
+  // welcomeImg: function () {
+  //   // wx.showToast({
+  //   //   title: '小主别着急，1月23日后点我拿压岁钱！',
+  //   //   icon: 'none'
+  //   // })
+  //   wx.navigateTo({
+  //     url: '/pages/activity/newYearActivity/newYearActivity',
+  //     success: function(res) {},
+  //     fail: function(res) {},
+  //     complete: function(res) {},
+  //   })
+  // }
   
   // 删除新年活动悬窗
   delThisWindow: function (){
@@ -917,5 +927,12 @@ Page({
     this.setData({
       isShowThisWindow: false
     });
+  },
+  
+  //生成祈福头像
+  goToHeadImg: function (){
+    wx.navigateTo({
+      url: '/pages/activity/headImg/headImg'
+    })
   }
 })

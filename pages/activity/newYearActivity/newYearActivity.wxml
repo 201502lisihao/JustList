@@ -18,7 +18,7 @@
   <!-- 许愿框 -->
   <view class='inputBox'>
     <input placeholder='立下你的鼠年小目标' class='input' bindinput='bindKeyInput'/>
-    <button bindtap='addTodo' class='btn'>完成</button>
+    <button bindtap='addTodo' class='btn'>领奖券</button>
   </view>
   <!-- <text class='tishi'>朋友和你各自获得通用抽奖券1张</text> -->
 

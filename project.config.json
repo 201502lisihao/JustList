@@ -53,15 +53,7 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": [
-				{
-					"id": -1,
-					"name": "pages/index/index",
-					"pathName": "pages/activity/newYearActivity/newYearActivity",
-					"query": "scene=122",
-					"scene": null
-				}
-			]
+			"list": []
 		}
 	}
 }

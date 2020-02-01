@@ -1,0 +1,62 @@
+.bgImg{
+  display: block;
+  width: 100%;
+  height: 330rpx;
+}
+
+
+/* 海报 */
+.imagePathBox{
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+
+
+.shengcheng{
+  width: 80%;
+  height: 475px;
+  margin-top: 150rpx;
+  /* height: 80%; */
+  /* position: fixed; */
+  /* left: 10%; */
+  /* margin-left: -40%; */
+  /* z-index: 10; */
+}
+
+.posterButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.baocun{
+  padding: 0rpx 55rpx 0rpx 55rpx;
+  margin: 50rpx 30rpx 50rpx 30rpx;
+  height: 80rpx;
+  background-color: rgb(204, 204, 204);
+  /* background-color: gray; */
+  font-size: 32rpx;
+  color: #fff;
+}
+
+
+
+/* 登录按钮 */
+.loginButton{
+  width: 85%;
+  background-color: #3e65bb;
+  color: #fff;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}

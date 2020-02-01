@@ -119,7 +119,7 @@
         <view> 
           <!-- 欢迎样式 -->
           <view>
-            <image src="/images/welcome.png" class="welcome_img" bindtap="welcomeImg"></image>
+            <image src="/images/welcome.png" class="welcome_img" bindtap="goToHeadImg"></image>
           </view>
 
           <view class="weui-footer" style="margin-top:50rpx;">
@@ -186,10 +186,14 @@
   <!-- <view class="mask" catchtouchmove="preventTouchMove" hidden="{{itemDetailBoxHidden == false}}"></view> -->
 </view>
 
-<!-- 浮窗 -->
-<view wx:if="{{isShowThisWindow}}">
-	<!-- <contact-button class="img-plus-style zindex100 yc"></contact-button> -->
+<!-- 红包浮窗 -->
+<!-- <view wx:if="{{isShowThisWindow}}">
 	<image src="/images/del.png" class="img-plus-style-del" bindtap="delThisWindow"></image>
-  <!-- <text class="img-plus-style-del-1">不再显示</text> -->
 	<image src="/images/hongbao.png" class="img-plus-style" bindtap="welcomeImg"></image>
+</view> -->
+
+<!-- 加油头像浮窗 -->
+<view wx:if="{{isShowThisWindow}}">
+	<image src="/images/del.png" class="img-plus-style-del" bindtap="delThisWindow"></image>
+	<image src="/images/zhongguojiayou2.png" class="img-plus-style" bindtap="goToHeadImg"></image>
 </view>

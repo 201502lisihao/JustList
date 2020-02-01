@@ -15,6 +15,14 @@
                     <view class="weui-article__p">
                         <text class="artcile__title">更新日志：</text>
                     </view>
+                    <view class="weui-article__h2">2020.2.2</view>
+                    <view class="weui-article__p">
+                        <text class="add">A</text><text> 新增 中国加油祈福活动\n</text>
+                    </view>
+                    <view class="weui-article__h2">2020.1.23</view>
+                    <view class="weui-article__p">
+                        <text class="add">A</text><text> 新增 鼠年小目标抽奖活动\n</text>
+                    </view>
                     <view class="weui-article__h2">2020.1.1</view>
                     <view class="weui-article__p">
                         <text class="add">A</text><text> 新增 页面下拉刷新\n</text>

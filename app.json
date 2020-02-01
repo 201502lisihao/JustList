@@ -4,7 +4,8 @@
     "pages/guide/guide",
     "pages/suggest/suggest",
     "pages/activity/newYearActivity/newYearActivity",
-    "pages/activity/newYearResult/newYearResult"
+    "pages/activity/newYearResult/newYearResult",
+    "pages/activity/headImg/headImg"
   ],
   "window": {
     "backgroundTextStyle": "light",
