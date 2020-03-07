@@ -21,7 +21,7 @@ Page({
             bindtap: 'goToGuide'
           },
           {
-            name: '清空事项',
+            name: '清空已完成',
             src: '/images/delAll.png',
             // src: '/images/delAll.png',
             bindtap: 'openConfirm'
@@ -61,8 +61,14 @@ Page({
     maskHidden: false,
     imagePath: '',
     avatarUrl: '',
+    //是否显示已完成事项
+    isShowDoneList:true,
     //事项详情弹窗
     itemDetailBoxHidden:false,
+    //是否显示添加事项的input
+    isShowAddInput:false,
+    //是否正在输入input
+    isAddingTodo:false,
     //事项详情的默认值
     currentItemId: null,
     currentTitle: null,
@@ -147,12 +153,16 @@ Page({
     var that = this;
     //获取页面可用高度
     var usefulWindowHeight = wx.getSystemInfoSync().windowHeight;
+    that.setData({
+      usefulWindowHeight: usefulWindowHeight
+    });
+
     //获取下方操作框高度
-    that.createSelectorQuery().select('#operate-bar').boundingClientRect(function (rect) {
-      that.setData({
-        usefulWindowHeight: usefulWindowHeight - rect.height
-      });
-    }).exec();
+    // that.createSelectorQuery().select('#operate-bar').boundingClientRect(function (rect) {
+    //   that.setData({
+    //     usefulWindowHeight: usefulWindowHeight - rect.height
+    //   });
+    // }).exec();
 
     //获取累计使用次数
     wx.request({
@@ -168,11 +178,14 @@ Page({
     //缓存获取是否展示已完成事项，保持用户体验一致性
     var isShowDoneList = wx.getStorageSync('isShowDoneList');
     //缓存中无用户隐藏习惯的数据时，默认展示
-    if(isShowDoneList == '' || isShowDoneList == null || isShowDoneList == undefined){
+    if (!isShowDoneList){
       isShowDoneList = true;
+    } else {
+      isShowDoneList = isShowDoneList == 'show' ? true : false;
     }
+    
     that.setData({
-      isShowDoneList: isShowDoneList
+      isShowDoneList: isShowDoneList,
     });
   },
 
@@ -251,7 +264,6 @@ Page({
   addTodo: function(e) {
     var that = this;
     var value = e.detail.value;
-    // console.log(value);
     if( ! value){
       that.setData({
         errorMsg: '内容不能为空'
@@ -264,6 +276,8 @@ Page({
       // 回车后重置输入框
       that.setData({
         adding: '',
+        isAddingTodo: false,
+        isShowAddInput: false,
         errorMsg: ''
       });
       that.load();
@@ -288,6 +302,8 @@ Page({
       // 回车后重置输入框
       that.setData({
         adding: '',
+        isAddingTodo: false,
+        isShowAddInput: false,
         errorMsg: ''
       });
       that.load();
@@ -320,10 +336,8 @@ Page({
     var that = this;
     var id = event.currentTarget.dataset.id;
     var collection = wx.getStorageSync('todo');
-    // console.log(collection);
     if (collection.length > 2) {
       var data = JSON.parse(collection);
-      // console.log(data);
       data[id].top = true;
       that.saveData(data);
       that.load();
@@ -337,10 +351,8 @@ Page({
     var that = this;
     var id = event.currentTarget.dataset.id;
     var collection = wx.getStorageSync('todo');
-    // console.log(collection);
     if (collection.length > 2) {
       var data = JSON.parse(collection);
-      // console.log(data);
       data[id].top = false;
       that.saveData(data);
       that.load();
@@ -361,7 +373,6 @@ Page({
 
   
 
-  //todo lisihao bug: 修改事项时点击勾选完成，会异常展示
   /**
    * doToDone 完成item
    */
@@ -398,7 +409,7 @@ Page({
    */
   hideDoneList: function(){
     //写入缓存，提升用户体验一致性
-    wx.setStorageSync('isShowDoneList', false);
+    wx.setStorageSync('isShowDoneList', 'hide');
     console.log('隐藏已完成事项写入缓存');
     console.log(wx.getStorageSync('isShowDoneList'));
     this.setData({
@@ -411,7 +422,7 @@ Page({
    */
   showDoneList: function () {
     //写入缓存，提升用户体验一致性
-    wx.setStorageSync('isShowDoneList', true);
+    wx.setStorageSync('isShowDoneList', 'show');
     console.log('显示已完成事项写入缓存');
     console.log(wx.getStorageSync('isShowDoneList'));
     this.setData({
@@ -425,14 +436,13 @@ Page({
   openConfirm: function () {
     var that = this;
     wx.showModal({
-      title: '删除所有事项？',
-      content: '请确认所有事项无需保留后删除',
-      confirmText: "给我删！",
-      cancelText: "回去工作",
+      title: '清空所有已完成事项？',
+      content: '请确认后清空',
+      confirmText: "给我清！",
+      cancelText: "算了",
       success: function (res) {
-        console.log(res);
         if (res.confirm) {
-          that.clearAllTodoList();
+          that.clearDoneItem();
         } else {
           //console.log('用户点击辅助操作')
         }
@@ -441,12 +451,24 @@ Page({
   },
 
   /**
-   * clearAllTodoList 清除所有缓存
+   * clearAllTodoList 清除所有缓存 暂时无入口
    */
   clearAllTodoList: function(){
-    //
     wx.removeStorageSync('todo');
     this.load();
+  },
+
+  clearDoneItem: function() {
+    var that = this;
+    var data = that.loadData();
+    var newData = [];
+    for(var i = 0; i < data.length; i++){
+      if(!data[i].done){
+        newData.push(data[i]);
+      }
+    }
+    that.saveData(newData);
+    that.load();
   },
 
   /**
@@ -684,8 +706,6 @@ Page({
 
   //   //绘制头像
   //   var path1 = that.data.avatarUrl;
-  //   // console.log('path1');
-  //   // console.log(path1);
   //   // context.arc(186, 246, 50, 0, 2 * Math.PI) //画出圆
   //   // context.strokeStyle = "#ffe200";
   //   // context.clip(); //裁剪上面的圆形
@@ -823,9 +843,9 @@ Page({
     if (collection.length > 2) {
       var data = JSON.parse(collection);
       // 初始化页面数据
-      console.log(data[itemId].title);
-      console.log(data[itemId].done);
-      console.log(data[itemId].top);
+      // console.log(data[itemId].title);
+      // console.log(data[itemId].done);
+      // console.log(data[itemId].top);
       that.setData({
         currentItemId: itemId,
         currentTitle: data[itemId].title,
@@ -850,7 +870,7 @@ Page({
     var that = this;
     //获取反馈结果按钮是否打开
     var checkedValue = event.detail.value;
-    console.log(checkedValue);
+    // console.log(checkedValue);
     that.setData({
       currentTop: checkedValue,
     });
@@ -896,7 +916,6 @@ Page({
   titleInput: function (event) {
     var that = this;
     var editValue = event.detail.value;
-    // console.log(editValue);
     that.setData({
       currentTitle: editValue
     });
@@ -918,7 +937,7 @@ Page({
   //     fail: function(res) {},
   //     complete: function(res) {},
   //   })
-  // }
+  // },
   
   // 删除新年活动悬窗
   delThisWindow: function (){
@@ -934,5 +953,26 @@ Page({
     wx.navigateTo({
       url: '/pages/activity/headImg/headImg'
     })
+  },
+
+  //点击首页添加事项按钮
+  addItemButton: function() {
+    this.setData({
+      isShowAddInput: !this.data.isShowAddInput,
+      isAddingTodo: false
+    });
+  },
+
+  addingTodo: function(event) {
+    var that = this;
+    var bool = this.data.isAddingTodo;
+    if(event.detail.value.length == 0){
+      bool = false;
+    }else {
+      bool = true;
+    }
+    that.setData({
+      isAddingTodo: bool
+    });
   }
 })

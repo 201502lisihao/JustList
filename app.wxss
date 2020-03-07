@@ -1,6 +1,7 @@
 /* 引入weui */
 @import 'thirdpart/weui.wxss';
-
+/* 引入colorui */
+@import "/thirdpart/colorui/animation.wxss";
 /**app.wxss**/
 /* .container {
   height: 100%;

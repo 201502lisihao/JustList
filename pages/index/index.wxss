@@ -1,31 +1,9 @@
 /**index.wxss**/
-/* .top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 750rpx;
-  height: 120rpx;
-  padding-top: 10rpx;
-  margin-bottom: -45rpx;
-}
 
 
-.aTitle {
-  margin-left: 4rpx;
-  margin-right: 200rpx;
-}
-
-.page_desc{
-  margin-top: -10rpx;
-} */
-
-/* .index-background{
-  background-image: url(http://imgsrc.baidu.com/forum/pic/item/df470c24ab18972b0462dbc7e9cd7b899e510a30.jpg);
+.index-background{
+  /* background-image: url('images/index_backgroud.png'); */
   background-size: 100% 100%;
-} */
-
-.user{
-
 }
 
 .loginButton {
@@ -74,7 +52,7 @@
 }
 
 /* 贴底 */
-.operate-bar{
+/* .operate-bar{
   z-index: 1001; 
   position: fixed;
   bottom: 0rpx;
@@ -83,17 +61,17 @@
   display: flex;
   padding: 25rpx 0rpx 30rpx 25rpx;
   background-color: transparent;
-}
+} */
 
 .addTodoInput{
   width: 495rpx;
-  height:88rpx; 
+  height:100rpx; 
   font-size: 30rpx;
   color: #434343;
-  border: 2rpx solid gainsboro;
+  border: 4rpx solid #07c160;
   border-radius: 40rpx;
   background-color: white;
-  margin-left: 10rpx;
+  margin-left: 6rpx;
   margin-bottom: 30rpx;
   padding-left: 30rpx;
 }
@@ -107,33 +85,31 @@
   font-weight: bold;
 }
 
-.confirm_button{
-  width: 125rpx;
+/* 旧确认按钮 */
+/* .confirm_button{
+  width: 140rpx;
   height:92rpx; 
   color: #fff;
   border: 2rpx solid gainsboro;
   border-radius: 20rpx;
-  /* background-color: rgb(255, 238, 0); */
   background-color: #07c160;
-  margin-left: 30rpx;
-  /* box-shadow: 4rpx 4rpx 0rpx 0rpx #8a8a8a; */
-}
+  margin-left: 25rpx;
+} */
 
-.confirm_button_hover{
+/* .confirm_button_hover{
   width: 140rpx;
   height:92rpx; 
   color: #fff;
   border-radius: 20rpx;
   box-shadow: 0 2rpx 0 rgba(255,255,255,0.24), 0 2rpx 12rpx rgba(0,0,0,0.45);
-  /* background-color: rgb(255, 238, 0); */
   background-color: #07c160;
   margin-left: 25rpx;
-}
+} */
 
 .cut-bar{
   height:40rpx; 
   position: fixed;
-  bottom:130rpx;
+  bottom:150rpx;
   width:80%;
   color:#dd6572;
   font-size:24rpx;
@@ -212,7 +188,7 @@
 
 .welcome_img{
   width: 606rpx;
-  height: 258rpx;
+  height: 173rpx;
 }
 
 /* .welcome_img_two{
@@ -225,8 +201,9 @@
 } */
 
 .guide{
+  font-size: 32rpx;
   text-decoration:underline;
-  color: #07c160;
+  color: #06c15f;
 }
 
 .guide:hover{
@@ -389,13 +366,13 @@ button[class="baocun"]::after{
     height: 25px !important;
 }
 
-/* 红包浮窗 */
+/* 加油中国浮窗 */
 .img-plus-style {
 height: 120rpx;
 width: 120rpx;
 position: fixed;
 bottom: 200rpx;
-right: 13rpx;
+right: 40rpx;
 opacity: 0.7
 }
 
@@ -404,6 +381,44 @@ height: 70rpx;
 width: 70rpx;
 position: fixed;
 bottom: 310rpx;
-right: 9rpx;
+right: 36rpx;
 opacity: 0.7
+}
+
+/* 悬浮添加按钮 */
+.img-add-style-view {
+  position: fixed;
+  bottom: 30rpx;
+  right: 40rpx;
+}
+
+.img-add-style-view-hover {
+  position: fixed;
+  bottom: 30rpx;
+  right: 40rpx;
+  opacity: 0.5
+}
+
+.img-add-style {
+  height: 100rpx;
+  width: 100rpx;
+}
+
+
+/* 悬浮input输出框 */
+.add-input-style {
+  position: fixed;
+  bottom: 10rpx;
+  left: 40rpx;
+}
+
+.empty_button{
+  padding: 0rpx;
+  line-height: 1.5;
+  background-color: transparent;
+}
+
+.empty_button::after{
+  border: none;
+  border-radius: 0rpx;
 }

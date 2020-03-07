@@ -1,7 +1,7 @@
 <!--index.wxml-->
-<view class="page index-background">
+<view class="page {{hasItem ? '' : 'index-background'}}">
     <scroll-view scroll-y="true" enable-back-to-top="true" style="height:{{usefulWindowHeight}}px">
-        <view wx:if="{{hasItem}}" class="page__bd page__bd_spacing">
+      <view wx:if="{{hasItem}}" class="page__bd page__bd_spacing">
               <!-- 点击顶部操作栏，出现下拉菜单 -->
               <view class="kind-list">
                   <block wx:for="{{list}}" wx:key="id">
@@ -83,12 +83,13 @@
                 <!-- 已完成事项的标题 -->
                 <view class="weui-cells weui-cells-done">
                   <view class="weui-cell weui-cell-done" style="padding-top:10rpx; padding-bottom:10rpx;text-decoration: none;">
-                        <view class="weui-cell__hd">
-                          <image wx:if="{{isShowDoneList}}" src="/images/show.png" style="width:100rpx;height:100rpx;" bindtap="hideDoneList"></image>
-                          <image wx:else src="/images/hide.png" style="width:100rpx;height:100rpx;" bindtap="showDoneList"></image>
-                        </view>
-                        <view class="weui-cell__bd">
+                        <view class="weui-cell__bd" style="margin-left:48rpx;">
                           <text>已完成 · {{doneCount}}</text>
+                        </view>
+                        <!-- 展开/隐藏已完成事项 -->
+                        <view class="weui-cell__ft">
+                          <image wx:if="{{isShowDoneList}}" src="/images/hide.png" style="width:100rpx;height:100rpx;" bindtap="hideDoneList"></image>
+                          <image wx:else src="/images/show.png" style="width:100rpx;height:100rpx;" bindtap="showDoneList"></image>
                         </view>
                   </view>
                 </view>
@@ -102,8 +103,6 @@
                         </view>
                         <!-- 内容 -->
                         <view class="weui-cell__bd" bindtap="itemDetail" data-id="{{item.id}}"><text>{{item.title}}</text></view>
-                        <!-- <view class="weui-cell__bd"><input name='editInput' data-id="{{item.id}}" data-type="todo" type="text" value="{{item.title}}" bindblur="editItem"></input></view> -->
-                        <!-- <view class="weui-cell__bd" data-id="{{item.id}}">{{item.title}}</view> -->
                         <!-- 标记完成 -->
                         <view class="weui-cell__ft">
                           <image src="/images/del2.png" style="width:100rpx;height:100rpx;" bindtap="deleteItem" data-id="{{item.id}}"></image>
@@ -123,23 +122,36 @@
           </view>
 
           <view class="weui-footer" style="margin-top:50rpx;">
-            <navigator url="/pages/guide/guide"><text class="guide">使用指南</text></navigator>
+            <navigator url="/pages/guide/guide"><text class="guide">Just清单</text></navigator>
           </view>
         </view>
       </view>
     </scroll-view>
+
     <!-- 底部操作栏 -->
     <!-- 输入错误提示 -->
     <view class='cut-bar' wx:if="{{errorMsg}}">
       <label>{{errorMsg}}</label>
     </view>
     <!-- 生成海报时隐藏 -->
-    <form bindsubmit="addTodoSubmit" wx:if="{{!maskHidden && !itemDetailBoxHidden}}">
-      <view id="operate-bar" class="operate-bar">
-        <input name="addTodoInput" id="addTodoInput" class="addTodoInput" type="text" placeholder="＋待办事项" placeholder-class="placeholder" value="{{adding}}" confirm-type="done" bindconfirm="addTodo"></input>
-        <button form-type="submit" class="confirm_button" hover-class="confirm_button_hover"><image src="/images/send.png" style="width:55rpx;height:55rpx;margin-top:18rpx;"></image></button>
+    <view wx:if="{{!maskHidden && !itemDetailBoxHidden}}">
+      <!-- 未展开的首页的添加按钮 -->
+      <view  wx:if="{{!isShowAddInput}}" class="img-add-style-view" hover-class="img-add-style-view-hover">
+        <image src="/images/add.png" class="img-add-style" bindtap="addItemButton"></image>
       </view>
-    </form>
+      <!-- 展开的添加按钮和事项输入框 -->
+      <form wx:else bindsubmit="addTodoSubmit">
+        <view class="img-add-style-view" hover-class="img-add-style-view-hover">
+          <image wx:if="{{!isAddingTodo}}" src="/images/less.png" class="img-add-style" bindtap="addItemButton"></image>
+          <button wx:else class="empty_button" form-type="submit"><image src="/images/send.png" class="img-add-style" bindtap="addItemButton"></image></button>
+        </view>
+        
+        <view class="add-input-style animation-slide-left" >
+          <input name="addTodoInput" class="addTodoInput" type="text" placeholder="＋待办事项" placeholder-class="placeholder" focus="true" value="{{adding}}" confirm-type="done" bindconfirm="addTodo" bindinput="addingTodo"></input>
+        </view>
+      </form>
+    </view>
+    
 </view>
 
 <!-- 生成海报 -->
