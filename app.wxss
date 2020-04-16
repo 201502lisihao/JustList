@@ -2,6 +2,9 @@
 @import 'thirdpart/weui.wxss';
 /* 引入colorui */
 @import "/thirdpart/colorui/animation.wxss";
+@import "/thirdpart/colorui/icon.wxss";
+/* @import "/thirdpart/colorui/main.wxss"; */
+
 /**app.wxss**/
 /* .container {
   height: 100%;
@@ -14,7 +17,7 @@
 
 page{
     /* background-color: white; */
-    background-color: #F8F8F8;
+    background-color: #fefefe;
     font-size: 32rpx;
     letter-spacing: 2rpx;
     font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;

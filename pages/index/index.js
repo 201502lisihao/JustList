@@ -468,6 +468,11 @@ Page({
       }
     }
     that.saveData(newData);
+    if(!that.data.isShowDoneList){
+      that.setData({
+        isShowDoneList: true
+      });
+    }
     that.load();
   },
 
@@ -974,5 +979,17 @@ Page({
     that.setData({
       isAddingTodo: bool
     });
-  }
+  },
+
+  // 全屏抽屉
+  showFullScreenModal(e) {
+    this.setData({
+      modalName: e.currentTarget.dataset.target
+    })
+  },
+  hideFullScreenModal(e) {
+    this.setData({
+      modalName: null
+    })
+  },
 })

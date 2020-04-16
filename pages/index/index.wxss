@@ -29,7 +29,7 @@
   height: 68rpx;
   /* margin-right: 15rpx; */
   border-radius: 50%;
-  border: 3rpx solid #07c160;
+  border: 0rpx solid #1d70ff;
 }
 .menu {
   width: 68rpx;
@@ -68,7 +68,7 @@
   height:100rpx; 
   font-size: 30rpx;
   color: #434343;
-  border: 4rpx solid #07c160;
+  border: 4rpx solid #1d70ff;
   border-radius: 40rpx;
   background-color: white;
   margin-left: 6rpx;
@@ -133,7 +133,7 @@
 }
 .weui-cell {
   width: 700rpx;
-  background-color: #F8F8F8;
+  background-color: #fefefe;
   /* border-radius: 10rpx; */
   /* box-shadow: 0 1px 2px rgba(0,0,0,0.07); */
   /* padding-left: 30rpx; */
@@ -187,8 +187,11 @@
 }
 
 .welcome_img{
-  width: 606rpx;
-  height: 173rpx;
+  /* width: 606rpx;
+  height: 173rpx; */
+  width: 750rpx;
+  height: 584rpx;
+  
 }
 
 /* .welcome_img_two{
@@ -202,8 +205,9 @@
 
 .guide{
   font-size: 32rpx;
-  text-decoration:underline;
-  color: #06c15f;
+  /* text-decoration:underline; */
+  /* color: #06c15f; */
+  color: #1d70ff;
 }
 
 .guide:hover{
@@ -239,7 +243,7 @@
 
 .kind-list__img{width:60rpx;height:60rpx;}
 
-.kind-list__item-hd{background-color: #F8F8F8;padding:30rpx 35rpx 20rpx 70rpx;-webkit-transition:opacity .3s;transition:opacity .3s;}
+.kind-list__item-hd{background-color: #fefefe;padding:30rpx 35rpx 20rpx 70rpx;-webkit-transition:opacity .3s;transition:opacity .3s;}
 
 .kind-list__item-hd_show{opacity:.4;}
 
@@ -333,7 +337,7 @@ button[class="baocun"]::after{
   margin-top: 300rpx;
   width: 600rpx;
   height: 560rpx;
-  background-color: #F8F8F8;
+  background-color: #fefefe;
 }
 
 .itemDetailBox-body-button-box{
@@ -421,4 +425,105 @@ opacity: 0.7
 .empty_button::after{
   border: none;
   border-radius: 0rpx;
+}
+
+
+/* 全屏抽屉 */
+.DrawerPage {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0vw;
+  /* background-color: #f1f1f1; */
+  transition: all 0.4s;
+}
+
+.DrawerPage.show {
+  transform: scale(0.9, 0.9);
+  left: 60vw;
+  box-shadow: 0 0 60rpx rgba(0, 0, 0, 0.2);
+  transform-origin: 0;
+}
+
+.DrawerWindow {
+  position: absolute;
+  width: 60vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  transform: scale(0.9, 0.9) translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s;
+  background-color: #1d70ff;
+}
+
+.DrawerWindow.show {
+  transform: scale(1, 1) translateX(0%);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.DrawerClose {
+  position: absolute;
+  width: 40vw;
+  height: 100vh;
+  right: 0;
+  top: 0;
+  color: transparent;
+  padding-bottom: 30rpx;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.6));
+  letter-spacing: 5px;
+  font-size: 50rpx;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s;
+}
+
+.DrawerClose.show {
+  opacity: 1;
+  pointer-events: all;
+  width: 40vw;
+  color: #fff;
+}
+
+.DrawerPage .cu-bar.tabbar .action button.icon {
+  width: 64rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  margin: 0;
+  display: inline-block;
+}
+
+.DrawerPage .cu-bar.tabbar .action .cu-avatar {
+  margin: 0;
+}
+
+.DrawerPage .nav {
+  flex: 1;
+}
+
+.DrawerPage .nav .cu-item.cur {
+  border-bottom: 0;
+  position: relative;
+}
+
+.DrawerPage .nav .cu-item.cur::after {
+  content: "";
+  width: 10rpx;
+  height: 10rpx;
+  background-color: currentColor;
+  position: absolute;
+  bottom: 10rpx;
+  border-radius: 10rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.DrawerPage .cu-bar.tabbar .action {
+  flex: initial;
 }
