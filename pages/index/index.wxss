@@ -159,6 +159,7 @@
 }
 
 .weui-cell__bd{
+  /* margin-left: 40rpx; */
   padding-bottom: 14rpx;
 }
 
@@ -187,11 +188,10 @@
 }
 
 .welcome_img{
-  /* width: 606rpx;
-  height: 173rpx; */
-  width: 750rpx;
-  height: 584rpx;
-  
+  width: 606rpx;
+  height: 173rpx;
+  /* width: 750rpx;
+  height: 584rpx; */
 }
 
 /* .welcome_img_two{
@@ -526,4 +526,12 @@ opacity: 0.7
 
 .DrawerPage .cu-bar.tabbar .action {
   flex: initial;
+}
+
+.todo-item{
+  margin-left: 35rpx;
+}
+
+.done-item{
+  margin-left: 35rpx;
 }

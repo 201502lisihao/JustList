@@ -9,15 +9,18 @@
                         <view class="kind-list__item">
                             <!-- 未登录 -->
                             <view wx:if="{{!hasUserInfo && canIUse}}" id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}">
-                                  <view class="weui-flex__item" style="font-size:50rpx;">{{item.name}} · {{todoCount}}</view>  
+                                  <view class="weui-flex__item" style="font-size:60rpx;">
+                                    <text style="font-weight:500">TODO · {{todoCount}}</text>
+                                  </view>  
                                   <image src="/images/login.png" style="width:40rpx; height:40rpx;"></image>
                                   <button class="loginButton" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>                               
                             </view>
                             <!-- 已登录 -->
-                            <view wx:else id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="showFullScreenModal" data-target="viewModal">
-                            <!-- <view wx:else id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle"> -->
-                                <view class="weui-flex__item" style="font-size:50rpx;">{{item.name}} · {{todoCount}}</view>
-                                
+                            <!-- <view wx:else id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="showFullScreenModal" data-target="viewModal"> -->
+                            <view wx:else id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
+                                <view class="weui-flex__item" style="font-size:60rpx;">
+                                    <text style="font-weight:500">TODO · {{todoCount}}</text>
+                                  </view>
                                 <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>  
                                 <image class="menu" src="/images/menu.png" mode="cover"></image>                          
                             </view>
@@ -51,7 +54,7 @@
                           <!-- <view class="weui-cell__bd"><input name='editInput' data-id="{{item.id}}" data-type="todo" type="text" value="{{item.title}}" bindblur="editItem"></input></view> -->
                           <!-- 标记完成 -->
                           <view class="weui-cell__ft">
-                            <image src="/images/undo2.png" style="width:100rpx;height:100rpx;" bindtap="doToDone" data-id="{{item.id}}"></image>
+                            <image src="/images/undo.png" style="width:100rpx;height:100rpx;" bindtap="doToDone" data-id="{{item.id}}"></image>
                           </view>
                         </view>
                       </view>
@@ -64,16 +67,16 @@
                     <view class="card"  wx:if="{{!item.top}}">
                       <view class="weui-cells">
                         <view class="weui-cell">
-                          <!-- 删除 -->
-                          <view class="weui-cell__hd">
+                          <!-- 左侧图标 -->
+                          <!-- <view class="weui-cell__hd">
                             <image src="/images/toTop.png" style="width:100rpx;height:100rpx;" bindtap="topItem" data-id="{{item.id}}"></image>
-                          </view>
+                          </view> -->
                           <!-- 内容 -->
-                          <view class="weui-cell__bd" bindtap="itemDetail" data-id="{{item.id}}"><text>{{item.title}}</text></view>
+                          <view class="weui-cell__bd todo-item" bindtap="itemDetail" data-id="{{item.id}}"><text>{{item.title}}</text></view>
                           <!-- <view class="weui-cell__bd"><input name='editInput' data-id="{{item.id}}" data-type="todo" type="text" value="{{item.title}}" bindblur="editItem"></input></view> -->
                           <!-- 标记完成 -->
                           <view class="weui-cell__ft">
-                            <image src="/images/undo2.png" style="width:100rpx;height:100rpx;" bindtap="doToDone" data-id="{{item.id}}"></image>
+                            <image src="/images/undo.png" style="width:100rpx;height:100rpx;" bindtap="doToDone" data-id="{{item.id}}"></image>
                           </view>
                         </view>
                       </view>
@@ -84,15 +87,22 @@
                 <view wx:if="{{hasDoneItem}}" class="content-done">
                   <!-- 已完成事项的标题 -->
                   <view class="weui-cells weui-cells-done">
-                    <view class="weui-cell weui-cell-done" style="padding-top:10rpx; padding-bottom:10rpx;text-decoration: none;">
-                          <view class="weui-cell__bd" style="margin-left:48rpx;">
-                            <text>已完成 · {{doneCount}}</text>
+                    <view class="weui-cell weui-cell-done" style="padding-top:30rpx;text-decoration: none;border-bottom:0rpx solid gray;">
+                          <view class="weui-cell__bd" style="text-align:center;">
+                            <text>{{doneCount}} 项已完成 </text>
+                            <text wx:if="{{isShowDoneList}}" bindtap="hideDoneList" style="color:#1d70ff;">隐藏</text>
+                            <text wx:else bindtap="showDoneList" style="color:#1d70ff;">显示</text>
                           </view>
+                          
+                          <!-- 旧的已完成状态栏样式 -->
+                          <!-- <view class="weui-cell__bd" style="margin-left:48rpx;">
+                            <text>已完成 · {{doneCount}}</text>
+                          </view> -->
                           <!-- 展开/隐藏已完成事项 -->
-                          <view class="weui-cell__ft">
+                          <!-- <view class="weui-cell__ft">
                             <image wx:if="{{isShowDoneList}}" src="/images/hide.png" style="width:100rpx;height:100rpx;" bindtap="hideDoneList"></image>
                             <image wx:else src="/images/show.png" style="width:100rpx;height:100rpx;" bindtap="showDoneList"></image>
-                          </view>
+                          </view> -->
                     </view>
                   </view>
                   <block wx:if="{{isShowDoneList}}" id="donelist" wx:for="{{doneList}}">
@@ -100,14 +110,14 @@
                       <view class="weui-cells weui-cells-done">
                         <view class="weui-cell weui-cell-done">
                           <!-- 删除 -->
-                          <view class="weui-cell__hd">
-                            <image src="/images/done.png" style="width:100rpx;height:100rpx;" bindtap="doneToDo" data-id="{{item.id}}"></image>
-                          </view>
-                          <!-- 内容 -->
-                          <view class="weui-cell__bd" bindtap="itemDetail" data-id="{{item.id}}"><text>{{item.title}}</text></view>
-                          <!-- 标记完成 -->
-                          <view class="weui-cell__ft">
+                          <!-- <view class="weui-cell__hd">
                             <image src="/images/del2.png" style="width:100rpx;height:100rpx;" bindtap="deleteItem" data-id="{{item.id}}"></image>
+                          </view> -->
+                          <!-- 内容 -->
+                          <view class="weui-cell__bd done-item" bindtap="itemDetail" data-id="{{item.id}}"><text>{{item.title}}</text></view>
+                          <!-- 取消完成 -->
+                          <view class="weui-cell__ft">
+                            <image src="/images/done.png" style="width:100rpx;height:100rpx;" bindtap="doneToDo" data-id="{{item.id}}"></image>
                           </view>
                         </view>
                       </view>
@@ -120,12 +130,12 @@
           <view> 
             <!-- 欢迎样式 -->
             <view>
-              <image src="/images/welcome3.png" class="welcome_img" bindtap="goToHeadImg"></image>
+              <image src="/images/welcome.png" class="welcome_img"></image>
             </view>
 
-            <!-- <view class="weui-footer" style="margin-top:50rpx;">
+            <view class="weui-footer" style="margin-top:50rpx;">
               <navigator url="/pages/guide/guide"><text class="guide">Just清单</text></navigator>
-            </view> -->
+            </view>
           </view>
         </view>
       </scroll-view>
@@ -207,10 +217,10 @@
   </view> -->
 
   <!-- 加油头像浮窗 -->
-  <view wx:if="{{isShowThisWindow}}">
+  <!-- <view wx:if="{{isShowThisWindow}}">
     <image src="/images/del.png" class="img-plus-style-del" bindtap="delThisWindow"></image>
     <image src="/images/zhongguojiayou2.png" class="img-plus-style" bindtap="goToHeadImg"></image>
-  </view>
+  </view> -->
 </view>
 
 <!-- 全屏抽屉 -->

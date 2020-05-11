@@ -11,7 +11,7 @@ Page({
     list: [
       {
         id: 'daiban',
-        name: '待办',
+        name: 'TODO',
         open: false,
         pages: [
           {
@@ -111,12 +111,12 @@ Page({
       })
     }
 
-    // 看是否展示新年弹窗
-    if ( ! wx.getStorageSync('notShowThisWindow')){
-      that.setData({
-        isShowThisWindow: true
-      })
-    }
+    // 看是否展示新年弹窗 （index.wxml中已注释入口）
+    // if ( ! wx.getStorageSync('notShowThisWindow')){
+    //   that.setData({
+    //     isShowThisWindow: true
+    //   })
+    // }
 
     //页面初始化
     that.pageInit();
