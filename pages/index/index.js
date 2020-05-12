@@ -43,12 +43,12 @@ Page({
             src: '/images/logout.png',
             // src: '/images/logout.png',
             bindtap: 'logout'
-          },
-          {
-            name: '中国加油',
-            src: '/images/zhongguojiayou2.png',
-            bindtap: 'goToHeadImg'
-          }
+          },  
+          // {
+          //   name: '中国加油',
+          //   src: '/images/zhongguojiayou2.png',
+          //   bindtap: 'goToHeadImg'
+          // }
           // {
           //   name: '领压岁钱',
           //   src: '/images/jinbi.png',
@@ -832,7 +832,7 @@ Page({
     var that = this;
     wx.showModal({
       title: '退出登录',
-      content: '小主，退出后没办法用这些功能啦',
+      content: '退出后没办法用这些功能啦',
       confirmText: "给我退！",
       cancelText: "继续用",
       success(res) {
@@ -844,6 +844,7 @@ Page({
             hasUserInfo: false,
             userInfo: {},
             "list[0].open": false,
+            modalName: null
           });
         } else if (res.cancel) {
           return;
