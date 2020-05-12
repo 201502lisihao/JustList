@@ -238,7 +238,7 @@
 
 <!-- 全屏抽屉 -->
 <view class="DrawerClose {{modalName=='viewModal'?'show':''}}" bindtap="hideFullScreenModal">
-			<text class="cuIcon-pullright" style="font-size:110rpx;margin-bottom:15rpx"></text>
+			<text class="cuIcon-pullright" style="font-size:110rpx;"></text>
 </view>
 <scroll-view scroll-y class="DrawerWindow {{modalName=='viewModal'?'show':''}}">
       <!-- 用户信息 -->
