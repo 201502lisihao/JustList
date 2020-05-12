@@ -33,13 +33,13 @@ Page({
           //   bindtap: 'createPoster'
           // },
           {
-            name: '意见反馈',
+            name: '你提我改',
             src: '/images/suggest.png',
             // src: '/images/suggest.png',
             bindtap: 'goToSuggest'
           },
           {
-            name: '退出登录',
+            name: '注销登录',
             src: '/images/logout.png',
             // src: '/images/logout.png',
             bindtap: 'logout'
@@ -371,8 +371,19 @@ Page({
     that.load();
   },
 
+    /**
+   * deleteItemByItemDetail 从详情页删除待办事项
+   */
+  deleteItemByItemDetail: function(event){
+    var that = this;
+    var id = event.currentTarget.dataset.id;
+    var data = that.loadData();
+    data.splice(id, 1);
+    that.saveData(data);
+    that.goBackToListFromDetail()
+    that.load();
+  },
   
-
   /**
    * doToDone 完成item
    */
@@ -869,15 +880,29 @@ Page({
   },
 
   /**
-   * 事项详情中的按钮
+   * 事项详情中的置顶开关
    */
   switchChangeTop: function (event) {
     var that = this;
     //获取反馈结果按钮是否打开
     var checkedValue = event.detail.value;
-    // console.log(checkedValue);
+    
     that.setData({
       currentTop: checkedValue,
+    });
+  },
+
+  /**
+   * 事项详情中的已完成开关
+   * @param {*} event 
+   */
+  switchChangeDone: function (event) {
+    var that = this;
+    //获取反馈结果按钮是否打开
+    var checkedValue = event.detail.value;
+    
+    that.setData({
+      currentDone: checkedValue,
     });
   },
 
@@ -889,11 +914,12 @@ Page({
     var that = this;
     var newTitle = that.data.currentTitle;
     var newTop = that.data.currentTop;
+    var newDone = that.data.currentDone;
     var itemId = that.data.currentItemId;
     //先不做非空校验
 
     //保存事项
-    that.doEditItem(newTitle, newTop, itemId);
+    that.doEditItem(newTitle, newTop, newDone, itemId);
     that.load();
     //隱藏彈窗
     that.setData({
@@ -904,13 +930,14 @@ Page({
   /**
   * 执行修改事项
   */
-  doEditItem: function (newTitle, newTop, itemId) {
+  doEditItem: function (newTitle, newTop, newDone, itemId) {
     var that = this;
     var collection = wx.getStorageSync('todo');
     if (collection.length > 2) {
       var data = JSON.parse(collection);
       data[itemId].title = newTitle;
       data[itemId].top = newTop;
+      data[itemId].done = newDone;
       wx.setStorageSync("todo", JSON.stringify(data));
     }
   },
@@ -928,6 +955,13 @@ Page({
 
   doNotMove: function () {
     return;
+  },
+
+  goBackFromItemDetail: function () {
+    console.log("aaa")
+    this.setData({
+      itemDetailBoxHidden: false
+    });
   },
 
   // 红包浮窗

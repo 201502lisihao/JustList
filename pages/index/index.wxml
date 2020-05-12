@@ -16,13 +16,13 @@
                                   <button class="loginButton" wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>                               
                             </view>
                             <!-- 已登录 -->
-                            <!-- <view wx:else id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="showFullScreenModal" data-target="viewModal"> -->
-                            <view wx:else id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle">
+                            <view wx:else id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="showFullScreenModal" data-target="viewModal">
+                            <!-- <view wx:else id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}}" bindtap="kindToggle"> -->
                                 <view class="weui-flex__item" style="font-size:60rpx;">
                                     <text style="font-weight:500">待办 · {{todoCount}}</text>
-                                  </view>
-                                <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>  
-                                <image class="menu" src="/images/menu.png" mode="cover"></image>                          
+                                </view>
+                                <image class="userinfo-avatar-small" src="{{userInfo.avatarUrl}}" mode="cover"></image>  
+                                <!-- <image class="menu" src="/images/menu.png" mode="cover"></image>    -->
                             </view>
                             <view class="kind-list__item-bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
                                 <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
@@ -47,7 +47,7 @@
                         <view class="weui-cell">
                           <!-- 删除 -->
                           <view class="weui-cell__hd">
-                            <image src="/images/top.png" style="width:100rpx;height:100rpx;" bindtap="downItem" data-id="{{item.id}}"></image>
+                            <image src="/images/top.png" style="width:80rpx;height:80rpx;" bindtap="downItem" data-id="{{item.id}}"></image>
                           </view>
                           <!-- 内容 -->
                           <view class="weui-cell__bd" bindtap="itemDetail" data-id="{{item.id}}"><text>{{item.title}}</text></view>
@@ -130,12 +130,15 @@
           <view> 
             <!-- 欢迎样式 -->
             <view>
+              <text class="welcome_text">暂无待办事项</text>
+            </view>
+            <!-- <view>
               <image src="/images/welcome.png" class="welcome_img"></image>
-            </view>
+            </view> -->
 
-            <view class="weui-footer" style="margin-top:50rpx;">
+            <!-- <view class="weui-footer" style="margin-top:50rpx;">
               <navigator url="/pages/guide/guide"><text class="guide">Just清单</text></navigator>
-            </view>
+            </view> -->
           </view>
         </view>
       </scroll-view>
@@ -201,9 +204,19 @@
                     </view>
                 </view>
         </view>
+        <view class="weui-cells">
+                <view class="weui-cell weui-cell-detail">
+                    <view class="weui-cell__bd" style="font-size:32rpx;color:#8a8a8a;">已完成</view>
+                    <view class="weui-cell__ft" style="padding-bottom: 14rpx;">
+                        <switch id="topSwitch" wx:if="{{currentDone}}" checked="checked" bindchange="switchChangeDone"/>
+                        <switch id="topSwitch" wx:else  bindchange="switchChangeDone"/>
+                    </view>
+                </view>
+        </view>
         <view class="itemDetailBox-body-button-box">
-          <button class='baocun' bindtap='goBackToListFromDetail'>返回</button>
-          <button class='baocun' bindtap='changeItem'  style="background-color: #07c160;">完成</button>
+          <button class='itemDetailDelete' bindtap="deleteItemByItemDetail" data-id="{{currentItemId}}">删 除</button>
+          <!-- <button class='baocun' bindtap='goBackToListFromDetail'>返回</button> -->
+          <button class='baocun' bindtap='changeItem'>确 定</button>
         </view>
       </view>
     </view>
@@ -225,9 +238,22 @@
 
 <!-- 全屏抽屉 -->
 <view class="DrawerClose {{modalName=='viewModal'?'show':''}}" bindtap="hideFullScreenModal">
-			<text class="cuIcon-pullright" style="font-size:110rpx;"></text>
+			<text class="cuIcon-pullright" style="font-size:110rpx;margin-bottom:15rpx"></text>
 </view>
 <scroll-view scroll-y class="DrawerWindow {{modalName=='viewModal'?'show':''}}">
-      <text style="color:#fff">Just清单</text>
-			
+      <!-- 用户信息 -->
+      <!-- <view class="userInfo-DrawerWindow">
+          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+          <text style="color:#fff">{{userInfo.nickName}}</text>
+      </view> -->
+      <!-- 功能列表 -->
+      <block wx:for="{{list}}" wx:key="id">
+          <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*this">
+            <view bindtap="{{page.bindtap}}">
+              <image class="weui-grid__icon" src="{{page.src}}" />
+              <view class="weui-grid__label" style="font-size:28rpx;color:#fff">{{page.name}}</view>
+            </view>
+          </block>
+      </block>
+      <!-- 尾部落款 -->
 </scroll-view>
